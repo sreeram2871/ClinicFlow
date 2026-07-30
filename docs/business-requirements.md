@@ -69,6 +69,9 @@ data belonging to another tenant, enforced at the data layer.
   own patients
 - Only Admin can create/deactivate staff (Doctor/Receptionist) accounts
 - A cancelled appointment frees its slot immediately
+- Multiple simultaneous sessions per user are allowed (e.g. same account logged
+  in from two browsers/devices at once); no single-session enforcement in
+  this scope
 
 ## 6. Edge Cases
 
