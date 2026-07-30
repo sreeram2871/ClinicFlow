@@ -33,11 +33,11 @@ text-only prescriptions, basic reports dashboard, Azure free-tier deployment
 target, ~$0/month cost constraint. Full detail in the BRD and NFR docs.
 
 ## Phase 2: Architecture and Specification
-Status: Not started
+Status: In progress
 
-- [ ] Propose 2-3 architecture options with trade-offs (Modular Monolith vs alternatives)
-- [ ] Get architecture decision confirmed by Sreeram
-- [ ] Define module boundaries, DB schema approach, API design approach, auth strategy, deployment model
+- [x] Propose 2-3 architecture options with trade-offs (Modular Monolith vs alternatives)
+- [x] Get architecture decision confirmed by Sreeram — chose Vertical Slice Architecture
+- [x] Define module boundaries, DB schema approach, API design approach, auth strategy, deployment model
 - [ ] Generate detailed Backend Implementation Specification (entities, EF Core mappings, endpoints, validation, auth requirements per endpoint)
 
 ### Verification Plan
