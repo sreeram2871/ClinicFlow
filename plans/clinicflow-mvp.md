@@ -63,13 +63,13 @@ Status: In progress
 - [x] Implement entities, EF Core mappings, and migrations
 - [x] Implement TenantId global query filter for multi-tenancy isolation
 - [x] Seed demo data (DbSeeder with Bogus) — verified in SQL Server Object Explorer
-- [ ] Implement JWT auth + refresh tokens + role-based authorization
+- [x] Implement JWT auth: password hashing (BCrypt), token generation, Login feature — verified via Swagger, real JWT returned
+- [x] Global exception handling middleware with consistent error shape — verified: bad login now returns clean 401 ProblemDetails instead of raw 500
 - [ ] Implement Appointments module (booking, conflict detection, status transitions)
 - [ ] Implement Patient Records module
 - [ ] Implement Billing module (manual payment entry)
 - [ ] Implement Prescriptions module (text-only)
 - [ ] Implement Reports module (basic aggregates)
-- [ ] Global exception handling middleware with consistent error shape
 - [ ] xUnit tests: business rules (booking conflicts, tenant isolation, authorization) + key endpoint integration tests
 - [ ] Fresh-session code review pass: code quality, performance, security (three separate passes)
 
