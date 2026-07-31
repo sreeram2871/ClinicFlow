@@ -1,6 +1,7 @@
 ﻿using Bogus;
 using ClinicFlow.Api.Domain.Entities;
 using ClinicFlow.Api.Domain.Enums;
+using ClinicFlow.Api.Infrastructure.Auth;
 using Microsoft.EntityFrameworkCore;
 
 namespace ClinicFlow.Api.Infrastructure.Data.Seeding;
@@ -12,19 +13,21 @@ namespace ClinicFlow.Api.Infrastructure.Data.Seeding;
 /// </summary>
 public static class DbSeeder
 {
-    public static async Task SeedAsync(ClinicFlowDbContext db)
+    public static async Task SeedAsync(ClinicFlowDbContext db, IPasswordHasher hasher)
     {
         if (await db.Tenants.AnyAsync())
         {
-            return; // already seeded, don't do it again
+            return;
         }
 
         var tenant = new Tenant
         {
-            Id = Guid.Parse("11111111-1111-1111-1111-111111111111"), // matches TemporaryTenantProvider
+            Id = Guid.Parse("11111111-1111-1111-1111-111111111111"),
             ClinicName = "Apollo Family Clinic"
         };
         db.Tenants.Add(tenant);
+
+        var demoPasswordHash = hasher.Hash("Password123!");
 
         var admin = new User
         {
@@ -32,7 +35,7 @@ public static class DbSeeder
             TenantId = tenant.Id,
             FullName = "Asha Admin",
             Email = "admin@apollo.test",
-            PasswordHash = "TEMP_PLAINTEXT_Password123!", // real hashing comes with the Auth feature
+            PasswordHash = demoPasswordHash,
             Role = UserRole.Admin
         };
 
@@ -42,7 +45,7 @@ public static class DbSeeder
             TenantId = tenant.Id,
             FullName = "Dr. Kiran Rao",
             Email = "doctor@apollo.test",
-            PasswordHash = "TEMP_PLAINTEXT_Password123!",
+            PasswordHash = demoPasswordHash,
             Role = UserRole.Doctor
         };
 
@@ -52,7 +55,7 @@ public static class DbSeeder
             TenantId = tenant.Id,
             FullName = "Priya Reception",
             Email = "reception@apollo.test",
-            PasswordHash = "TEMP_PLAINTEXT_Password123!",
+            PasswordHash = demoPasswordHash,
             Role = UserRole.Receptionist
         };
 

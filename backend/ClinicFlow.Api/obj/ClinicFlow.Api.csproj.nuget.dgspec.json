@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\sreer\\OneDrive\\Desktop\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\ClinicFlow.Api.csproj": {}
+    "C:\\Dev\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\ClinicFlow.Api.csproj": {}
   },
   "projects": {
-    "C:\\Users\\sreer\\OneDrive\\Desktop\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\ClinicFlow.Api.csproj": {
+    "C:\\Dev\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\ClinicFlow.Api.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\sreer\\OneDrive\\Desktop\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\ClinicFlow.Api.csproj",
+        "projectUniqueName": "C:\\Dev\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\ClinicFlow.Api.csproj",
         "projectName": "ClinicFlow.Api",
-        "projectPath": "C:\\Users\\sreer\\OneDrive\\Desktop\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\ClinicFlow.Api.csproj",
+        "projectPath": "C:\\Dev\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\ClinicFlow.Api.csproj",
         "packagesPath": "C:\\Users\\sreer\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\sreer\\OneDrive\\Desktop\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\obj\\",
+        "outputPath": "C:\\Dev\\ClinicFlow\\ClinicFlow\\ClinicFlow\\backend\\ClinicFlow.Api\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -50,6 +50,10 @@
         "net9.0": {
           "targetAlias": "net9.0",
           "dependencies": {
+            "BCrypt.Net-Next": {
+              "target": "Package",
+              "version": "[4.2.0, )"
+            },
             "Bogus": {
               "target": "Package",
               "version": "[35.6.5, )"
@@ -61,6 +65,14 @@
             "MediatR": {
               "target": "Package",
               "version": "[14.2.0, )"
+            },
+            "MediatR.Extensions.Microsoft.DependencyInjection": {
+              "target": "Package",
+              "version": "[11.1.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[9.0.18, )"
             },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
@@ -83,6 +95,10 @@
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[9.0.6, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.22.0, )"
             }
           },
           "imports": [
