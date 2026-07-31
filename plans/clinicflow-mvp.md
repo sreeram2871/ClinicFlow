@@ -69,6 +69,9 @@ Status: In progress
 - [x] Register feature (patient self-registration, Admin-created staff accounts) — verified: RegisterPatient, RegisterStaff, role-based [Authorize(Roles="Admin")] all tested (200/403/401 confirmed)
 - [ ] Refresh token flow
 - [ ] Implement Appointments module (booking, conflict detection, status transitions)
+  - [x] BookAppointment — working-hours rule, overlap conflict (409), staff-vs-patient status rule all verified in Swagger
+  - [ ] ConfirmAppointment, CancelAppointment, CompleteAppointment
+  - [ ] GetDoctorSchedule (available slots + doctor's appointment list)
 - [ ] Implement Patient Records module
 - [ ] Implement Billing module (manual payment entry)
 - [ ] Implement Prescriptions module (text-only)
