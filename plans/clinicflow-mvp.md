@@ -62,6 +62,7 @@ Status: In progress
 - [x] Scaffold ASP.NET Core solution per architecture doc (project structure, DI, CLAUDE.md for backend repo)
 - [x] Implement entities, EF Core mappings, and migrations
 - [x] Implement TenantId global query filter for multi-tenancy isolation
+- [x] Seed demo data (DbSeeder with Bogus) — verified in SQL Server Object Explorer
 - [ ] Implement JWT auth + refresh tokens + role-based authorization
 - [ ] Implement Appointments module (booking, conflict detection, status transitions)
 - [ ] Implement Patient Records module

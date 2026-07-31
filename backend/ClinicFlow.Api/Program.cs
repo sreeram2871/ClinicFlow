@@ -1,7 +1,8 @@
 using ClinicFlow.Api.Infrastructure.Data;
 using ClinicFlow.Api.Infrastructure.Multitenancy;
 using Microsoft.EntityFrameworkCore;
-
+using Bogus;
+using ClinicFlow.Api.Infrastructure.Data.Seeding;
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddEndpointsApiExplorer();
@@ -35,5 +36,9 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
-
+using (var scope = app.Services.CreateScope())
+{
+    var db = scope.ServiceProvider.GetRequiredService<ClinicFlowDbContext>();
+    await DbSeeder.SeedAsync(db);
+}
 app.Run();
