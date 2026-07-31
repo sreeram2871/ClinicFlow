@@ -175,5 +175,36 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AppointmentsController",
+    "Method": "GetDoctorSchedule",
+    "RelativePath": "api/v1/doctors/{doctorId}/schedule",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "doctorId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Appointments.DoctorScheduleResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

@@ -67,11 +67,13 @@ Status: In progress
 - [x] JWT authentication + authorization enforcement wired up (UseAuthentication/UseAuthorization, Swagger Authorize button, [Authorize] on GetMe) — verified: GET /auth/me returns 200 with valid token, clean 401 without
 - [x] Global exception handling middleware with consistent error shape — verified: bad login now returns clean 401 ProblemDetails instead of raw 500
 - [x] Register feature (patient self-registration, Admin-created staff accounts) — verified: RegisterPatient, RegisterStaff, role-based [Authorize(Roles="Admin")] all tested (200/403/401 confirmed)
+- [x] MediatR ValidationBehavior pipeline (Common/Behaviors) — critical fix: FluentValidation validators were registered in DI but never actually invoked by MediatR until this was added; this applies retroactively to every command built so far (Login, Register, BookAppointment, etc.)
 - [ ] Refresh token flow
-- [ ] Implement Appointments module (booking, conflict detection, status transitions)
+- [x] Implement Appointments module (booking, conflict detection, status transitions)
   - [x] BookAppointment — working-hours rule, overlap conflict (409), staff-vs-patient status rule all verified in Swagger
   - [x] ConfirmAppointment, CancelAppointment, CompleteAppointment — verified: valid transitions succeed (204), invalid transitions rejected (409), role guards enforced (403 for Doctor on Complete)
-  - [ ] GetDoctorSchedule (available slots + doctor's appointment list)
+  - [x] GetDoctorSchedule (available slots + doctor's appointment list) — verified: booked slots + computed available slots both correct
+  - [x] 8-case regression test after ValidationBehavior fix — all passed (validation rejects bad input, state-transition guards correct, no more silent data corruption)
 - [ ] Implement Patient Records module
 - [ ] Implement Billing module (manual payment entry)
 - [ ] Implement Prescriptions module (text-only)

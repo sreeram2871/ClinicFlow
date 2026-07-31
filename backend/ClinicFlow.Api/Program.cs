@@ -1,13 +1,14 @@
 using Bogus;
+using ClinicFlow.Api.Common.Behaviors;
+using ClinicFlow.Api.Common.Middleware;
 using ClinicFlow.Api.Infrastructure.Auth;
 using ClinicFlow.Api.Infrastructure.Data;
 using ClinicFlow.Api.Infrastructure.Data.Seeding;
 using ClinicFlow.Api.Infrastructure.Multitenancy;
-using Microsoft.EntityFrameworkCore;
-using MediatR;
 using FluentValidation;
-using ClinicFlow.Api.Common.Middleware;
+using MediatR;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 
@@ -81,6 +82,7 @@ builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
 var app = builder.Build();
 // Add the exception handling middleware to the pipeline

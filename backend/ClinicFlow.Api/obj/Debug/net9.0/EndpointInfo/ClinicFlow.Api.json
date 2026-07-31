@@ -141,6 +141,54 @@
         }
       }
     },
+    "/api/v1/doctors/{doctorId}/schedule": {
+      "get": {
+        "tags": [
+          "Appointments"
+        ],
+        "parameters": [
+          {
+            "name": "doctorId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string",
+              "format": "uuid"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "schema": {
+              "type": "string",
+              "format": "date-time"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoctorScheduleResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoctorScheduleResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DoctorScheduleResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/auth/login": {
       "post": {
         "tags": [
@@ -327,6 +375,20 @@
         ],
         "type": "string"
       },
+      "AvailableSlot": {
+        "type": "object",
+        "properties": {
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false
+      },
       "BookAppointmentCommand": {
         "type": "object",
         "properties": {
@@ -366,6 +428,28 @@
         },
         "additionalProperties": false
       },
+      "BookedSlot": {
+        "type": "object",
+        "properties": {
+          "appointmentId": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "start": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "end": {
+            "type": "string",
+            "format": "date-time"
+          },
+          "status": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "CompleteAppointmentBody": {
         "type": "object",
         "properties": {
@@ -397,6 +481,26 @@
           "tenantId": {
             "type": "string",
             "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DoctorScheduleResponse": {
+        "type": "object",
+        "properties": {
+          "bookedSlots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/BookedSlot"
+            },
+            "nullable": true
+          },
+          "availableSlots": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AvailableSlot"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
