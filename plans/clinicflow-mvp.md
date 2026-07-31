@@ -70,7 +70,7 @@ Status: In progress
 - [ ] Refresh token flow
 - [ ] Implement Appointments module (booking, conflict detection, status transitions)
   - [x] BookAppointment — working-hours rule, overlap conflict (409), staff-vs-patient status rule all verified in Swagger
-  - [ ] ConfirmAppointment, CancelAppointment, CompleteAppointment
+  - [x] ConfirmAppointment, CancelAppointment, CompleteAppointment — verified: valid transitions succeed (204), invalid transitions rejected (409), role guards enforced (403 for Doctor on Complete)
   - [ ] GetDoctorSchedule (available slots + doctor's appointment list)
 - [ ] Implement Patient Records module
 - [ ] Implement Billing module (manual payment entry)
