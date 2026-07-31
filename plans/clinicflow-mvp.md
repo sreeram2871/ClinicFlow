@@ -66,7 +66,7 @@ Status: In progress
 - [x] Implement JWT auth: password hashing (BCrypt), token generation, Login feature — verified via Swagger, real JWT returned
 - [x] JWT authentication + authorization enforcement wired up (UseAuthentication/UseAuthorization, Swagger Authorize button, [Authorize] on GetMe) — verified: GET /auth/me returns 200 with valid token, clean 401 without
 - [x] Global exception handling middleware with consistent error shape — verified: bad login now returns clean 401 ProblemDetails instead of raw 500
-- [ ] Register feature (patient self-registration, Admin-created staff accounts)
+- [x] Register feature (patient self-registration, Admin-created staff accounts) — verified: RegisterPatient, RegisterStaff, role-based [Authorize(Roles="Admin")] all tested (200/403/401 confirmed)
 - [ ] Refresh token flow
 - [ ] Implement Appointments module (booking, conflict detection, status transitions)
 - [ ] Implement Patient Records module

@@ -30,4 +30,17 @@ public class AuthController : ControllerBase
         var result = await _mediator.Send(new GetCurrentUserQuery(userId));
         return Ok(result);
     }
+    [HttpPost("register-patient")]
+    public async Task<ActionResult<RegisterPatientResponse>> RegisterPatient(RegisterPatientCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
+    [HttpPost("register-staff")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<RegisterStaffResponse>> RegisterStaff(RegisterStaffCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
 }

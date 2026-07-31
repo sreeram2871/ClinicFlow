@@ -44,5 +44,57 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
+    "Method": "RegisterPatient",
+    "RelativePath": "api/v1/auth/register-patient",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ClinicFlow.Api.Features.Auth.RegisterPatientCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Auth.RegisterPatientResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
+    "Method": "RegisterStaff",
+    "RelativePath": "api/v1/auth/register-staff",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ClinicFlow.Api.Features.Auth.RegisterStaffCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Auth.RegisterStaffResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]
