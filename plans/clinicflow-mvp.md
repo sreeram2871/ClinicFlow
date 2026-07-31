@@ -57,11 +57,11 @@ Reports) with request/response shapes, business rules, and auth requirements.
 Ready to begin Phase 3 implementation.
 
 ## Phase 3: Backend Implementation
-Status: Not started
+Status: In progress
 
-- [ ] Scaffold ASP.NET Core solution per architecture doc (project structure, DI, CLAUDE.md for backend repo)
-- [ ] Implement entities, EF Core mappings, and migrations
-- [ ] Implement TenantId global query filter for multi-tenancy isolation
+- [x] Scaffold ASP.NET Core solution per architecture doc (project structure, DI, CLAUDE.md for backend repo)
+- [x] Implement entities, EF Core mappings, and migrations
+- [x] Implement TenantId global query filter for multi-tenancy isolation
 - [ ] Implement JWT auth + refresh tokens + role-based authorization
 - [ ] Implement Appointments module (booking, conflict detection, status transitions)
 - [ ] Implement Patient Records module
