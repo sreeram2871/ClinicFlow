@@ -83,7 +83,9 @@ Status: In progress
 - [x] Implement Billing module (manual payment entry) — RecordPayment: Receptionist-only, only Completed appointments billable, duplicate-payment guard — verified 200 success, 409 duplicate, 409 wrong status, 403 wrong role
 - [x] Implement Prescriptions module (text-only) — CreatePrescription (Doctor-only, PatientAccessGuard reused a 4th time) + GetPatientPrescriptions — verified 200 for treated patient, 403 for untreated, 403 for wrong role, list correctly shows created prescription
 - [x] Implement Reports module (basic aggregates) — GetDashboardSummary (Admin-only): appointments today, revenue this month, total patients — verified 200 with real numbers, 403 for Doctor/Receptionist
-- [ ] xUnit tests: business rules (booking conflicts, tenant isolation, authorization) + key endpoint integration tests
+- [ ] NUnit tests: business rules (booking conflicts, tenant isolation, authorization) + key endpoint integration tests
+  - [x] **CRITICAL FIX**: ClinicFlowDbContext's tenant query filter used `Expression.Constant(_tenantProvider.TenantId)`, which bakes in the TenantId at first model compilation and never re-reads it — meaning the first tenant to ever hit the server after startup silently became permanent for all future queries, on every entity, for every tenant. Invisible in manual testing because TemporaryTenantProvider always returned the same hardcoded value. Caught by NUnit tests using distinct random tenant IDs per test. Fixed by referencing a `CurrentTenantId` property on the DbContext instance itself (`Expression.Constant(this)` + `Expression.Property`) instead of a baked-in value, so it re-evaluates per-query.
+  - [x] BookAppointmentHandlerTests: 4 tests covering successful booking, overlap conflict (409), working-hours rejection (400), staff-vs-patient status rule — all passing after the fix above
 - [ ] Fresh-session code review pass: code quality, performance, security (three separate passes)
 
 ### Verification Plan

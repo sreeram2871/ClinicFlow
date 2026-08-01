@@ -13,6 +13,7 @@ namespace ClinicFlow.Api.Infrastructure.Data;
 public class ClinicFlowDbContext : DbContext
 {
     private readonly ICurrentTenantProvider _tenantProvider;
+    private Guid CurrentTenantId => _tenantProvider.TenantId;
 
     public ClinicFlowDbContext(
         DbContextOptions<ClinicFlowDbContext> options,
@@ -50,11 +51,16 @@ public class ClinicFlowDbContext : DbContext
 
     private System.Linq.Expressions.LambdaExpression BuildTenantFilterExpression(Type entityType)
     {
-        // Builds, at runtime, the equivalent of: e => e.TenantId == _tenantProvider.TenantId
         var parameter = System.Linq.Expressions.Expression.Parameter(entityType, "e");
         var tenantIdProperty = System.Linq.Expressions.Expression.Property(parameter, nameof(TenantScopedEntity.TenantId));
-        var currentTenantId = System.Linq.Expressions.Expression.Constant(_tenantProvider.TenantId);
-        var equals = System.Linq.Expressions.Expression.Equal(tenantIdProperty, currentTenantId);
+
+        // Reference THIS DbContext instance's CurrentTenantId property —
+        // evaluated fresh every time a query actually runs, not baked in
+        // once when the model is first compiled.
+        var dbContextInstance = System.Linq.Expressions.Expression.Constant(this);
+        var currentTenantIdProperty = System.Linq.Expressions.Expression.Property(dbContextInstance, nameof(CurrentTenantId));
+
+        var equals = System.Linq.Expressions.Expression.Equal(tenantIdProperty, currentTenantIdProperty);
         return System.Linq.Expressions.Expression.Lambda(equals, parameter);
     }
 }

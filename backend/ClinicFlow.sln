@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicFlow.Api", "ClinicFlow.Api\ClinicFlow.Api.csproj", "{E998CE7A-5046-49AC-858D-1083DA3FF307}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClinicFlow.Api.Tests", "ClinicFlow.Api.Tests\ClinicFlow.Api.Tests.csproj", "{119CE09C-3108-4A41-AC06-62AEE3F60784}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +29,18 @@ Global
 		{E998CE7A-5046-49AC-858D-1083DA3FF307}.Release|x64.Build.0 = Release|Any CPU
 		{E998CE7A-5046-49AC-858D-1083DA3FF307}.Release|x86.ActiveCfg = Release|Any CPU
 		{E998CE7A-5046-49AC-858D-1083DA3FF307}.Release|x86.Build.0 = Release|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Debug|x64.Build.0 = Debug|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Debug|x86.Build.0 = Debug|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Release|Any CPU.Build.0 = Release|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Release|x64.ActiveCfg = Release|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Release|x64.Build.0 = Release|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Release|x86.ActiveCfg = Release|Any CPU
+		{119CE09C-3108-4A41-AC06-62AEE3F60784}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
