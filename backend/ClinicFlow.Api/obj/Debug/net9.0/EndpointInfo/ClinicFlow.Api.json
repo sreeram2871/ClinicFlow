@@ -672,6 +672,35 @@
           }
         }
       }
+    },
+    "/api/v1/reports/dashboard": {
+      "get": {
+        "tags": [
+          "Reports"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardSummaryResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardSummaryResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DashboardSummaryResponse"
+                }
+              }
+            }
+          }
+        }
+      }
     }
   },
   "components": {
@@ -845,6 +874,24 @@
           "tenantId": {
             "type": "string",
             "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "DashboardSummaryResponse": {
+        "type": "object",
+        "properties": {
+          "appointmentsToday": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "revenueThisMonth": {
+            "type": "number",
+            "format": "double"
+          },
+          "totalPatients": {
+            "type": "integer",
+            "format": "int32"
           }
         },
         "additionalProperties": false

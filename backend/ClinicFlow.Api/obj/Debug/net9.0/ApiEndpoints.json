@@ -377,5 +377,25 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.ReportsController",
+    "Method": "GetDashboard",
+    "RelativePath": "api/v1/reports/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Reports.DashboardSummaryResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

@@ -82,7 +82,7 @@ Status: In progress
   - [x] GetPatientMedicalHistory (list of a patient's medical history entries) — verified: Doctor sees their own note for a treated patient, guard reused a third time with zero duplication
 - [x] Implement Billing module (manual payment entry) — RecordPayment: Receptionist-only, only Completed appointments billable, duplicate-payment guard — verified 200 success, 409 duplicate, 409 wrong status, 403 wrong role
 - [x] Implement Prescriptions module (text-only) — CreatePrescription (Doctor-only, PatientAccessGuard reused a 4th time) + GetPatientPrescriptions — verified 200 for treated patient, 403 for untreated, 403 for wrong role, list correctly shows created prescription
-- [ ] Implement Reports module (basic aggregates)
+- [x] Implement Reports module (basic aggregates) — GetDashboardSummary (Admin-only): appointments today, revenue this month, total patients — verified 200 with real numbers, 403 for Doctor/Receptionist
 - [ ] xUnit tests: business rules (booking conflicts, tenant isolation, authorization) + key endpoint integration tests
 - [ ] Fresh-session code review pass: code quality, performance, security (three separate passes)
 
