@@ -117,6 +117,8 @@ Status: In progress
   - [x] TypeScript models created: user.model.ts, auth.model.ts, appointment.model.ts (mirroring backend response records)
   - **[WORKFLOW NOTE]**: from this point, frontend code is generated via an AI coding agent in VS Code rather than manually typed line-by-line (unlike the backend build). Process: Claude designs each piece and its requirements → provides an exact prompt for the agent → user runs it and pastes the output back → Claude reviews against the design, flags issues, explains key parts. User still directs and verifies every piece, but doesn't hand-type it.
   - [x] AuthService created (agent-generated, 2 review rounds): signal-based currentUser (properly private+readonly via asReadonly() — first draft had a real bug where currentUser was writable from any component, bypassing login()), in-memory token storage, login()/logout()/getToken()
+  - [x] authInterceptor created (agent-generated, 1 review round, no issues found): functional HttpInterceptorFn style, attaches Authorization: Bearer header when a token exists, passes through unmodified otherwise
+  - [x] provideHttpClient(withInterceptors([authInterceptor])) registered in app.config.ts (agent-generated, no issues found) — without this, HttpClient injection would throw NullInjectorError at runtime, not silently skip the interceptor
 - [ ] Implement auth flow (login, token storage, refresh-on-401, logout)
 - [ ] Implement role-based navigation and conditional rendering per role
 - [ ] Implement Appointments UI (patient self-booking + receptionist booking view)
