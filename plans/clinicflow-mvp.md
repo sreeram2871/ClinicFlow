@@ -83,9 +83,17 @@ Status: In progress
 - [x] Implement Billing module (manual payment entry) — RecordPayment: Receptionist-only, only Completed appointments billable, duplicate-payment guard — verified 200 success, 409 duplicate, 409 wrong status, 403 wrong role
 - [x] Implement Prescriptions module (text-only) — CreatePrescription (Doctor-only, PatientAccessGuard reused a 4th time) + GetPatientPrescriptions — verified 200 for treated patient, 403 for untreated, 403 for wrong role, list correctly shows created prescription
 - [x] Implement Reports module (basic aggregates) — GetDashboardSummary (Admin-only): appointments today, revenue this month, total patients — verified 200 with real numbers, 403 for Doctor/Receptionist
-- [ ] NUnit tests: business rules (booking conflicts, tenant isolation, authorization) + key endpoint integration tests
+- [x] NUnit tests: business rules (booking conflicts, tenant isolation, authorization) + key endpoint integration tests — 31/31 passing, full coverage plan complete
   - [x] **CRITICAL FIX**: ClinicFlowDbContext's tenant query filter used `Expression.Constant(_tenantProvider.TenantId)`, which bakes in the TenantId at first model compilation and never re-reads it — meaning the first tenant to ever hit the server after startup silently became permanent for all future queries, on every entity, for every tenant. Invisible in manual testing because TemporaryTenantProvider always returned the same hardcoded value. Caught by NUnit tests using distinct random tenant IDs per test. Fixed by referencing a `CurrentTenantId` property on the DbContext instance itself (`Expression.Constant(this)` + `Expression.Property`) instead of a baked-in value, so it re-evaluates per-query.
-  - [x] BookAppointmentHandlerTests: 4 tests covering successful booking, overlap conflict (409), working-hours rejection (400), staff-vs-patient status rule — all passing after the fix above
+  - [x] BookAppointmentHandlerTests (4): successful booking, overlap conflict (409), working-hours rejection (400), staff-vs-patient status rule
+  - [x] TenantIsolationTests (2): basic isolation + A→B→A regression test guarding against the staleness bug above
+  - [x] PatientAccessGuardTests (6): Admin/Receptionist always allowed, Patient own-record allowed, Patient other-record forbidden, Doctor treated-patient allowed, Doctor untreated-patient forbidden
+  - [x] AppointmentStatusTransitionTests (6): Confirm/Cancel/Complete, one success + one invalid-transition case each
+  - [x] RecordPaymentHandlerTests (3): Completed appointment succeeds, non-Completed fails, duplicate payment fails
+  - [x] LoginHandlerTests (4): correct credentials, wrong password, non-existent email, deactivated account — using FakePasswordHasher/FakeJwtTokenService to isolate handler logic from real crypto
+  - [x] RegisterPatientHandlerTests (2): successful registration (verifies User+Patient link), duplicate email fails
+  - [x] GetDoctorScheduleHandlerTests (2): booked slot correctly excluded from available slots, no schedule for a day returns empty
+  - [x] ValidationBehaviorTests (2): valid command reaches handler, invalid command throws and handler is never called — the test that would have caught the original silent-validation bug automatically
 - [ ] Fresh-session code review pass: code quality, performance, security (three separate passes)
 
 ### Verification Plan
