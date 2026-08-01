@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using Microsoft.AspNetCore.Mvc;
-
+using ClinicFlow.Api.Common.Errors;
 namespace ClinicFlow.Api.Common.Middleware;
 
 /// <summary>
@@ -48,6 +48,7 @@ public class ExceptionHandlingMiddleware
     private static (int StatusCode, string Title) MapException(Exception ex) => ex switch
     {
         UnauthorizedAccessException => ((int)HttpStatusCode.Unauthorized, "Unauthorized"),
+        ForbiddenException => ((int)HttpStatusCode.Forbidden, "Forbidden"),
         ArgumentException => ((int)HttpStatusCode.BadRequest, "Bad request"),
         KeyNotFoundException => ((int)HttpStatusCode.NotFound, "Not found"),
         InvalidOperationException => ((int)HttpStatusCode.Conflict, "Conflict"),

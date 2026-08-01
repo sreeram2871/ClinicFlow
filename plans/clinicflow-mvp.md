@@ -75,6 +75,10 @@ Status: In progress
   - [x] GetDoctorSchedule (available slots + doctor's appointment list) — verified: booked slots + computed available slots both correct
   - [x] 8-case regression test after ValidationBehavior fix — all passed (validation rejects bad input, state-transition guards correct, no more silent data corruption)
 - [ ] Implement Patient Records module
+  - [x] GetPatientRecord with ownership enforcement (Admin/Receptionist: any patient; Patient: own record only; Doctor: only treated patients) — verified across 5 test cases
+  - [x] ForbiddenException (403) added, separated from UnauthorizedAccessException (401) — fixed incorrect 401 on ownership-denied cases
+  - [ ] AddMedicalRecordEntry (Doctor writes visit notes)
+  - [ ] GetPatientRecords (list of a patient's medical history)
 - [ ] Implement Billing module (manual payment entry)
 - [ ] Implement Prescriptions module (text-only)
 - [ ] Implement Reports module (basic aggregates)
