@@ -74,12 +74,12 @@ Status: In progress
   - [x] ConfirmAppointment, CancelAppointment, CompleteAppointment — verified: valid transitions succeed (204), invalid transitions rejected (409), role guards enforced (403 for Doctor on Complete)
   - [x] GetDoctorSchedule (available slots + doctor's appointment list) — verified: booked slots + computed available slots both correct
   - [x] 8-case regression test after ValidationBehavior fix — all passed (validation rejects bad input, state-transition guards correct, no more silent data corruption)
-- [ ] Implement Patient Records module
+- [x] Implement Patient Records module
   - [x] GetPatientRecord with ownership enforcement (Admin/Receptionist: any patient; Patient: own record only; Doctor: only treated patients) — verified across 5 test cases
   - [x] ForbiddenException (403) added, separated from UnauthorizedAccessException (401) — fixed incorrect 401 on ownership-denied cases
   - [x] PatientAccessGuard extracted to Features/Patients/Shared — shared ownership logic, reused (not duplicated) across GetPatientRecord and AddMedicalRecordEntry
   - [x] AddMedicalRecordEntry (Doctor-only, layered check: [Authorize(Roles="Doctor")] + PatientAccessGuard confirms treatment relationship) — verified 200 for treated patient, 403 for untreated
-  - [ ] GetPatientRecords (list of a patient's medical history entries)
+  - [x] GetPatientMedicalHistory (list of a patient's medical history entries) — verified: Doctor sees their own note for a treated patient, guard reused a third time with zero duplication
 - [ ] Implement Billing module (manual payment entry)
 - [ ] Implement Prescriptions module (text-only)
 - [ ] Implement Reports module (basic aggregates)
