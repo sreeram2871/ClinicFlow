@@ -320,5 +320,62 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PrescriptionsController",
+    "Method": "Create",
+    "RelativePath": "api/v1/patients/{patientId}/prescriptions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "ClinicFlow.Api.Controllers.CreatePrescriptionBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Prescriptions.CreatePrescriptionResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PrescriptionsController",
+    "Method": "GetAll",
+    "RelativePath": "api/v1/patients/{patientId}/prescriptions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[ClinicFlow.Api.Features.Prescriptions.PrescriptionResponse, ClinicFlow.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]
