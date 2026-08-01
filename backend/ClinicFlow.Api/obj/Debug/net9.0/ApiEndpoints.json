@@ -232,5 +232,36 @@
         "StatusCode": 200
       }
     ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "AddMedicalRecordEntry",
+    "RelativePath": "api/v1/patients/{id}/records",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "ClinicFlow.Api.Controllers.PatientsController\u002BAddMedicalRecordEntryBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Patients.AddMedicalRecordEntryResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
   }
 ]

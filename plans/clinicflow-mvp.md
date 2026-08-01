@@ -77,8 +77,9 @@ Status: In progress
 - [ ] Implement Patient Records module
   - [x] GetPatientRecord with ownership enforcement (Admin/Receptionist: any patient; Patient: own record only; Doctor: only treated patients) — verified across 5 test cases
   - [x] ForbiddenException (403) added, separated from UnauthorizedAccessException (401) — fixed incorrect 401 on ownership-denied cases
-  - [ ] AddMedicalRecordEntry (Doctor writes visit notes)
-  - [ ] GetPatientRecords (list of a patient's medical history)
+  - [x] PatientAccessGuard extracted to Features/Patients/Shared — shared ownership logic, reused (not duplicated) across GetPatientRecord and AddMedicalRecordEntry
+  - [x] AddMedicalRecordEntry (Doctor-only, layered check: [Authorize(Roles="Doctor")] + PatientAccessGuard confirms treatment relationship) — verified 200 for treated patient, 403 for untreated
+  - [ ] GetPatientRecords (list of a patient's medical history entries)
 - [ ] Implement Billing module (manual payment entry)
 - [ ] Implement Prescriptions module (text-only)
 - [ ] Implement Reports module (basic aggregates)

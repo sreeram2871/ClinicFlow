@@ -1,6 +1,7 @@
 using Bogus;
 using ClinicFlow.Api.Common.Behaviors;
 using ClinicFlow.Api.Common.Middleware;
+using ClinicFlow.Api.Features.Patients.Shared;
 using ClinicFlow.Api.Infrastructure.Auth;
 using ClinicFlow.Api.Infrastructure.Data;
 using ClinicFlow.Api.Infrastructure.Data.Seeding;
@@ -79,7 +80,7 @@ builder.Services.AddDbContext<ClinicFlowDbContext>(options =>
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
-
+builder.Services.AddScoped<PatientAccessGuard>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
