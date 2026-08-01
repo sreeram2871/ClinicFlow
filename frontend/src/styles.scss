@@ -1,0 +1,33 @@
+/* You can add global styles to this file, and also import other style files */
+$color-brand: #0F6E56;
+$color-brand-hover: #0C5744;
+
+$color-confirmed-bg: #E6F1FB;
+$color-confirmed-text: #0C447C;
+
+$color-requested-bg: #FAEEDA;
+$color-requested-text: #854F0B;
+
+$color-completed-bg: #E1F5EE;
+$color-completed-text: #04342C;
+
+$color-cancelled-bg: #FCEBEB;
+$color-cancelled-text: #791F1F;
+
+$color-admin-tint: #EEEDFE;
+$color-admin-text: #26215C;
+
+$color-doctor-tint: #E6F1FB;
+$color-doctor-text: #0C447C;
+
+$color-receptionist-tint: #FAECE7;
+$color-receptionist-text: #4A1B0C;
+
+$color-patient-tint: #E1F5EE;
+$color-patient-text: #04342C;
+
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  background: #F8F9FA;
+}
