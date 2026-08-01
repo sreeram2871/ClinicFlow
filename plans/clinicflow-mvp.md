@@ -80,7 +80,7 @@ Status: In progress
   - [x] PatientAccessGuard extracted to Features/Patients/Shared — shared ownership logic, reused (not duplicated) across GetPatientRecord and AddMedicalRecordEntry
   - [x] AddMedicalRecordEntry (Doctor-only, layered check: [Authorize(Roles="Doctor")] + PatientAccessGuard confirms treatment relationship) — verified 200 for treated patient, 403 for untreated
   - [x] GetPatientMedicalHistory (list of a patient's medical history entries) — verified: Doctor sees their own note for a treated patient, guard reused a third time with zero duplication
-- [ ] Implement Billing module (manual payment entry)
+- [x] Implement Billing module (manual payment entry) — RecordPayment: Receptionist-only, only Completed appointments billable, duplicate-payment guard — verified 200 success, 409 duplicate, 409 wrong status, 403 wrong role
 - [ ] Implement Prescriptions module (text-only)
 - [ ] Implement Reports module (basic aggregates)
 - [ ] xUnit tests: business rules (booking conflicts, tenant isolation, authorization) + key endpoint integration tests

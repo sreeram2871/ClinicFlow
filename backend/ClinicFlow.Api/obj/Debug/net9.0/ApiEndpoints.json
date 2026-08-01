@@ -79,6 +79,37 @@
     "ReturnTypes": []
   },
   {
+    "ContainingType": "ClinicFlow.Api.Controllers.BillingController",
+    "Method": "RecordPayment",
+    "RelativePath": "api/v1/appointments/{id}/payment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "ClinicFlow.Api.Controllers.RecordPaymentBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Billing.RecordPaymentResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
     "Method": "Login",
     "RelativePath": "api/v1/auth/login",
