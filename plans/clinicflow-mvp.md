@@ -94,7 +94,7 @@ Status: In progress
   - [x] RegisterPatientHandlerTests (2): successful registration (verifies User+Patient link), duplicate email fails
   - [x] GetDoctorScheduleHandlerTests (2): booked slot correctly excluded from available slots, no schedule for a day returns empty
   - [x] ValidationBehaviorTests (2): valid command reaches handler, invalid command throws and handler is never called — the test that would have caught the original silent-validation bug automatically
-- [ ] Fresh-session code review pass: code quality, performance, security (three separate passes)
+- [ ] Fresh-session code review pass: code quality, performance, security (three separate passes) — DEFERRED, will circle back before final deployment
 
 ### Verification Plan
 - `dotnet build` succeeds with zero errors/warnings.
@@ -106,9 +106,10 @@ Status: In progress
 _(write when phase completes)_
 
 ## Phase 4: Frontend Implementation
-Status: Not started
+Status: In progress
 
-- [ ] Generate Frontend Product Document Requirement (PDR) referencing the finalized backend API (exact JSON examples per endpoint)
+- [x] Generate Frontend Product Document Requirement (PDR) referencing the finalized backend API — docs/frontend-pdr.md: auth flow, role-based nav, per-page endpoint specs for all 9 screens, appointment state machine, global error handling, security notes (no localStorage for tokens). One open item flagged: Receptionist-initiated walk-in patient creation (POST /patients) wasn't built as a separate feature in Phase 3 — only self-registration exists; noted as a backend follow-up, not blocking frontend start.
+- [x] Visual design direction confirmed after wireframe/mockup review (richer dashboard style — stat cards, charts via ng2-charts, profile panels, calendar strip — same Angular stack, more components than a bare-lists approach). Documented in PDR Section 6: brand color (teal #0F6E56), semantic status badge colors, per-role topbar tints, 6 shared components to build (StatCard, ChartCard, ProfileCard, CalendarStrip, StatusBadge, AppShell), per-role dashboard content confirmed.
 - [ ] Scaffold Angular app (CLAUDE.md for frontend repo)
 - [ ] Implement auth flow (login, token storage, refresh-on-401, logout)
 - [ ] Implement role-based navigation and conditional rendering per role
