@@ -86,4 +86,4 @@ public class GetDashboardSummaryHandler : IRequestHandler<GetDashboardSummaryQue
 
         return results;
     }
-}
+} 

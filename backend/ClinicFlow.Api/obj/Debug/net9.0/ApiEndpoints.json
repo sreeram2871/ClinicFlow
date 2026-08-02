@@ -260,6 +260,26 @@
   },
   {
     "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "GetPatientsList",
+    "RelativePath": "api/v1/patients",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[ClinicFlow.Api.Features.Patients.PatientListItemResponse, ClinicFlow.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
     "Method": "GetPatientRecord",
     "RelativePath": "api/v1/patients/{id}",
     "HttpMethod": "GET",

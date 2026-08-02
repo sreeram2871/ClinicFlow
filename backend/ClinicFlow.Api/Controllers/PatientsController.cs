@@ -45,6 +45,15 @@ public class PatientsController : ControllerBase
         var result = await _mediator.Send(new GetPatientMedicalHistoryQuery(id, userId, role));
         return Ok(result);
     }
+    [HttpGet]
+    [Authorize(Roles = "Admin,Doctor,Receptionist")]
+    public async Task<ActionResult<List<PatientListItemResponse>>> GetPatientsList()
+    {
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var role = User.FindFirstValue(ClaimTypes.Role)!;
 
+        var result = await _mediator.Send(new GetPatientsListQuery(userId, role));
+        return Ok(result);
+    }
     public record AddMedicalRecordEntryBody(string Notes, Guid? AppointmentId);
 }
