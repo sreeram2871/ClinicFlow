@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClinicFlow.Api.Tests")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+08328628842743358f4c7a7a3ab6be18bae45944")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ebef3c0b4b2540c0ef2784c27e2aa63043665cbd")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClinicFlow.Api.Tests")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClinicFlow.Api.Tests")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

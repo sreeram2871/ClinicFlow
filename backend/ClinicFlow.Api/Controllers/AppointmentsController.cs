@@ -54,6 +54,13 @@ public class AppointmentsController : ControllerBase
         var result = await _mediator.Send(new GetDoctorScheduleQuery(doctorId, date));
         return Ok(result);
     }
+    [HttpGet("doctors")]
+    [Authorize(Roles = "Admin,Receptionist")]
+    public async Task<ActionResult<List<DoctorListItemResponse>>> GetDoctorsList()
+    {
+        var result = await _mediator.Send(new GetDoctorsListQuery());
+        return Ok(result);
+    }
 
     public record CompleteAppointmentBody(AppointmentStatus Status);
 }
