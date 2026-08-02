@@ -1,0 +1,21 @@
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #e1f5ee;
+  padding: 16px 24px;
+}
+
+.shell-layout {
+  display: grid;
+  grid-template-columns: 180px 1fr;
+  min-height: calc(100vh - 70px);
+}
+
+.sidebar {
+  border-right: 1px solid #d5e4de;
+}
+
+.main-content {
+  padding: 24px;
+}

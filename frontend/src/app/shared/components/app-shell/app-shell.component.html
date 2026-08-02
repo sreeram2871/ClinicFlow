@@ -1,0 +1,16 @@
+<header class="topbar">
+  <div>
+    <strong>{{ currentUser()?.fullName }}</strong>
+    <span> · {{ currentUser()?.role }}</span>
+  </div>
+
+  <button type="button" (click)="logout()">Log out</button>
+</header>
+
+<div class="shell-layout">
+  <aside class="sidebar"></aside>
+
+  <main class="main-content">
+    <router-outlet></router-outlet>
+  </main>
+</div>

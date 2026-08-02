@@ -120,6 +120,13 @@ Status: In progress
   - [x] authInterceptor created (agent-generated, 1 review round, no issues found): functional HttpInterceptorFn style, attaches Authorization: Bearer header when a token exists, passes through unmodified otherwise
   - [x] provideHttpClient(withInterceptors([authInterceptor])) registered in app.config.ts (agent-generated, no issues found) — without this, HttpClient injection would throw NullInjectorError at runtime, not silently skip the interceptor
   - [x] LoginComponent created (agent-generated, 2 review rounds): standalone component, reactive forms with email/password validators, loading state signal, teal-branded card layout matching PDR. Real bug caught in round 1: extractErrorMessage read error.detail directly instead of error.error?.detail — HttpClient wraps the backend's ProblemDetails body inside HttpErrorResponse.error, so every login failure was silently falling through to a generic "Login failed" message instead of the backend's real detail text. Fixed and verified.
+  - [x] Routing configured: /login lazy-loaded via loadComponent, default '' redirects to /login (agent-generated, no issues found)
+  - [x] Login screen rendering confirmed in browser (ng serve, localhost:4200) — first visible screen of ClinicFlow
+  - [x] Backend CORS configured (AllowAngularDev policy, localhost:4200 origins only — not AllowAnyOrigin, deliberate security choice) — full login flow verified end-to-end: form submit → real JWT returned → stored in AuthService signal
+  - [x] AppShellComponent created (agent-generated, no issues found): topbar with user name/role + logout, sidebar placeholder, nested router-outlet for child routes
+  - [x] Placeholder DashboardComponent created, nested routing wired (/dashboard → AppShellComponent → child route → DashboardComponent) — introduces nested router-outlet pattern, distinct from the top-level outlet in app.html
+  - [x] Full login → shell → logout loop verified in browser end-to-end
+  - **[GAP FLAGGED → FIXED]**: no route guard existed — /dashboard was reachable by typing the URL directly even when logged out (confirmed visually: shell rendered with empty "Welcome," and no user name in topbar). Fixed with authGuard (functional CanActivateFn, agent-generated, no issues found): checks isLoggedIn(), returns router.createUrlTree(['/login']) redirect (not just false) when unauthenticated. Applied to the parent 'dashboard' route only — confirmed this correctly protects all nested child routes too, since children only activate after parent guards pass.
 - [ ] Implement auth flow (login, token storage, refresh-on-401, logout)
 - [ ] Implement role-based navigation and conditional rendering per role
 - [ ] Implement Appointments UI (patient self-booking + receptionist booking view)

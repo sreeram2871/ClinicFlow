@@ -85,6 +85,18 @@ builder.Services.AddScoped<PatientAccessGuard>();
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(typeof(Program).Assembly));
 builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 builder.Services.AddValidatorsFromAssembly(typeof(Program).Assembly);
+
+builder.Services.AddCors(options =>
+{
+    options.AddPolicy("AllowAngularDev", policy =>
+    {
+        policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod();
+    });
+});
+
+
 var app = builder.Build();
 // Add the exception handling middleware to the pipeline
 app.UseMiddleware<ExceptionHandlingMiddleware>();
@@ -98,6 +110,7 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.UseCors("AllowAngularDev");
 app.UseAuthentication();
 app.UseAuthorization();
 
