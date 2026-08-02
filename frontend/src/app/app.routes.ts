@@ -19,6 +19,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/dashboard/dashboard.component').then((m) => m.DashboardComponent),
       },
+      {
+        path: 'staff',
+        loadComponent: () =>
+          import('./features/admin/manage-staff/manage-staff.component').then((m) => m.ManageStaffComponent),
+      },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' },

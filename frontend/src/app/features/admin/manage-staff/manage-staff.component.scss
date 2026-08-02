@@ -1,0 +1,56 @@
+h1,
+h2 {
+  margin: 0 0 12px;
+}
+
+.manage-staff {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.staff-form {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  max-width: 420px;
+}
+
+.staff-form label {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.form-input {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid #d5e4de;
+  border-radius: 8px;
+}
+
+.submit-button {
+  border: none;
+  border-radius: 8px;
+  background: #0f6e56;
+  color: white;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.submit-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.error-message {
+  color: #b42318;
+  margin: 0;
+}
+
+.staff-row {
+  display: flex;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e5e5;
+}

@@ -1,0 +1,54 @@
+<section class="manage-staff">
+  <h1>Add Staff Member</h1>
+
+  <form class="staff-form" [formGroup]="staffForm" (ngSubmit)="onSubmit()">
+    <label>
+      <span>Full Name</span>
+      <input class="form-input" formControlName="fullName" type="text" />
+    </label>
+
+    <label>
+      <span>Email</span>
+      <input class="form-input" formControlName="email" type="email" />
+    </label>
+
+    <label>
+      <span>Password</span>
+      <input class="form-input" formControlName="password" type="password" />
+    </label>
+
+    <label>
+      <span>Role</span>
+      <select class="form-input" formControlName="role">
+        <option value="">Select role</option>
+        <option value="Admin">Admin</option>
+        <option value="Doctor">Doctor</option>
+        <option value="Receptionist">Receptionist</option>
+      </select>
+    </label>
+
+    <button class="submit-button" type="submit" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Saving...' : 'Create Staff Member' }}
+    </button>
+
+    @if (errorMessage) {
+      <p class="error-message">{{ errorMessage }}</p>
+    }
+  </form>
+
+  <section class="staff-panel">
+    <h2>Existing Staff</h2>
+
+    @if (staffList().length > 0) {
+      @for (staffMember of staffList(); track staffMember.id) {
+        <div class="staff-row">
+          <span>{{ staffMember.fullName }}</span>
+          <span>{{ staffMember.role }}</span>
+          <span>{{ staffMember.isActive ? 'Active' : 'Inactive' }}</span>
+        </div>
+      }
+    } @else {
+      <p>No staff found</p>
+    }
+  </section>
+</section>
