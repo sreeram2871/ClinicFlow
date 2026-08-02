@@ -1,0 +1,53 @@
+.patient-detail {
+  padding: 1rem 0;
+}
+
+.tab-bar {
+  display: flex;
+  gap: 0.75rem;
+  border-bottom: 1px solid #d9e0ea;
+  margin-bottom: 1rem;
+}
+
+.tab-button {
+  border: none;
+  background: transparent;
+  padding: 0.75rem 0.9rem;
+  color: #6b7280;
+  cursor: pointer;
+  font-weight: 600;
+}
+
+.tab-button.active {
+  color: #0f6e56;
+  border-bottom: 2px solid #0f6e56;
+}
+
+.error-message {
+  color: #b42318;
+  margin: 0.75rem 0;
+}
+
+.detail-row {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 0.75rem;
+}
+
+.label {
+  font-weight: 700;
+  color: #374151;
+}
+
+.appointments-section {
+  margin-top: 1.5rem;
+}
+
+.appointment-item {
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.tab-placeholder {
+  min-height: 120px;
+}

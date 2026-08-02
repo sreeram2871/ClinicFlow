@@ -1,0 +1,62 @@
+<section class="patient-detail">
+  <div class="tab-bar" role="tablist" aria-label="Patient detail tabs">
+    <button
+      type="button"
+      class="tab-button"
+      [class.active]="activeTab() === 'profile'"
+      (click)="setTab('profile')"
+    >
+      Profile
+    </button>
+    <button
+      type="button"
+      class="tab-button"
+      [class.active]="activeTab() === 'history'"
+      (click)="setTab('history')"
+    >
+      History
+    </button>
+    <button
+      type="button"
+      class="tab-button"
+      [class.active]="activeTab() === 'prescriptions'"
+      (click)="setTab('prescriptions')"
+    >
+      Prescriptions
+    </button>
+  </div>
+
+  <div *ngIf="errorMessage()" class="error-message">
+    {{ errorMessage() }}
+  </div>
+
+  <div *ngIf="!errorMessage() && patient() && activeTab() === 'profile'" class="tab-content">
+    <h2>{{ patient()?.fullName }}</h2>
+
+    <div class="detail-row">
+      <span class="label">Date of Birth</span>
+      <span>{{ patient()?.dateOfBirth | date: 'mediumDate' }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Phone</span>
+      <span>{{ patient()?.phone }}</span>
+    </div>
+
+    <div class="detail-row">
+      <span class="label">Email</span>
+      <span>{{ patient()?.email }}</span>
+    </div>
+
+    <div class="appointments-section">
+      <h3>Recent Appointments</h3>
+      <div *ngFor="let appointment of patient()?.recentAppointments" class="appointment-item">
+        <div>{{ appointment.scheduledStart | date: 'medium' }}</div>
+        <div>{{ appointment.status }}</div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab() === 'history'" class="tab-placeholder"></div>
+  <div *ngIf="activeTab() === 'prescriptions'" class="tab-placeholder"></div>
+</section>

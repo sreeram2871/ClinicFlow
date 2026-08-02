@@ -24,6 +24,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/manage-staff/manage-staff.component').then((m) => m.ManageStaffComponent),
       },
+      {
+        path: 'patients',
+        loadComponent: () =>
+          import('./features/admin/patients-list/patients-list.component').then((m) => m.PatientsListComponent),
+      },
+      {
+        path: 'patients/:id',
+        loadComponent: () =>
+          import('./features/admin/patient-detail/patient-detail.component').then((m) => m.PatientDetailComponent),
+      },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
