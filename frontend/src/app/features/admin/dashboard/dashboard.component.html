@@ -1,2 +1,24 @@
 <h1>Dashboard</h1>
 <p>Welcome, {{ fullName() }}</p>
+
+@if (summary()) {
+  <section class="stats-grid">
+    <app-stat-card
+      label="Appointments Today"
+      [value]="summary()!.appointmentsToday.toString()"
+      color="#3C3489"
+    ></app-stat-card>
+
+    <app-stat-card
+      label="Revenue This Month"
+      [value]="'Rs. ' + summary()!.revenueThisMonth"
+      color="#0F6E56"
+    ></app-stat-card>
+
+    <app-stat-card
+      label="Total Patients"
+      [value]="summary()!.totalPatients.toString()"
+      color="#0C447C"
+    ></app-stat-card>
+  </section>
+}

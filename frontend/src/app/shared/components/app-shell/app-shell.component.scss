@@ -16,6 +16,19 @@
   border-right: 1px solid #d5e4de;
 }
 
+.nav-item {
+  display: block;
+  padding: 10px 16px;
+  cursor: pointer;
+  text-decoration: none;
+  color: inherit;
+}
+
+.nav-item.active {
+  background: #e1f5ee;
+  color: #04342c;
+}
+
 .main-content {
   padding: 24px;
 }

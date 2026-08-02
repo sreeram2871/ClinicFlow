@@ -43,4 +43,11 @@ public class AuthController : ControllerBase
         var result = await _mediator.Send(command);
         return Ok(result);
     }
+    [HttpGet("staff")]
+    [Authorize(Roles = "Admin")]
+    public async Task<ActionResult<List<StaffMemberResponse>>> GetStaffList()
+    {
+        var result = await _mediator.Send(new GetStaffListQuery());
+        return Ok(result);
+    }
 }

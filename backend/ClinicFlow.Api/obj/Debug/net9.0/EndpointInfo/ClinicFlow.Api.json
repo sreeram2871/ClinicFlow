@@ -362,6 +362,44 @@
         }
       }
     },
+    "/api/v1/auth/staff": {
+      "get": {
+        "tags": [
+          "Auth"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StaffMemberResponse"
+                  }
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StaffMemberResponse"
+                  }
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/StaffMemberResponse"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/appointments/{id}/payment": {
       "post": {
         "tags": [
@@ -892,6 +930,20 @@
           "totalPatients": {
             "type": "integer",
             "format": "int32"
+          },
+          "revenueByWeek": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WeeklyDataPoint"
+            },
+            "nullable": true
+          },
+          "newPatientsByWeek": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/WeeklyDataPoint"
+            },
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1165,6 +1217,31 @@
         },
         "additionalProperties": false
       },
+      "StaffMemberResponse": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "fullName": {
+            "type": "string",
+            "nullable": true
+          },
+          "email": {
+            "type": "string",
+            "nullable": true
+          },
+          "role": {
+            "type": "string",
+            "nullable": true
+          },
+          "isActive": {
+            "type": "boolean"
+          }
+        },
+        "additionalProperties": false
+      },
       "UserRole": {
         "enum": [
           "Admin",
@@ -1173,6 +1250,20 @@
           "Patient"
         ],
         "type": "string"
+      },
+      "WeeklyDataPoint": {
+        "type": "object",
+        "properties": {
+          "weekLabel": {
+            "type": "string",
+            "nullable": true
+          },
+          "value": {
+            "type": "number",
+            "format": "double"
+          }
+        },
+        "additionalProperties": false
       }
     },
     "securitySchemes": {

@@ -8,7 +8,19 @@
 </header>
 
 <div class="shell-layout">
-  <aside class="sidebar"></aside>
+  <aside class="sidebar">
+    <nav>
+      <a
+        *ngFor="let item of visibleNavItems()"
+        [routerLink]="item.path"
+        routerLinkActive="active"
+        [routerLinkActiveOptions]="{ exact: false }"
+        class="nav-item"
+      >
+        {{ item.label }}
+      </a>
+    </nav>
+  </aside>
 
   <main class="main-content">
     <router-outlet></router-outlet>
