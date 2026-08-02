@@ -119,6 +119,7 @@ Status: In progress
   - [x] AuthService created (agent-generated, 2 review rounds): signal-based currentUser (properly private+readonly via asReadonly() — first draft had a real bug where currentUser was writable from any component, bypassing login()), in-memory token storage, login()/logout()/getToken()
   - [x] authInterceptor created (agent-generated, 1 review round, no issues found): functional HttpInterceptorFn style, attaches Authorization: Bearer header when a token exists, passes through unmodified otherwise
   - [x] provideHttpClient(withInterceptors([authInterceptor])) registered in app.config.ts (agent-generated, no issues found) — without this, HttpClient injection would throw NullInjectorError at runtime, not silently skip the interceptor
+  - [x] LoginComponent created (agent-generated, 2 review rounds): standalone component, reactive forms with email/password validators, loading state signal, teal-branded card layout matching PDR. Real bug caught in round 1: extractErrorMessage read error.detail directly instead of error.error?.detail — HttpClient wraps the backend's ProblemDetails body inside HttpErrorResponse.error, so every login failure was silently falling through to a generic "Login failed" message instead of the backend's real detail text. Fixed and verified.
 - [ ] Implement auth flow (login, token storage, refresh-on-401, logout)
 - [ ] Implement role-based navigation and conditional rendering per role
 - [ ] Implement Appointments UI (patient self-booking + receptionist booking view)

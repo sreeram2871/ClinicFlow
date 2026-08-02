@@ -1,0 +1,44 @@
+<main class="login-page">
+  <section class="login-card" aria-label="Login form">
+    <p class="clinic-name">ClinicFlow</p>
+    <p class="clinic-subtitle">Sign in to continue</p>
+
+    <form class="login-form" [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <label class="field-label" for="email">Email</label>
+      <input
+        id="email"
+        type="email"
+        formControlName="email"
+        class="form-input"
+        placeholder="you@example.com"
+      />
+
+      <label class="field-label" for="password">Password</label>
+      <input
+        id="password"
+        type="password"
+        formControlName="password"
+        class="form-input"
+        placeholder="Enter your password"
+      />
+
+      @if (errorMessage) {
+        <p class="error-message">{{ errorMessage }}</p>
+      }
+
+      <button
+        type="submit"
+        class="login-button"
+        [disabled]="loginForm.invalid || isSubmitting()"
+      >
+        @if (isSubmitting()) {
+          <span>Signing in...</span>
+        } @else {
+          <span>Login</span>
+        }
+      </button>
+    </form>
+
+    <a class="register-link" routerLink="/register">New patient? Register</a>
+  </section>
+</main>
