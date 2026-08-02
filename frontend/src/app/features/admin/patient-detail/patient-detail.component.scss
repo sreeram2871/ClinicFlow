@@ -43,11 +43,48 @@
   margin-top: 1.5rem;
 }
 
-.appointment-item {
+.appointment-item,
+.record-item {
   padding: 0.75rem 0;
   border-bottom: 1px solid #e5e7eb;
 }
 
-.tab-placeholder {
-  min-height: 120px;
+.empty-state {
+  color: #6b7280;
+  padding: 0.75rem 0;
+}
+
+.doctor-form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+}
+
+.form-label {
+  font-weight: 700;
+  color: #374151;
+}
+
+.form-input {
+  width: 100%;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #d9e0ea;
+  border-radius: 6px;
+  box-sizing: border-box;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.btn-submit {
+  border: none;
+  border-radius: 6px;
+  background: #0f6e56;
+  color: #ffffff;
+  padding: 0.7rem 1rem;
+  cursor: pointer;
+  font-weight: 700;
 }

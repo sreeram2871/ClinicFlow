@@ -26,11 +26,11 @@
     </button>
   </div>
 
-  <div *ngIf="errorMessage()" class="error-message">
-    {{ errorMessage() }}
+  <div *ngIf="activeTab() === 'profile' && profileError()" class="error-message">
+    {{ profileError() }}
   </div>
 
-  <div *ngIf="!errorMessage() && patient() && activeTab() === 'profile'" class="tab-content">
+  <div *ngIf="!profileError() && patient() && activeTab() === 'profile'" class="tab-content">
     <h2>{{ patient()?.fullName }}</h2>
 
     <div class="detail-row">
@@ -57,6 +57,70 @@
     </div>
   </div>
 
-  <div *ngIf="activeTab() === 'history'" class="tab-placeholder"></div>
-  <div *ngIf="activeTab() === 'prescriptions'" class="tab-placeholder"></div>
+  <div *ngIf="activeTab() === 'history' && historyError()" class="error-message">
+    {{ historyError() }}
+  </div>
+
+  <div *ngIf="activeTab() === 'history' && !historyError()" class="tab-content">
+    <form *ngIf="isDoctor()" [formGroup]="historyForm" (ngSubmit)="saveHistoryEntry()" class="doctor-form">
+      <label class="form-label" for="history-notes">Add Note</label>
+      <textarea
+        id="history-notes"
+        class="form-input"
+        formControlName="notes"
+        rows="3"
+        placeholder="Enter clinical notes"
+      ></textarea>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">Save Note</button>
+      </div>
+    </form>
+
+    <div *ngIf="medicalHistory().length === 0" class="empty-state">
+      No medical history yet.
+    </div>
+
+    <div *ngFor="let entry of medicalHistory()" class="record-item">
+      <div>{{ entry.notes }}</div>
+      <div>{{ entry.createdAt | date: 'medium' }}</div>
+    </div>
+  </div>
+
+  <div *ngIf="activeTab() === 'prescriptions' && prescriptionsError()" class="error-message">
+    {{ prescriptionsError() }}
+  </div>
+
+  <div *ngIf="activeTab() === 'prescriptions' && !prescriptionsError()" class="tab-content">
+    <form *ngIf="isDoctor()" [formGroup]="prescriptionForm" (ngSubmit)="savePrescription()" class="doctor-form">
+      <label class="form-label" for="medicine-name">Medicine</label>
+      <input id="medicine-name" class="form-input" formControlName="medicineName" placeholder="Medicine name" />
+
+      <label class="form-label" for="dosage">Dosage</label>
+      <input id="dosage" class="form-input" formControlName="dosage" placeholder="Dosage" />
+
+      <label class="form-label" for="prescription-notes">Notes</label>
+      <textarea
+        id="prescription-notes"
+        class="form-input"
+        formControlName="notes"
+        rows="3"
+        placeholder="Optional notes"
+      ></textarea>
+
+      <div class="form-actions">
+        <button type="submit" class="btn-submit">Save Prescription</button>
+      </div>
+    </form>
+
+    <div *ngIf="prescriptions().length === 0" class="empty-state">
+      No prescriptions yet.
+    </div>
+
+    <div *ngFor="let prescription of prescriptions()" class="record-item">
+      <div><strong>{{ prescription.medicineName }}</strong></div>
+      <div>{{ prescription.dosage }}</div>
+      <div *ngIf="prescription.notes">{{ prescription.notes }}</div>
+    </div>
+  </div>
 </section>
