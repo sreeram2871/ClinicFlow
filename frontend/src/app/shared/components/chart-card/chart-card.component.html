@@ -1,0 +1,12 @@
+<div class="chart-card">
+  <h3 class="chart-title">{{ title() }}</h3>
+
+  <div class="chart-area">
+    <canvas
+      baseChart
+      [data]="chartData()"
+      [options]="chartOptions"
+      [type]="chartType()"
+    ></canvas>
+  </div>
+</div>

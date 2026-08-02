@@ -1,0 +1,23 @@
+.chart-card {
+  background: #f8fbfa;
+  border-radius: 12px;
+  padding: 14px;
+}
+
+.chart-title {
+  margin: 0 0 12px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #1e2a2f;
+}
+
+.chart-area {
+  position: relative;
+  height: 180px;
+  width: 100%;
+}
+
+.chart-area canvas {
+  max-width: 100%;
+  max-height: 100%;
+}

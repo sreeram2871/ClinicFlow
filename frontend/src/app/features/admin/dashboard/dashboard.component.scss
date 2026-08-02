@@ -12,3 +12,10 @@ p {
   gap: 12px;
   margin-top: 24px;
 }
+
+.staff-row {
+  display: flex;
+  gap: 16px;
+  padding: 8px 0;
+  border-bottom: 1px solid #e5e5e5;
+}
