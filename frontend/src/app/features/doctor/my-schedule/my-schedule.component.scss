@@ -1,0 +1,40 @@
+.my-schedule {
+  padding: 1rem 0;
+}
+
+.field-label {
+  display: block;
+  font-weight: 700;
+  margin-bottom: 0.5rem;
+}
+
+.date-input {
+  width: 100%;
+  max-width: 260px;
+  padding: 0.7rem 0.8rem;
+  border: 1px solid #d9e0ea;
+  border-radius: 6px;
+  margin-bottom: 1rem;
+}
+
+.error-message {
+  color: #b42318;
+  margin-bottom: 1rem;
+}
+
+.schedule-section {
+  margin-top: 1rem;
+}
+
+.schedule-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #e5e7eb;
+}
+
+.empty-state {
+  color: #6b7280;
+  padding: 0.75rem 0;
+}

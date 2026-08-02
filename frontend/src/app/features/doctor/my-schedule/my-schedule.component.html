@@ -1,0 +1,39 @@
+<section class="my-schedule">
+  <h2>My Schedule</h2>
+
+  <label class="field-label" for="schedule-date">Select Date</label>
+  <input
+    id="schedule-date"
+    class="date-input"
+    type="date"
+    [value]="selectedDate()"
+    (change)="onDateChange($any($event.target).value)"
+  />
+
+  <div *ngIf="errorMessage()" class="error-message">
+    {{ errorMessage() }}
+  </div>
+
+  <section class="schedule-section">
+    <h3>Booked Appointments</h3>
+    <div *ngIf="schedule()?.bookedSlots?.length === 0" class="empty-state">
+      No appointments
+    </div>
+
+    <div *ngFor="let slot of schedule()?.bookedSlots" class="schedule-row">
+      <div>{{ slot.start | date: 'shortTime' }} - {{ slot.end | date: 'shortTime' }}</div>
+      <div>{{ slot.status }}</div>
+    </div>
+  </section>
+
+  <section class="schedule-section">
+    <h3>Available Slots</h3>
+    <div *ngIf="schedule()?.availableSlots?.length === 0" class="empty-state">
+      No available slots
+    </div>
+
+    <div *ngFor="let slot of schedule()?.availableSlots" class="schedule-row">
+      <div>{{ slot.start | date: 'shortTime' }} - {{ slot.end | date: 'shortTime' }}</div>
+    </div>
+  </section>
+</section>

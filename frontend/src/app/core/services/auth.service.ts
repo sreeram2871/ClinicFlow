@@ -1,7 +1,7 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, switchMap, tap } from 'rxjs/operators';
 
 import { LoginRequest, LoginResponse } from '../../models/auth.model';
 import { CurrentUser } from '../../models/user.model';
@@ -22,15 +22,15 @@ export class AuthService {
     return this.http.post<LoginResponse>('https://localhost:7008/api/v1/auth/login', request).pipe(
       tap((response) => {
         this.accessToken = response.accessToken;
-
-        this.currentUserSignal.set({
-          id: '',
-          fullName: response.fullName,
-          email: request.email,
-          role: response.role,
-          tenantId: response.tenantId,
-        });
       }),
+      switchMap((response) =>
+        this.http.get<CurrentUser>('https://localhost:7008/api/v1/auth/me').pipe(
+          map((currentUser) => {
+            this.currentUserSignal.set(currentUser);
+            return response;
+          }),
+        ),
+      ),
     );
   }
 

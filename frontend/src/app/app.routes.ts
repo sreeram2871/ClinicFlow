@@ -34,6 +34,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/admin/patient-detail/patient-detail.component').then((m) => m.PatientDetailComponent),
       },
+      {
+        path: 'schedule',
+        loadComponent: () =>
+          import('./features/doctor/my-schedule/my-schedule.component').then((m) => m.MyScheduleComponent),
+      },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
