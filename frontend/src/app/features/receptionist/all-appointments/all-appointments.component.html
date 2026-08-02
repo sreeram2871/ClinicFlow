@@ -1,0 +1,115 @@
+<section class="all-appointments">
+  <h1>All Appointments</h1>
+
+  <div class="filters">
+    <label>
+      <span>Doctor</span>
+      <select class="form-input" [value]="selectedDoctorId()" (change)="onDoctorChange($any($event.target).value)">
+        <option value="">Select doctor</option>
+        <option *ngFor="let doctor of doctors()" [value]="doctor.id">{{ doctor.fullName }}</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Date</span>
+      <input class="form-input" type="date" [value]="selectedDate()" (change)="onDateChange($any($event.target).value)" />
+    </label>
+  </div>
+
+  <form class="booking-form" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+    <label>
+      <span>Patient</span>
+      <select class="form-input" formControlName="patientId" [disabled]="!selectedDoctorId()">
+        <option value="">Select patient</option>
+        <option *ngFor="let patient of patients()" [value]="patient.id">{{ patient.fullName }}</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Start</span>
+      <input class="form-input" type="datetime-local" formControlName="start" [disabled]="!selectedDoctorId()" />
+    </label>
+
+    <label>
+      <span>End</span>
+      <input class="form-input" type="datetime-local" formControlName="end" [disabled]="!selectedDoctorId()" />
+    </label>
+
+    <button class="submit-button" type="submit" [disabled]="bookingForm.invalid || !selectedDoctorId()">
+      Book Appointment
+    </button>
+  </form>
+
+  <div *ngIf="errorMessage() as message" class="error-message">
+    {{ message }}
+  </div>
+
+  <section class="appointments-panel" *ngIf="schedule() as scheduleData">
+    <h2>Booked Appointments</h2>
+
+    <div class="appointments-list" *ngIf="scheduleData.bookedSlots.length > 0; else noAppointments">
+      <div class="appointment-row" *ngFor="let appointment of scheduleData.bookedSlots">
+        <div class="appointment-meta">
+          <span class="time-range">{{ appointment.start | date: 'shortTime' }} → {{ appointment.end | date: 'shortTime' }}</span>
+          <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
+        </div>
+
+        <div class="appointment-actions">
+          <button
+            *ngIf="appointment.status === 'Requested'"
+            class="action-button confirm"
+            type="button"
+            [disabled]="actionInProgress() === appointment.appointmentId"
+            (click)="confirmAppointment(appointment.appointmentId)"
+          >
+            Confirm
+          </button>
+
+          <button
+            *ngIf="appointment.status === 'Requested'"
+            class="action-button cancel"
+            type="button"
+            [disabled]="actionInProgress() === appointment.appointmentId"
+            (click)="cancelAppointment(appointment.appointmentId)"
+          >
+            Cancel
+          </button>
+
+          <button
+            *ngIf="appointment.status === 'Confirmed'"
+            class="action-button complete"
+            type="button"
+            [disabled]="actionInProgress() === appointment.appointmentId"
+            (click)="completeAppointment(appointment.appointmentId, 'Completed')"
+          >
+            Complete
+          </button>
+
+          <button
+            *ngIf="appointment.status === 'Confirmed'"
+            class="action-button no-show"
+            type="button"
+            [disabled]="actionInProgress() === appointment.appointmentId"
+            (click)="completeAppointment(appointment.appointmentId, 'NoShow')"
+          >
+            No Show
+          </button>
+
+          <button
+            *ngIf="appointment.status === 'Confirmed'"
+            class="action-button cancel"
+            type="button"
+            [disabled]="actionInProgress() === appointment.appointmentId"
+            (click)="cancelAppointment(appointment.appointmentId)"
+          >
+            Cancel
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noAppointments>
+      <p>No booked appointments found for the selected doctor and date.</p>
+    </ng-template>
+  </section>
+</section>

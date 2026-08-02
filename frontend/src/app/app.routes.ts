@@ -39,6 +39,16 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/doctor/my-schedule/my-schedule.component').then((m) => m.MyScheduleComponent),
       },
+      {
+        path: 'appointments',
+        loadComponent: () =>
+          import('./features/receptionist/all-appointments/all-appointments.component').then((m) => m.AllAppointmentsComponent),
+      },
+      {
+        path: 'appointments',
+        loadComponent: () =>
+          import('./features/receptionist/all-appointments/all-appointments.component').then((m) => m.AllAppointmentsComponent),
+      },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' },
