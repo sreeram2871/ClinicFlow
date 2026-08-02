@@ -1,0 +1,32 @@
+.patients-list {
+  padding: 1rem 0;
+}
+
+.patients-table {
+  width: 100%;
+  border-collapse: collapse;
+  background: #fff;
+}
+
+.patients-table th,
+.patients-table td {
+  padding: 0.9rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid #d9e0ea;
+}
+
+.patients-table th {
+  color: #4b5563;
+  font-size: 0.9rem;
+  font-weight: 700;
+  background: #f8fafc;
+}
+
+.clickable-row {
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.clickable-row:hover {
+  background: #eef4ff;
+}

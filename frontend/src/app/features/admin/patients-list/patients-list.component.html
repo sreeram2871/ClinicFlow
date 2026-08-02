@@ -1,0 +1,24 @@
+<section class="patients-list">
+  <h2>Patients</h2>
+
+  <table class="patients-table" aria-label="Patients table">
+    <thead>
+      <tr>
+        <th>Full Name</th>
+        <th>Date of Birth</th>
+        <th>Phone</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        *ngFor="let patient of patients()"
+        (click)="goToPatient(patient.id)"
+        class="clickable-row"
+      >
+        <td>{{ patient.fullName }}</td>
+        <td>{{ patient.dateOfBirth | date: 'mediumDate' }}</td>
+        <td>{{ patient.phone }}</td>
+      </tr>
+    </tbody>
+  </table>
+</section>
