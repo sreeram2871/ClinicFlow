@@ -76,7 +76,8 @@ builder.Services.AddScoped<ICurrentTenantProvider, TemporaryTenantProvider>();
 // Register the DbContext, pointing at the connection string
 builder.Services.AddDbContext<ClinicFlowDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
-
+builder.Services.AddHttpContextAccessor();
+builder.Services.AddScoped<ICurrentTenantProvider, JwtTenantProvider>(); // was TemporaryTenantProvider
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
