@@ -144,19 +144,6 @@
           }
         }
       },
-      "MediatR.Extensions.Microsoft.DependencyInjection/11.1.0": {
-        "type": "package",
-        "dependencies": {
-          "MediatR": "[11.0.0, 12.0.0)",
-          "Microsoft.Extensions.DependencyInjection.Abstractions": "7.0.0"
-        },
-        "compile": {
-          "lib/netstandard2.1/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
-        },
-        "runtime": {
-          "lib/netstandard2.1/MediatR.Extensions.Microsoft.DependencyInjection.dll": {}
-        }
-      },
       "Microsoft.AspNetCore.Authentication.JwtBearer/9.0.18": {
         "type": "package",
         "dependencies": {
@@ -1947,19 +1934,6 @@
         "lib/netstandard2.0/MediatR.Contracts.xml",
         "mediatr.contracts.2.0.1.nupkg.sha512",
         "mediatr.contracts.nuspec"
-      ]
-    },
-    "MediatR.Extensions.Microsoft.DependencyInjection/11.1.0": {
-      "sha512": "RW3etRuy6Xp63cgqfC0r/ITOtUT0f9ymJl1+1XZdzsYUsfv7WBPC2kXGOP8IYpY/6c4Q6805vbIW/88DopUs3w==",
-      "type": "package",
-      "path": "mediatr.extensions.microsoft.dependencyinjection/11.1.0",
-      "files": [
-        ".nupkg.metadata",
-        ".signature.p7s",
-        "gradient_128x128.png",
-        "lib/netstandard2.1/MediatR.Extensions.Microsoft.DependencyInjection.dll",
-        "mediatr.extensions.microsoft.dependencyinjection.11.1.0.nupkg.sha512",
-        "mediatr.extensions.microsoft.dependencyinjection.nuspec"
       ]
     },
     "Microsoft.AspNetCore.Authentication.JwtBearer/9.0.18": {
@@ -5159,7 +5133,6 @@
       "Bogus >= 35.6.5",
       "FluentValidation.DependencyInjectionExtensions >= 12.1.1",
       "MediatR >= 14.2.0",
-      "MediatR.Extensions.Microsoft.DependencyInjection >= 11.1.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 9.0.18",
       "Microsoft.AspNetCore.OpenApi >= 9.0.18",
       "Microsoft.EntityFrameworkCore >= 9.0.18",
@@ -5235,10 +5208,6 @@
             "target": "Package",
             "version": "[14.2.0, )"
           },
-          "MediatR.Extensions.Microsoft.DependencyInjection": {
-            "target": "Package",
-            "version": "[11.1.0, )"
-          },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",
             "version": "[9.0.18, )"
@@ -5292,17 +5261,5 @@
         "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.316/PortableRuntimeIdentifierGraph.json"
       }
     }
-  },
-  "logs": [
-    {
-      "code": "NU1608",
-      "level": "Warning",
-      "warningLevel": 1,
-      "message": "Detected package version outside of dependency constraint: MediatR.Extensions.Microsoft.DependencyInjection 11.1.0 requires MediatR (>= 11.0.0 && < 12.0.0) but version MediatR 14.2.0 was resolved.",
-      "libraryId": "MediatR",
-      "targetGraphs": [
-        "net9.0"
-      ]
-    }
-  ]
+  }
 }

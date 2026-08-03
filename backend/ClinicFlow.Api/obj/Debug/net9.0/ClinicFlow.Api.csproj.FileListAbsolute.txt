@@ -346,5 +346,4 @@ C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api\obj\Debug\net9.0\
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api\obj\Debug\net9.0\ref\ClinicFlow.Api.dll
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api\obj\Debug\net9.0\staticwebassets.upToDateCheck.txt
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api\bin\Debug\net9.0\Microsoft.Bcl.Cryptography.dll
-C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api\bin\Debug\net9.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll

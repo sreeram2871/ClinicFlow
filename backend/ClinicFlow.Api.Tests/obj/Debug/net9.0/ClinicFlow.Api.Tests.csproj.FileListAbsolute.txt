@@ -26,7 +26,6 @@ C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api.Tests\bin\Debug\n
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api.Tests\bin\Debug\net9.0\FluentValidation.DependencyInjectionExtensions.dll
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api.Tests\bin\Debug\net9.0\MediatR.dll
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api.Tests\bin\Debug\net9.0\MediatR.Contracts.dll
-C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api.Tests\bin\Debug\net9.0\MediatR.Extensions.Microsoft.DependencyInjection.dll
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api.Tests\bin\Debug\net9.0\Microsoft.AspNetCore.Authentication.JwtBearer.dll
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api.Tests\bin\Debug\net9.0\Microsoft.AspNetCore.OpenApi.dll
 C:\Dev\ClinicFlow\ClinicFlow\ClinicFlow\backend\ClinicFlow.Api.Tests\bin\Debug\net9.0\Microsoft.Bcl.AsyncInterfaces.dll
