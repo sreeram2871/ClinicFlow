@@ -925,6 +925,9 @@
           "status": {
             "type": "string",
             "nullable": true
+          },
+          "hasPayment": {
+            "type": "boolean"
           }
         },
         "additionalProperties": false

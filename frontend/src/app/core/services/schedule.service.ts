@@ -46,4 +46,11 @@ export class ScheduleService {
   completeAppointment(id: string, status: 'Completed' | 'NoShow'): Observable<void> {
     return this.http.patch<void>(`https://localhost:7008/api/v1/appointments/${id}/complete`, { status });
   }
+
+  recordPayment(appointmentId: string, amount: number, method: 'Cash' | 'Other'): Observable<{ paymentId: string }> {
+    return this.http.post<{ paymentId: string }>(`https://localhost:7008/api/v1/appointments/${appointmentId}/payment`, {
+      amount,
+      method,
+    });
+  }
 }

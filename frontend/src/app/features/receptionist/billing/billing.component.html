@@ -1,0 +1,79 @@
+<section class="billing">
+  <h1>Billing</h1>
+
+  <div class="filters">
+    <label>
+      <span>Doctor</span>
+      <select class="form-input" [value]="selectedDoctorId()" (change)="onDoctorChange($any($event.target).value)">
+        <option value="">Select doctor</option>
+        <option *ngFor="let doctor of doctors()" [value]="doctor.id">{{ doctor.fullName }}</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Date</span>
+      <input class="form-input" type="date" [value]="selectedDate()" (change)="onDateChange($any($event.target).value)" />
+    </label>
+  </div>
+
+  <div *ngIf="errorMessage() as message" class="error-message">
+    {{ message }}
+  </div>
+
+  <div *ngIf="successMessage() as message" class="success-message">
+    {{ message }}
+  </div>
+
+  <section class="appointments-panel" *ngIf="schedule() as scheduleData">
+    <h2>Booked Appointments</h2>
+
+    <div class="appointments-list" *ngIf="scheduleData.bookedSlots.length > 0; else noAppointments">
+      <div class="appointment-row" *ngFor="let appointment of scheduleData.bookedSlots">
+        <div class="appointment-meta">
+          <span class="time-range">{{ appointment.start | date: 'shortTime' }} → {{ appointment.end | date: 'shortTime' }}</span>
+          <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
+        </div>
+
+        <div class="appointment-actions">
+          <button
+            *ngIf="appointment.status === 'Completed'"
+            class="action-button record"
+            type="button"
+            (click)="openPaymentForm(appointment.appointmentId)"
+          >
+            Record Payment
+          </button>
+
+          <form
+            *ngIf="payingAppointmentId() === appointment.appointmentId"
+            class="payment-form"
+            [formGroup]="paymentForm"
+            (ngSubmit)="submitPayment(appointment.appointmentId)"
+          >
+            <label>
+              <span>Amount</span>
+              <input class="form-input" type="number" formControlName="amount" min="1" />
+            </label>
+
+            <label>
+              <span>Method</span>
+              <select class="form-input" formControlName="method">
+                <option value="">Select method</option>
+                <option value="Cash">Cash</option>
+                <option value="Other">Other</option>
+              </select>
+            </label>
+
+            <button class="submit-button" type="submit" [disabled]="paymentForm.invalid">
+              Submit Payment
+            </button>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <ng-template #noAppointments>
+      <p>No booked appointments found for the selected doctor and date.</p>
+    </ng-template>
+  </section>
+</section>

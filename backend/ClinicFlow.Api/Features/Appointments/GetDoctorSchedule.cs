@@ -7,7 +7,7 @@ namespace ClinicFlow.Api.Features.Appointments;
 
 public record GetDoctorScheduleQuery(Guid DoctorId, DateTime Date) : IRequest<DoctorScheduleResponse>;
 
-public record BookedSlot(Guid AppointmentId, DateTime Start, DateTime End, string Status);
+public record BookedSlot(Guid AppointmentId, DateTime Start, DateTime End, string Status, bool HasPayment);
 public record AvailableSlot(DateTime Start, DateTime End);
 
 public record DoctorScheduleResponse(List<BookedSlot> BookedSlots, List<AvailableSlot> AvailableSlots);
@@ -25,22 +25,36 @@ public class GetDoctorScheduleHandler : IRequestHandler<GetDoctorScheduleQuery, 
     public async Task<DoctorScheduleResponse> Handle(GetDoctorScheduleQuery request, CancellationToken cancellationToken)
     {
         var dayOfWeek = request.Date.DayOfWeek;
-
         var schedule = await _db.DoctorSchedules
             .FirstOrDefaultAsync(s => s.DoctorId == request.DoctorId && s.DayOfWeek == dayOfWeek, cancellationToken);
 
         var dayStart = request.Date.Date;
         var dayEnd = dayStart.AddDays(1);
 
-        var bookedAppointments = await _db.Appointments
+        // ALL appointments that day, for display — includes Completed so
+        // Billing can find them, and so completed visits don't just
+        // silently vanish from the schedule view.
+        var allAppointmentsForDay = await _db.Appointments
             .Where(a => a.DoctorId == request.DoctorId)
-            .Where(a => a.Status == AppointmentStatus.Requested || a.Status == AppointmentStatus.Confirmed)
+            .Where(a => a.Status != AppointmentStatus.Cancelled) // still hide cancelled — clutter, not useful here
             .Where(a => a.ScheduledStart >= dayStart && a.ScheduledStart < dayEnd)
             .OrderBy(a => a.ScheduledStart)
             .ToListAsync(cancellationToken);
 
-        var bookedSlots = bookedAppointments
-            .Select(a => new BookedSlot(a.Id, a.ScheduledStart, a.ScheduledEnd, a.Status.ToString()))
+        // Only ACTIVE (Requested/Confirmed) appointments block new bookings —
+        // this is the conflict-check list, kept separate on purpose.
+        var activeAppointments = allAppointmentsForDay
+            .Where(a => a.Status == AppointmentStatus.Requested || a.Status == AppointmentStatus.Confirmed)
+            .ToList();
+
+        var appointmentIds = allAppointmentsForDay.Select(a => a.Id).ToList();
+        var paidAppointmentIds = await _db.Payments
+            .Where(p => appointmentIds.Contains(p.AppointmentId))
+            .Select(p => p.AppointmentId)
+            .ToListAsync(cancellationToken);
+
+        var bookedSlots = allAppointmentsForDay
+            .Select(a => new BookedSlot(a.Id, a.ScheduledStart, a.ScheduledEnd, a.Status.ToString(), paidAppointmentIds.Contains(a.Id)))
             .ToList();
 
         var availableSlots = new List<AvailableSlot>();
@@ -54,7 +68,9 @@ public class GetDoctorScheduleHandler : IRequestHandler<GetDoctorScheduleQuery, 
             {
                 var slotEnd = slotStart.Add(SlotDuration);
 
-                var overlapsBooked = bookedAppointments.Any(a =>
+                // Conflict check uses ONLY active appointments — a completed
+                // or cancelled visit must never block a new booking.
+                var overlapsBooked = activeAppointments.Any(a =>
                     a.ScheduledStart < slotEnd && a.ScheduledEnd > slotStart);
 
                 if (!overlapsBooked)
