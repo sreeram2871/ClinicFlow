@@ -3,6 +3,7 @@ using ClinicFlow.Api.Features.Appointments;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Security.Claims;
 namespace ClinicFlow.Api.Controllers;
 
 [ApiController]
@@ -36,7 +37,9 @@ public class AppointmentsController : ControllerBase
     [Authorize]
     public async Task<IActionResult> Cancel(Guid id)
     {
-        await _mediator.Send(new CancelAppointmentCommand(id));
+        var userId = Guid.Parse(User.FindFirstValue(ClaimTypes.NameIdentifier)!);
+        var role = User.FindFirstValue(ClaimTypes.Role)!;
+        await _mediator.Send(new CancelAppointmentCommand(id, userId, role));
         return NoContent();
     }
 

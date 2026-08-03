@@ -727,6 +727,35 @@
         }
       }
     },
+    "/api/v1/patients/me": {
+      "get": {
+        "tags": [
+          "Patients"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientRecordResponse"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientRecordResponse"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PatientRecordResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/v1/patients/{patientId}/prescriptions": {
       "post": {
         "tags": [

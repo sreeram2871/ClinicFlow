@@ -69,12 +69,12 @@ public class AppointmentStatusTransitionTests
     // --- Cancel ---
 
     [Test]
-    public async Task Cancel_WhenConfirmed_SucceedsAndUpdatesStatus()
+    public async Task Cancel_WhenConfirmedAndStaffRole_SucceedsAndUpdatesStatus()
     {
         var appointment = SeedAppointment(AppointmentStatus.Confirmed);
         var handler = new CancelAppointmentHandler(_db);
 
-        await handler.Handle(new CancelAppointmentCommand(appointment.Id), CancellationToken.None);
+        await handler.Handle(new CancelAppointmentCommand(appointment.Id, Guid.NewGuid(), "Receptionist"), CancellationToken.None);
 
         var updated = await _db.Appointments.FindAsync(appointment.Id);
         Assert.That(updated!.Status, Is.EqualTo(AppointmentStatus.Cancelled));
@@ -87,7 +87,79 @@ public class AppointmentStatusTransitionTests
         var handler = new CancelAppointmentHandler(_db);
 
         Assert.ThrowsAsync<InvalidOperationException>(async () =>
-            await handler.Handle(new CancelAppointmentCommand(appointment.Id), CancellationToken.None));
+            await handler.Handle(new CancelAppointmentCommand(appointment.Id, Guid.NewGuid(), "Receptionist"), CancellationToken.None));
+    }
+
+    [Test]
+    public async Task Cancel_WhenPatientCancelsOwnAppointment_Succeeds()
+    {
+        var patientUserId = Guid.NewGuid();
+        var patientId = Guid.NewGuid();
+
+        _db.Patients.Add(new Patient
+        {
+            Id = patientId,
+            TenantId = _tenantId,
+            UserId = patientUserId,
+            FullName = "Test Patient",
+            DateOfBirth = new DateTime(1990, 1, 1)
+        });
+        _db.SaveChanges();
+
+        var appointment = new Appointment
+        {
+            Id = Guid.NewGuid(),
+            TenantId = _tenantId,
+            PatientId = patientId,
+            DoctorId = Guid.NewGuid(),
+            ScheduledStart = DateTime.UtcNow.AddDays(1),
+            ScheduledEnd = DateTime.UtcNow.AddDays(1).AddMinutes(30),
+            Status = AppointmentStatus.Confirmed
+        };
+        _db.Appointments.Add(appointment);
+        _db.SaveChanges();
+
+        var handler = new CancelAppointmentHandler(_db);
+
+        await handler.Handle(new CancelAppointmentCommand(appointment.Id, patientUserId, "Patient"), CancellationToken.None);
+
+        var updated = await _db.Appointments.FindAsync(appointment.Id);
+        Assert.That(updated!.Status, Is.EqualTo(AppointmentStatus.Cancelled));
+    }
+
+    [Test]
+    public void Cancel_WhenPatientCancelsSomeoneElsesAppointment_ThrowsForbiddenException()
+    {
+        var patientId = Guid.NewGuid();
+
+        _db.Patients.Add(new Patient
+        {
+            Id = patientId,
+            TenantId = _tenantId,
+            UserId = Guid.NewGuid(), // belongs to a DIFFERENT patient's account
+            FullName = "Owner Patient",
+            DateOfBirth = new DateTime(1990, 1, 1)
+        });
+        _db.SaveChanges();
+
+        var appointment = new Appointment
+        {
+            Id = Guid.NewGuid(),
+            TenantId = _tenantId,
+            PatientId = patientId,
+            DoctorId = Guid.NewGuid(),
+            ScheduledStart = DateTime.UtcNow.AddDays(1),
+            ScheduledEnd = DateTime.UtcNow.AddDays(1).AddMinutes(30),
+            Status = AppointmentStatus.Confirmed
+        };
+        _db.Appointments.Add(appointment);
+        _db.SaveChanges();
+
+        var handler = new CancelAppointmentHandler(_db);
+        var differentUserId = Guid.NewGuid(); // NOT the appointment's patient's UserId
+
+        Assert.ThrowsAsync<ClinicFlow.Api.Common.Errors.ForbiddenException>(async () =>
+            await handler.Handle(new CancelAppointmentCommand(appointment.Id, differentUserId, "Patient"), CancellationToken.None));
     }
 
     // --- Complete ---

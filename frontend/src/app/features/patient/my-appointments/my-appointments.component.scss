@@ -1,0 +1,116 @@
+.my-appointments {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.filters,
+.slot-row,
+.appointment-row {
+  display: flex;
+  gap: 1rem;
+}
+
+.filters {
+  align-items: end;
+  flex-wrap: wrap;
+}
+
+label {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.form-input {
+  min-width: 12rem;
+  padding: 0.5rem;
+  border: 1px solid #cbd5e1;
+  border-radius: 0.4rem;
+}
+
+.action-button {
+  border: none;
+  border-radius: 0.4rem;
+  padding: 0.55rem 0.9rem;
+  cursor: pointer;
+  background: #2563eb;
+  color: white;
+}
+
+.action-button.cancel {
+  background: #dc2626;
+}
+
+.error-message {
+  color: #b91c1c;
+  font-weight: 600;
+}
+
+.success-message {
+  color: #15803d;
+  font-weight: 600;
+}
+
+.slots-panel,
+.appointments-panel {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.slots-list,
+.appointments-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.slot-row,
+.appointment-row {
+  align-items: center;
+  justify-content: space-between;
+  border: 1px solid #e2e8f0;
+  border-radius: 0.5rem;
+  padding: 0.9rem;
+  background: #f8fafc;
+}
+
+.appointment-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.status-badge {
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+  font-size: 0.8rem;
+  font-weight: 700;
+}
+
+.status-badge.requested {
+  background: #dbeafe;
+  color: #1d4ed8;
+}
+
+.status-badge.confirmed {
+  background: #dcfce7;
+  color: #15803d;
+}
+
+.status-badge.completed {
+  background: #ccfbf1;
+  color: #0f766e;
+}
+
+.status-badge.cancelled {
+  background: #fee2e2;
+  color: #b91c1c;
+}
+
+.status-badge.noshow {
+  background: #fef3c7;
+  color: #b45309;
+}

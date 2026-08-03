@@ -465,6 +465,26 @@
     ]
   },
   {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "GetMyPatientRecord",
+    "RelativePath": "api/v1/patients/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Patients.PatientRecordResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
     "ContainingType": "ClinicFlow.Api.Controllers.ReportsController",
     "Method": "GetDashboard",
     "RelativePath": "api/v1/reports/dashboard",

@@ -1,0 +1,67 @@
+<section class="my-appointments">
+  <h1>Book an Appointment</h1>
+
+  <div class="filters">
+    <label>
+      <span>Doctor</span>
+      <select class="form-input" [value]="selectedDoctorId()" (change)="onDoctorChange($any($event.target).value)">
+        <option value="">Select doctor</option>
+        <option *ngFor="let doctor of doctors()" [value]="doctor.id">{{ doctor.fullName }}</option>
+      </select>
+    </label>
+
+    <label>
+      <span>Date</span>
+      <input class="form-input" type="date" [value]="selectedDate()" (change)="onDateChange($any($event.target).value)" />
+    </label>
+  </div>
+
+  <div *ngIf="errorMessage() as message" class="error-message">
+    {{ message }}
+  </div>
+
+  <div *ngIf="successMessage() as message" class="success-message">
+    {{ message }}
+  </div>
+
+  <section class="slots-panel">
+    <h2>Available Slots</h2>
+
+    <div class="slots-list" *ngIf="availableSlots().length > 0; else noSlots">
+      <div class="slot-row" *ngFor="let slot of availableSlots()">
+        <span class="time-range">{{ slot.start | date: 'shortTime' }} → {{ slot.end | date: 'shortTime' }}</span>
+        <button class="action-button" type="button" (click)="bookSlot(slot)">Book</button>
+      </div>
+    </div>
+
+    <ng-template #noSlots>
+      <p>No available slots found for the selected doctor and date.</p>
+    </ng-template>
+  </section>
+
+  <section class="appointments-panel">
+    <h2>My Upcoming Appointments</h2>
+
+    <div class="appointments-list" *ngIf="appointments().length > 0; else noAppointments">
+      <div class="appointment-row" *ngFor="let appointment of appointments()">
+        <div class="appointment-meta">
+          <span class="time-range">{{ appointment.start | date: 'shortTime' }} → {{ appointment.end | date: 'shortTime' }}</span>
+          <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
+        </div>
+
+        <button
+          *ngIf="appointment.status === 'Requested' || appointment.status === 'Confirmed'"
+          class="action-button cancel"
+          type="button"
+          (click)="cancelMyAppointment(appointment.appointmentId)"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+
+    <ng-template #noAppointments>
+      <p>You have no upcoming appointments.</p>
+    </ng-template>
+  </section>
+</section>
