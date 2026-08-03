@@ -36,13 +36,15 @@
 
         <div class="appointment-actions">
           <button
-            *ngIf="appointment.status === 'Completed'"
+            *ngIf="appointment.status === 'Completed' && !appointment.hasPayment"
             class="action-button record"
             type="button"
             (click)="openPaymentForm(appointment.appointmentId)"
           >
             Record Payment
           </button>
+
+          <span *ngIf="appointment.status === 'Completed' && appointment.hasPayment" class="paid-label">Paid</span>
 
           <form
             *ngIf="payingAppointmentId() === appointment.appointmentId"

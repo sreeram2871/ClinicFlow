@@ -66,6 +66,14 @@ label {
   font-weight: 600;
 }
 
+.paid-label {
+  color: #166534;
+  font-weight: 700;
+  background: #dcfce7;
+  border-radius: 999px;
+  padding: 0.2rem 0.55rem;
+}
+
 .appointments-panel {
   display: flex;
   flex-direction: column;

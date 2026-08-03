@@ -45,9 +45,9 @@ export const routes: Routes = [
           import('./features/receptionist/all-appointments/all-appointments.component').then((m) => m.AllAppointmentsComponent),
       },
       {
-        path: 'appointments',
+        path: 'billing',
         loadComponent: () =>
-          import('./features/receptionist/all-appointments/all-appointments.component').then((m) => m.AllAppointmentsComponent),
+          import('./features/receptionist/billing/billing.component').then((m) => m.BillingComponent),
       },
     ],
   },

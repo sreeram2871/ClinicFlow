@@ -3,6 +3,7 @@ export interface BookedSlot {
   start: string;
   end: string;
   status: string;
+  hasPayment: boolean;
 }
 
 export interface AvailableSlot {
