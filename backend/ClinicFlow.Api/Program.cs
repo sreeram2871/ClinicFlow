@@ -70,14 +70,13 @@ builder.Services.AddControllers()
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
 builder.Services.AddOpenApi();
 
-// Register the tenant provider (temporary version for now)
-builder.Services.AddScoped<ICurrentTenantProvider, TemporaryTenantProvider>();
+
 
 // Register the DbContext, pointing at the connection string
 builder.Services.AddDbContext<ClinicFlowDbContext>(options =>
     options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHttpContextAccessor();
-builder.Services.AddScoped<ICurrentTenantProvider, JwtTenantProvider>(); // was TemporaryTenantProvider
+builder.Services.AddScoped<ICurrentTenantProvider, JwtTenantProvider>(); 
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
 builder.Services.AddScoped<IJwtTokenService, JwtTokenService>();
 
