@@ -188,14 +188,13 @@ Status: In progress
   - [x] My Appointments verified end-to-end in browser as Patient: doctor/date pickers work, available slots show, booking succeeds and appears as Requested, cancelling works and correctly frees the slot back into Available Slots immediately — MY APPOINTMENTS SCREEN FULLY COMPLETE
 - **ALL 9 FRONTEND SCREENS NOW COMPLETE**: Dashboard, Manage Staff, Patients, My Schedule, All Appointments, Billing, Register Patient, My Appointments — every screen from the PDR built, reviewed, and verified in a real browser
   - **[CONFIRMED EXPECTED BEHAVIOR, not a bug]**: full page refresh logs the user out and redirects to /login. This is the direct, correct consequence of the in-memory-only token storage decision from the PDR's security notes (no localStorage/sessionStorage, to reduce XSS token-theft risk) — refresh wipes all JS memory including the AuthService signal. User confirmed: leave as-is for now, revisit alongside the still-deferred refresh token flow later rather than compromise with sessionStorage or build the full HttpOnly-cookie refresh flow right now.
-  - **[MINOR, TO FIX]**: staff panel rows render with no spacing between name/role/status ("Asha AdminAdminActive" runs together) — CSS gap issue in .staff-row, cosmetic only, low priority
 - [x] Implement auth flow (login, token storage, refresh-on-401, logout) — NOTE: refresh-on-401 deferred along with backend refresh tokens; current behavior on token expiry is clean logout + redirect to login, not silent refresh
 - [x] Implement role-based navigation and conditional rendering per role
-- [ ] Implement Appointments UI (patient self-booking + receptionist booking view)
-- [ ] Implement Patient Records UI
-- [ ] Implement Billing UI
-- [ ] Implement Prescriptions UI
-- [ ] Implement Reports dashboard UI
+- [x] Implement Appointments UI (patient self-booking + receptionist booking view) — built as two screens: All Appointments (Receptionist, booking/confirm/cancel/complete) and My Appointments (Patient, self-booking/cancel), both verified end-to-end
+- [x] Implement Patient Records UI — built as the Patients screen (list, profile, history, add note), verified end-to-end
+- [x] Implement Billing UI — built and verified end-to-end
+- [x] Implement Prescriptions UI — built nested under Patients (view + Doctor create), verified end-to-end
+- [x] Implement Reports dashboard UI — built as the Admin Dashboard (stat cards, charts, staff panel), verified end-to-end
 
 ### Verification Plan
 - `ng build` succeeds with zero errors.
