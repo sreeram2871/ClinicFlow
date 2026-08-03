@@ -55,5 +55,13 @@ public class PatientsController : ControllerBase
         var result = await _mediator.Send(new GetPatientsListQuery(userId, role));
         return Ok(result);
     }
+
+    [HttpPost]
+    [Authorize(Roles = "Receptionist")]
+    public async Task<ActionResult<RegisterWalkInPatientResponse>> RegisterWalkInPatient(RegisterWalkInPatientCommand command)
+    {
+        var result = await _mediator.Send(command);
+        return Ok(result);
+    }
     public record AddMedicalRecordEntryBody(string Notes, Guid? AppointmentId);
 }

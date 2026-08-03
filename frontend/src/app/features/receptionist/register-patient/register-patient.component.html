@@ -1,0 +1,37 @@
+<section class="register-patient">
+  <h1>Register Walk-In Patient</h1>
+
+  <form class="patient-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+    <label>
+      <span>Full Name</span>
+      <input class="form-input" type="text" formControlName="fullName" />
+    </label>
+
+    <label>
+      <span>Date of Birth</span>
+      <input class="form-input" type="date" formControlName="dateOfBirth" />
+    </label>
+
+    <label>
+      <span>Phone</span>
+      <input class="form-input" type="tel" formControlName="phone" />
+    </label>
+
+    <label>
+      <span>Email</span>
+      <input class="form-input" type="email" formControlName="email" />
+    </label>
+
+    <button class="submit-button" type="submit" [disabled]="isSubmitting()">
+      {{ isSubmitting() ? 'Registering...' : 'Register Patient' }}
+    </button>
+  </form>
+
+  <div *ngIf="errorMessage() as message" class="error-message">
+    {{ message }}
+  </div>
+
+  <div *ngIf="successMessage() as message" class="success-message">
+    {{ message }}
+  </div>
+</section>

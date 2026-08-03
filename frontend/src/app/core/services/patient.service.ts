@@ -30,4 +30,13 @@ export class PatientService {
       appointmentId,
     });
   }
+
+  registerWalkInPatient(fullName: string, dateOfBirth: string, phone: string, email: string): Observable<{ patientId: string }> {
+    return this.http.post<{ patientId: string }>('https://localhost:7008/api/v1/patients', {
+      fullName,
+      dateOfBirth,
+      phone,
+      email,
+    });
+  }
 }

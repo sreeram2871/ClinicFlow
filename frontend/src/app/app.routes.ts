@@ -49,6 +49,11 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./features/receptionist/billing/billing.component').then((m) => m.BillingComponent),
       },
+      {
+        path: 'register-patient',
+        loadComponent: () =>
+          import('./features/receptionist/register-patient/register-patient.component').then((m) => m.RegisterPatientComponent),
+      },
     ],
   },
   { path: '', pathMatch: 'full', redirectTo: 'login' },

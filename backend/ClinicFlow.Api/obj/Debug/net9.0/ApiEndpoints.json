@@ -300,6 +300,32 @@
   },
   {
     "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "RegisterWalkInPatient",
+    "RelativePath": "api/v1/patients",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ClinicFlow.Api.Features.Patients.RegisterWalkInPatientCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Patients.RegisterWalkInPatientResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
     "Method": "GetPatientRecord",
     "RelativePath": "api/v1/patients/{id}",
     "HttpMethod": "GET",
