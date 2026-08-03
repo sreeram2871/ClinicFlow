@@ -58,7 +58,7 @@ public class AppointmentsController : ControllerBase
         return Ok(result);
     }
     [HttpGet("doctors")]
-    [Authorize(Roles = "Admin,Receptionist")]
+    [Authorize(Roles = "Admin,Receptionist,Patient")]
     public async Task<ActionResult<List<DoctorListItemResponse>>> GetDoctorsList()
     {
         var result = await _mediator.Send(new GetDoctorsListQuery());

@@ -136,6 +136,7 @@ export class MyAppointmentsComponent implements OnInit {
     this.scheduleService.cancelAppointment(id).subscribe({
       next: () => {
         this.loadMyAppointments();
+        this.loadAvailableSlots();
       },
       error: (error: HttpErrorResponse) => {
         console.error('Cancel appointment failed', error);
