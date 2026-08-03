@@ -1,8 +1,9 @@
 ﻿using ClinicFlow.Api.Features.Auth;
+using ClinicFlow.Api.Infrastructure.Auth;
 using MediatR;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
-using Microsoft.AspNetCore.Authorization;
 namespace ClinicFlow.Api.Controllers;
 
 [ApiController]
@@ -20,6 +21,15 @@ public class AuthController : ControllerBase
     public async Task<ActionResult<LoginResponse>> Login(LoginCommand command)
     {
         var result = await _mediator.Send(command);
+
+        Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTimeOffset.UtcNow.AddDays(7)
+        });
+
         return Ok(result);
     }
     [HttpGet("me")]
@@ -49,5 +59,42 @@ public class AuthController : ControllerBase
     {
         var result = await _mediator.Send(new GetStaffListQuery());
         return Ok(result);
+    }
+    [HttpPost("refresh")]
+    public async Task<ActionResult<RefreshTokenResponse>> Refresh()
+    {
+        var refreshTokenValue = Request.Cookies["refreshToken"];
+
+        if (string.IsNullOrEmpty(refreshTokenValue))
+        {
+            return Unauthorized(new { detail = "No refresh token provided." });
+        }
+
+        var result = await _mediator.Send(new RefreshTokenCommand(refreshTokenValue));
+
+        Response.Cookies.Append("refreshToken", result.RefreshToken, new CookieOptions
+        {
+            HttpOnly = true,
+            Secure = true,
+            SameSite = SameSiteMode.Strict,
+            Expires = DateTimeOffset.UtcNow.AddDays(7)
+        });
+
+        return Ok(result);
+    }
+
+    [HttpPost("logout")]
+    [Authorize]
+    public async Task<IActionResult> Logout([FromServices] IRefreshTokenService refreshTokenService)
+    {
+        var refreshTokenValue = Request.Cookies["refreshToken"];
+
+        if (!string.IsNullOrEmpty(refreshTokenValue))
+        {
+            await refreshTokenService.RevokeAsync(refreshTokenValue, CancellationToken.None);
+        }
+
+        Response.Cookies.Delete("refreshToken");
+        return NoContent();
     }
 }

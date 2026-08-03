@@ -8,7 +8,7 @@ namespace ClinicFlow.Api.Features.Auth;
 
 public record LoginCommand(string Email, string Password) : IRequest<LoginResponse>;
 
-public record LoginResponse(string AccessToken, string FullName, string Role, Guid TenantId);
+public record LoginResponse(string AccessToken, string RefreshToken, string FullName, string Role, Guid TenantId);
 
 public class LoginCommandValidator : AbstractValidator<LoginCommand>
 {
@@ -24,12 +24,18 @@ public class LoginHandler : IRequestHandler<LoginCommand, LoginResponse>
     private readonly ClinicFlowDbContext _db;
     private readonly IPasswordHasher _passwordHasher;
     private readonly IJwtTokenService _tokenService;
+    private readonly IRefreshTokenService _refreshTokenService;
 
-    public LoginHandler(ClinicFlowDbContext db, IPasswordHasher passwordHasher, IJwtTokenService tokenService)
+    public LoginHandler(
+        ClinicFlowDbContext db,
+        IPasswordHasher passwordHasher,
+        IJwtTokenService tokenService,
+        IRefreshTokenService refreshTokenService)
     {
         _db = db;
         _passwordHasher = passwordHasher;
         _tokenService = tokenService;
+        _refreshTokenService = refreshTokenService;
     }
 
     public async Task<LoginResponse> Handle(LoginCommand request, CancellationToken cancellationToken)
@@ -48,7 +54,8 @@ public class LoginHandler : IRequestHandler<LoginCommand, LoginResponse>
         }
 
         var accessToken = _tokenService.GenerateAccessToken(user);
+        var refreshToken = await _refreshTokenService.GenerateAsync(user, cancellationToken);
 
-        return new LoginResponse(accessToken, user.FullName, user.Role.ToString(), user.TenantId);
+        return new LoginResponse(accessToken, refreshToken, user.FullName, user.Role.ToString(), user.TenantId);
     }
 }

@@ -50,7 +50,7 @@ public class LoginHandlerTests
     public async Task Handle_WithCorrectCredentials_ReturnsTokenAndUserInfo()
     {
         var user = SeedUser();
-        var handler = new LoginHandler(_db, new FakePasswordHasher(shouldVerifySucceed: true), new FakeJwtTokenService());
+        var handler = new LoginHandler(_db, new FakePasswordHasher(shouldVerifySucceed: true), new FakeJwtTokenService(), new FakeRefreshTokenService());
 
         var result = await handler.Handle(new LoginCommand(user.Email, ValidPassword), CancellationToken.None);
 
@@ -63,16 +63,14 @@ public class LoginHandlerTests
     public void Handle_WithWrongPassword_ThrowsUnauthorizedAccessException()
     {
         var user = SeedUser();
-        var handler = new LoginHandler(_db, new FakePasswordHasher(shouldVerifySucceed: false), new FakeJwtTokenService());
-
+        var handler = new LoginHandler(_db, new FakePasswordHasher(shouldVerifySucceed: false), new FakeJwtTokenService(), new FakeRefreshTokenService());
         Assert.ThrowsAsync<UnauthorizedAccessException>(async () =>
             await handler.Handle(new LoginCommand(user.Email, "WrongPassword"), CancellationToken.None));
     }
-
     [Test]
     public void Handle_WithNonExistentEmail_ThrowsUnauthorizedAccessException()
     {
-        var handler = new LoginHandler(_db, new FakePasswordHasher(shouldVerifySucceed: true), new FakeJwtTokenService());
+        var handler = new LoginHandler(_db, new FakePasswordHasher(shouldVerifySucceed: true), new FakeJwtTokenService(), new FakeRefreshTokenService());
 
         Assert.ThrowsAsync<UnauthorizedAccessException>(async () =>
             await handler.Handle(new LoginCommand("doesnotexist@example.com", ValidPassword), CancellationToken.None));
@@ -82,7 +80,7 @@ public class LoginHandlerTests
     public void Handle_WithDeactivatedAccount_ThrowsUnauthorizedAccessException()
     {
         var user = SeedUser(isActive: false);
-        var handler = new LoginHandler(_db, new FakePasswordHasher(shouldVerifySucceed: true), new FakeJwtTokenService());
+        var handler = new LoginHandler(_db, new FakePasswordHasher(shouldVerifySucceed: true), new FakeJwtTokenService(), new FakeRefreshTokenService());
 
         Assert.ThrowsAsync<UnauthorizedAccessException>(async () =>
             await handler.Handle(new LoginCommand(user.Email, ValidPassword), CancellationToken.None));
@@ -103,4 +101,15 @@ public class FakePasswordHasher : IPasswordHasher
 public class FakeJwtTokenService : IJwtTokenService
 {
     public string GenerateAccessToken(User user) => "fake-token";
+}
+public class FakeRefreshTokenService : IRefreshTokenService
+{
+    public Task<string> GenerateAsync(User user, CancellationToken cancellationToken) =>
+        Task.FromResult("fake-refresh-token");
+
+    public Task<User?> ValidateAndConsumeAsync(string token, CancellationToken cancellationToken) =>
+        Task.FromResult<User?>(null);
+
+    public Task RevokeAsync(string token, CancellationToken cancellationToken) =>
+        Task.CompletedTask;
 }

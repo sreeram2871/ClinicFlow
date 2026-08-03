@@ -14,6 +14,7 @@ public class ClinicFlowDbContext : DbContext
 {
     private readonly ICurrentTenantProvider _tenantProvider;
     private Guid CurrentTenantId => _tenantProvider.TenantId;
+    public DbSet<RefreshToken> RefreshTokens => Set<RefreshToken>();
 
     public ClinicFlowDbContext(
         DbContextOptions<ClinicFlowDbContext> options,
