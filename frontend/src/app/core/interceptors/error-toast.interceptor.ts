@@ -8,7 +8,9 @@ export const errorToastInterceptor: HttpInterceptorFn = (req, next) => {
 
   return next(req).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status !== 401) {
+      const shouldSkipToast = error.status === 401 && !req.url.includes('/auth/login');
+
+      if (!shouldSkipToast) {
         const detail = error.error?.detail;
         const message = typeof detail === 'string' && detail.trim().length > 0
           ? detail
