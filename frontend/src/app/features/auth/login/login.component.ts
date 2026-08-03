@@ -46,15 +46,31 @@ export class LoginComponent {
     };
 
     this.authService.login(request).subscribe({
-      next: () => {
+      next: (response) => {
         this.isSubmitting.set(false);
-        this.router.navigateByUrl('/dashboard');
+        const role = response.role?.toLowerCase() ?? '';
+        this.router.navigateByUrl(this.getHomeRouteForRole(role));
       },
       error: (error: HttpErrorResponse) => {
         this.isSubmitting.set(false);
         this.errorMessage = this.extractErrorMessage(error);
       },
     });
+  }
+
+  private getHomeRouteForRole(role: string): string {
+    switch (role) {
+      case 'admin':
+        return '/dashboard';
+      case 'doctor':
+        return '/dashboard/schedule';
+      case 'receptionist':
+        return '/dashboard/appointments';
+      case 'patient':
+        return '/dashboard/my-appointments';
+      default:
+        return '/dashboard';
+    }
   }
 
   private extractErrorMessage(error: HttpErrorResponse): string {
