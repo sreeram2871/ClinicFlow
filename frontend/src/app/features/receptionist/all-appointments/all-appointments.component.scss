@@ -1,111 +1,206 @@
 .all-appointments {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
-  padding: 1rem;
+  gap: 24px;
+  padding: 8px 0;
 }
 
-.filters,
-.booking-form,
-.appointment-row,
-.appointment-actions {
-  display: flex;
-  gap: 1rem;
+h1,
+h2 {
+  margin: 0;
 }
 
-.filters,
-.booking-form {
-  align-items: end;
-  flex-wrap: wrap;
+.all-appointments h1 {
+  font-size: 1.7rem;
+  color: #10231d;
 }
 
-label {
+.picker-row {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(220px, 320px));
+  gap: 16px;
+}
+
+.picker-row label,
+.booking-form label {
   display: flex;
   flex-direction: column;
-  gap: 0.35rem;
+  gap: 6px;
+}
+
+.picker-row label > span,
+.booking-form label > span {
+  font-size: 0.88rem;
+  color: #4b5b57;
+  font-weight: 600;
+}
+
+.input-with-icon {
+  position: relative;
+}
+
+.leading-icon {
+  position: absolute;
+  left: 11px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 20px;
+  height: 20px;
+  font-size: 20px;
+  color: #5b716a;
+  pointer-events: none;
 }
 
 .form-input {
-  min-width: 12rem;
-  padding: 0.5rem;
-  border: 1px solid #cbd5e1;
-  border-radius: 0.4rem;
+  width: 100%;
+  min-height: 44px;
+  padding: 10px 12px 10px 40px;
+  border: 1px solid #d5e4de;
+  border-radius: 8px;
+  background: #ffffff;
+  box-sizing: border-box;
 }
 
-.submit-button,
-.action-button {
-  border: none;
-  border-radius: 0.4rem;
-  padding: 0.55rem 0.9rem;
-  cursor: pointer;
+.form-input:focus {
+  outline: none;
+  border-color: #0f6e56;
+  box-shadow: 0 0 0 3px rgba(15, 110, 86, 0.14);
+}
+
+.booking-form-card {
+  background: #ffffff;
+  border-radius: 16px;
+  box-shadow: var(--shadow-card);
+  padding: 32px;
+  animation: formCardEnter 420ms ease-out;
+}
+
+.form-heading {
+  margin: 0 0 18px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 1.25rem;
+}
+
+.form-heading mat-icon {
+  color: #0f6e56;
+}
+
+.booking-form {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(180px, 1fr));
+  gap: 14px;
+  align-items: end;
 }
 
 .submit-button {
-  background: #2563eb;
-  color: white;
+  border: none;
+  border-radius: 10px;
+  background: linear-gradient(135deg, #0F6E56 0%, #0C5744 100%);
+  color: #ffffff;
+  min-height: 44px;
+  padding: 10px 14px;
+  width: fit-content;
+  min-width: 190px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-smooth);
 }
 
-.action-button.confirm {
-  background: #16a34a;
-  color: white;
+.submit-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover);
 }
 
-.action-button.cancel {
-  background: #dc2626;
-  color: white;
-}
-
-.action-button.complete {
-  background: #0f766e;
-  color: white;
-}
-
-.action-button.no-show {
-  background: #b45309;
-  color: white;
-}
-
-.action-button:disabled,
 .submit-button:disabled {
-  opacity: 0.6;
+  opacity: 0.7;
   cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
 }
 
 .error-message {
-  color: #b91c1c;
+  color: #b42318;
   font-weight: 600;
+  margin: 0;
 }
 
 .appointments-panel {
   display: flex;
   flex-direction: column;
-  gap: 1rem;
+  gap: 14px;
+}
+
+.appointments-panel h2 {
+  font-size: 1.25rem;
+  color: #142a24;
 }
 
 .appointments-list {
   display: flex;
   flex-direction: column;
-  gap: 0.75rem;
+  gap: 12px;
 }
 
-.appointment-row {
-  align-items: center;
-  justify-content: space-between;
-  border: 1px solid #e2e8f0;
-  border-radius: 0.5rem;
-  padding: 0.9rem;
-  background: #f8fafc;
-}
-
-.appointment-meta {
+.appointment-card {
+  background: #ffffff;
+  border-radius: 14px;
+  box-shadow: var(--shadow-card);
+  border-left: 4px solid #7b8794;
+  padding: 14px 16px;
   display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.appointment-card.status-requested {
+  border-left-color: #2563eb;
+}
+
+.appointment-card.status-confirmed {
+  border-left-color: #15803d;
+}
+
+.appointment-card.status-completed {
+  border-left-color: #0f766e;
+}
+
+.appointment-card.status-cancelled {
+  border-left-color: #b91c1c;
+}
+
+.appointment-card.status-noshow {
+  border-left-color: #b45309;
+}
+
+.appointment-header {
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  gap: 0.75rem;
+  gap: 10px;
+}
+
+.appointment-time {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: #1f2937;
+  font-weight: 600;
+}
+
+.appointment-time mat-icon {
+  width: 18px;
+  height: 18px;
+  font-size: 18px;
+  color: #45665e;
 }
 
 .status-badge {
   border-radius: 999px;
-  padding: 0.2rem 0.55rem;
+  padding: 5px 10px;
   font-size: 0.8rem;
   font-weight: 700;
 }
@@ -133,4 +228,128 @@ label {
 .status-badge.noshow {
   background: #fef3c7;
   color: #b45309;
+}
+
+.appointment-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.action-button {
+  border: none;
+  border-radius: 10px;
+  padding: 8px 12px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #ffffff;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.action-button mat-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+}
+
+.action-button:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 10px 20px rgba(15, 23, 42, 0.14);
+}
+
+.action-button.confirm {
+  background: #16a34a;
+}
+
+.action-button.cancel {
+  background: #dc2626;
+}
+
+.action-button.complete {
+  background: #0f766e;
+}
+
+.action-button.no-show {
+  background: #b45309;
+}
+
+.action-button:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.appointments-empty-state {
+  min-height: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  color: #7a8885;
+  text-align: center;
+}
+
+.appointments-empty-state mat-icon {
+  width: 54px;
+  height: 54px;
+  font-size: 54px;
+  color: #9aa7a4;
+}
+
+.appointments-empty-state p {
+  margin: 0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+@media (max-width: 980px) {
+  .picker-row {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .booking-form {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .submit-button {
+    width: 100%;
+    min-width: 0;
+    grid-column: 1 / -1;
+  }
+}
+
+@media (max-width: 680px) {
+  .picker-row,
+  .booking-form {
+    grid-template-columns: 1fr;
+  }
+
+  .booking-form-card {
+    padding: 24px;
+  }
+
+  .appointment-header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .status-badge {
+    align-self: flex-start;
+  }
+}
+
+@keyframes formCardEnter {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }

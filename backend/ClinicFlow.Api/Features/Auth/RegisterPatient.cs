@@ -69,7 +69,7 @@ public class RegisterPatientHandler : IRequestHandler<RegisterPatientCommand, Re
             TenantId = request.TenantId,
             UserId = user.Id,
             FullName = request.FullName,
-            DateOfBirth = request.DateOfBirth,
+            DateOfBirth = DateTime.SpecifyKind(request.DateOfBirth, DateTimeKind.Utc),
             Phone = request.Phone,
             Email = request.Email
         };

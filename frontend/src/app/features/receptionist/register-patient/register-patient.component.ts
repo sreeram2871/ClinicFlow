@@ -2,13 +2,14 @@ import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 import { PatientService } from '../../../core/services/patient.service';
 
 @Component({
   selector: 'app-register-patient',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, MatIconModule, ReactiveFormsModule],
   templateUrl: './register-patient.component.html',
   styleUrls: ['./register-patient.component.scss'],
 })

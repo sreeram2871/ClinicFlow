@@ -2,6 +2,7 @@ import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { MatIconModule } from '@angular/material/icon';
 
 import { PatientService } from '../../../core/services/patient.service';
 import { ScheduleService } from '../../../core/services/schedule.service';
@@ -20,7 +21,7 @@ function formatDateForInput(date: Date): string {
 @Component({
   selector: 'app-all-appointments',
   standalone: true,
-  imports: [DatePipe, NgClass, NgFor, NgIf, ReactiveFormsModule],
+  imports: [DatePipe, MatIconModule, NgClass, NgFor, NgIf, ReactiveFormsModule],
   templateUrl: './all-appointments.component.html',
   styleUrls: ['./all-appointments.component.scss'],
 })

@@ -1,44 +1,66 @@
 <section class="all-appointments">
   <h1>All Appointments</h1>
 
-  <div class="filters">
+  <section class="picker-row" aria-label="Doctor and date filters">
     <label>
       <span>Doctor</span>
-      <select class="form-input" [value]="selectedDoctorId()" (change)="onDoctorChange($any($event.target).value)">
-        <option value="">Select doctor</option>
-        <option *ngFor="let doctor of doctors()" [value]="doctor.id">{{ doctor.fullName }}</option>
-      </select>
+      <div class="input-with-icon">
+        <mat-icon class="leading-icon">person</mat-icon>
+        <select class="form-input" [value]="selectedDoctorId()" (change)="onDoctorChange($any($event.target).value)">
+          <option value="">Select doctor</option>
+          <option *ngFor="let doctor of doctors()" [value]="doctor.id">{{ doctor.fullName }}</option>
+        </select>
+      </div>
     </label>
 
     <label>
       <span>Date</span>
-      <input class="form-input" type="date" [value]="selectedDate()" (change)="onDateChange($any($event.target).value)" />
+      <div class="input-with-icon">
+        <mat-icon class="leading-icon">calendar_month</mat-icon>
+        <input class="form-input" type="date" [value]="selectedDate()" (change)="onDateChange($any($event.target).value)" />
+      </div>
     </label>
-  </div>
+  </section>
 
-  <form class="booking-form" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
-    <label>
-      <span>Patient</span>
-      <select class="form-input" formControlName="patientId" [disabled]="!selectedDoctorId()">
-        <option value="">Select patient</option>
-        <option *ngFor="let patient of patients()" [value]="patient.id">{{ patient.fullName }}</option>
-      </select>
-    </label>
+  <section class="booking-form-card" aria-label="Book appointment form">
+    <h2 class="form-heading">
+      <mat-icon>event_available</mat-icon>
+      Book appointment
+    </h2>
 
-    <label>
-      <span>Start</span>
-      <input class="form-input" type="datetime-local" formControlName="start" [disabled]="!selectedDoctorId()" />
-    </label>
+    <form class="booking-form" [formGroup]="bookingForm" (ngSubmit)="onSubmit()">
+      <label>
+        <span>Patient</span>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">person</mat-icon>
+          <select class="form-input" formControlName="patientId" [disabled]="!selectedDoctorId()">
+            <option value="">Select patient</option>
+            <option *ngFor="let patient of patients()" [value]="patient.id">{{ patient.fullName }}</option>
+          </select>
+        </div>
+      </label>
 
-    <label>
-      <span>End</span>
-      <input class="form-input" type="datetime-local" formControlName="end" [disabled]="!selectedDoctorId()" />
-    </label>
+      <label>
+        <span>Start</span>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">schedule</mat-icon>
+          <input class="form-input" type="datetime-local" formControlName="start" [disabled]="!selectedDoctorId()" />
+        </div>
+      </label>
 
-    <button class="submit-button" type="submit" [disabled]="bookingForm.invalid || !selectedDoctorId()">
-      Book Appointment
-    </button>
-  </form>
+      <label>
+        <span>End</span>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">schedule</mat-icon>
+          <input class="form-input" type="datetime-local" formControlName="end" [disabled]="!selectedDoctorId()" />
+        </div>
+      </label>
+
+      <button class="submit-button" type="submit" [disabled]="bookingForm.invalid || !selectedDoctorId()">
+        <span>Book Appointment</span>
+      </button>
+    </form>
+  </section>
 
   <div *ngIf="errorMessage() as message" class="error-message">
     {{ message }}
@@ -48,9 +70,16 @@
     <h2>Booked Appointments</h2>
 
     <div class="appointments-list" *ngIf="scheduleData.bookedSlots.length > 0; else noAppointments">
-      <div class="appointment-row" *ngFor="let appointment of scheduleData.bookedSlots">
-        <div class="appointment-meta">
-          <span class="time-range">{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
+      <article
+        class="appointment-card"
+        *ngFor="let appointment of scheduleData.bookedSlots"
+        [ngClass]="'status-' + appointment.status.toLowerCase()"
+      >
+        <div class="appointment-header">
+          <div class="appointment-time">
+            <mat-icon>schedule</mat-icon>
+            <span>{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
+          </div>
           <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
         </div>
 
@@ -62,7 +91,8 @@
             [disabled]="actionInProgress() === appointment.appointmentId"
             (click)="confirmAppointment(appointment.appointmentId)"
           >
-            Confirm
+            <mat-icon>check</mat-icon>
+            <span>Confirm</span>
           </button>
 
           <button
@@ -72,7 +102,8 @@
             [disabled]="actionInProgress() === appointment.appointmentId"
             (click)="cancelAppointment(appointment.appointmentId)"
           >
-            Cancel
+            <mat-icon>close</mat-icon>
+            <span>Cancel</span>
           </button>
 
           <button
@@ -82,7 +113,8 @@
             [disabled]="actionInProgress() === appointment.appointmentId"
             (click)="completeAppointment(appointment.appointmentId, 'Completed')"
           >
-            Complete
+            <mat-icon>done_all</mat-icon>
+            <span>Complete</span>
           </button>
 
           <button
@@ -92,7 +124,8 @@
             [disabled]="actionInProgress() === appointment.appointmentId"
             (click)="completeAppointment(appointment.appointmentId, 'NoShow')"
           >
-            No Show
+            <mat-icon>event_busy</mat-icon>
+            <span>No Show</span>
           </button>
 
           <button
@@ -102,14 +135,18 @@
             [disabled]="actionInProgress() === appointment.appointmentId"
             (click)="cancelAppointment(appointment.appointmentId)"
           >
-            Cancel
+            <mat-icon>close</mat-icon>
+            <span>Cancel</span>
           </button>
         </div>
-      </div>
+      </article>
     </div>
 
     <ng-template #noAppointments>
-      <p>No booked appointments found for the selected doctor and date.</p>
+      <div class="appointments-empty-state">
+        <mat-icon>event_busy</mat-icon>
+        <p>No booked appointments found</p>
+      </div>
     </ng-template>
   </section>
 </section>

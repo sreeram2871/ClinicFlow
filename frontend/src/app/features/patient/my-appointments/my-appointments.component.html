@@ -1,41 +1,55 @@
 <section class="my-appointments">
   <h1>Book an Appointment</h1>
 
-  <div class="filters">
+  <section class="picker-row" aria-label="Doctor and date filters">
     <label>
       <span>Doctor</span>
-      <select class="form-input" [value]="selectedDoctorId()" (change)="onDoctorChange($any($event.target).value)">
-        <option value="">Select doctor</option>
-        <option *ngFor="let doctor of doctors()" [value]="doctor.id">{{ doctor.fullName }}</option>
-      </select>
+      <div class="input-with-icon">
+        <mat-icon class="leading-icon">person</mat-icon>
+        <select class="form-input" [value]="selectedDoctorId()" (change)="onDoctorChange($any($event.target).value)">
+          <option value="">Select doctor</option>
+          <option *ngFor="let doctor of doctors()" [value]="doctor.id">{{ doctor.fullName }}</option>
+        </select>
+      </div>
     </label>
 
     <label>
       <span>Date</span>
-      <input class="form-input" type="date" [value]="selectedDate()" (change)="onDateChange($any($event.target).value)" />
+      <div class="input-with-icon">
+        <mat-icon class="leading-icon">calendar_month</mat-icon>
+        <input class="form-input" type="date" [value]="selectedDate()" (change)="onDateChange($any($event.target).value)" />
+      </div>
     </label>
+  </section>
+
+  <div *ngIf="errorMessage() as message" class="message-banner error">
+    <mat-icon>error</mat-icon>
+    <span>{{ message }}</span>
   </div>
 
-  <div *ngIf="errorMessage() as message" class="error-message">
-    {{ message }}
-  </div>
-
-  <div *ngIf="successMessage() as message" class="success-message">
-    {{ message }}
+  <div *ngIf="successMessage() as message" class="message-banner success">
+    <mat-icon>check_circle</mat-icon>
+    <span>{{ message }}</span>
   </div>
 
   <section class="slots-panel">
     <h2>Available Slots</h2>
 
-    <div class="slots-list" *ngIf="availableSlots().length > 0; else noSlots">
-      <div class="slot-row" *ngFor="let slot of availableSlots()">
-        <span class="time-range">{{ slot.start | date: 'shortTime':'UTC' }} → {{ slot.end | date: 'shortTime':'UTC' }}</span>
-        <button class="action-button" type="button" (click)="bookSlot(slot)">Book</button>
-      </div>
+    <div class="slots-grid" *ngIf="availableSlots().length > 0; else noSlots">
+      <article class="slot-chip" *ngFor="let slot of availableSlots()">
+        <div class="slot-time">
+          <mat-icon>schedule</mat-icon>
+          <span>{{ slot.start | date: 'shortTime':'UTC' }} → {{ slot.end | date: 'shortTime':'UTC' }}</span>
+        </div>
+        <button class="chip-book-button" type="button" (click)="bookSlot(slot)">Book</button>
+      </article>
     </div>
 
     <ng-template #noSlots>
-      <p>No available slots found for the selected doctor and date.</p>
+      <div class="empty-state-card">
+        <mat-icon>event_available</mat-icon>
+        <p>No available slots found for the selected doctor and date.</p>
+      </div>
     </ng-template>
   </section>
 
@@ -43,9 +57,12 @@
     <h2>My Upcoming Appointments</h2>
 
     <div class="appointments-list" *ngIf="appointments().length > 0; else noAppointments">
-      <div class="appointment-row" *ngFor="let appointment of appointments()">
-        <div class="appointment-meta">
-          <span class="time-range">{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
+      <article class="appointment-card" *ngFor="let appointment of appointments()" [ngClass]="'status-' + appointment.status.toLowerCase()">
+        <div class="appointment-header">
+          <div class="appointment-time">
+            <mat-icon>schedule</mat-icon>
+            <span>{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
+          </div>
           <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
         </div>
 
@@ -55,13 +72,17 @@
           type="button"
           (click)="cancelMyAppointment(appointment.appointmentId)"
         >
-          Cancel
+          <mat-icon>close</mat-icon>
+          <span>Cancel</span>
         </button>
-      </div>
+      </article>
     </div>
 
     <ng-template #noAppointments>
-      <p>You have no upcoming appointments.</p>
+      <div class="empty-state-card">
+        <mat-icon>event_busy</mat-icon>
+        <p>You have no upcoming appointments.</p>
+      </div>
     </ng-template>
   </section>
 </section>

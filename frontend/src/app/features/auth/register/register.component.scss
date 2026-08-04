@@ -1,11 +1,18 @@
-.register-patient {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  padding: 8px 0;
+:host {
+  display: block;
+  min-height: 100vh;
 }
 
-.patient-form-card {
+.register-page {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  background: linear-gradient(135deg, #E1F5EE 0%, #F7F9F8 60%, #ffffff 100%);
+}
+
+.register-card {
   width: 100%;
   max-width: 480px;
   background: #ffffff;
@@ -20,26 +27,27 @@
   display: inline-flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.25rem;
+  font-size: 1.35rem;
+  color: #10231d;
 }
 
 .form-heading mat-icon {
   color: #0f6e56;
 }
 
-.patient-form {
+.register-form {
   display: flex;
   flex-direction: column;
   gap: 14px;
 }
 
-.patient-form label {
+.register-form label {
   display: flex;
   flex-direction: column;
   gap: 6px;
 }
 
-.patient-form label > span {
+.register-form label > span {
   font-size: 0.88rem;
   color: #4b5b57;
   font-weight: 600;
@@ -119,6 +127,7 @@
 }
 
 .message-banner {
+  margin-top: 14px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
@@ -146,6 +155,18 @@
   border: 1px solid #f5c6c3;
 }
 
+.login-link {
+  display: inline-block;
+  margin-top: 16px;
+  color: #0f6e56;
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+.login-link:hover {
+  text-decoration: underline;
+}
+
 @keyframes spin {
   to {
     transform: rotate(360deg);
@@ -165,7 +186,7 @@
 }
 
 @media (max-width: 640px) {
-  .patient-form-card {
+  .register-card {
     padding: 24px;
   }
 }

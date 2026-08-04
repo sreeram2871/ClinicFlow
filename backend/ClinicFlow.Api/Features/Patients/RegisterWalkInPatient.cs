@@ -44,7 +44,7 @@ public class RegisterWalkInPatientHandler : IRequestHandler<RegisterWalkInPatien
             TenantId = _tenantProvider.TenantId,
             UserId = null, // walk-in patient — no portal login, per the BRD
             FullName = request.FullName,
-            DateOfBirth = request.DateOfBirth,
+            DateOfBirth = DateTime.SpecifyKind(request.DateOfBirth, DateTimeKind.Utc),
             Phone = request.Phone,
             Email = request.Email
         };

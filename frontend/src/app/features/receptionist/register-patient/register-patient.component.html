@@ -1,37 +1,62 @@
 <section class="register-patient">
-  <h1>Register Walk-In Patient</h1>
+  <section class="patient-form-card" aria-label="Walk-in patient registration">
+    <h1 class="form-heading">
+      <mat-icon>person_add</mat-icon>
+      Register walk-in patient
+    </h1>
 
-  <form class="patient-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-    <label>
-      <span>Full Name</span>
-      <input class="form-input" type="text" formControlName="fullName" />
-    </label>
+    <form class="patient-form" [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      <label>
+        <span>Full Name</span>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">badge</mat-icon>
+          <input class="form-input" type="text" formControlName="fullName" />
+        </div>
+      </label>
 
-    <label>
-      <span>Date of Birth</span>
-      <input class="form-input" type="date" formControlName="dateOfBirth" />
-    </label>
+      <label>
+        <span>Date of Birth</span>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">cake</mat-icon>
+          <input class="form-input" type="date" formControlName="dateOfBirth" />
+        </div>
+      </label>
 
-    <label>
-      <span>Phone</span>
-      <input class="form-input" type="tel" formControlName="phone" />
-    </label>
+      <label>
+        <span>Phone</span>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">phone</mat-icon>
+          <input class="form-input" type="tel" formControlName="phone" />
+        </div>
+      </label>
 
-    <label>
-      <span>Email</span>
-      <input class="form-input" type="email" formControlName="email" />
-    </label>
+      <label>
+        <span>Email</span>
+        <div class="input-with-icon">
+          <mat-icon class="leading-icon">email</mat-icon>
+          <input class="form-input" type="email" formControlName="email" />
+        </div>
+      </label>
 
-    <button class="submit-button" type="submit" [disabled]="isSubmitting()">
-      {{ isSubmitting() ? 'Registering...' : 'Register Patient' }}
-    </button>
-  </form>
+      <button class="submit-button" type="submit" [disabled]="isSubmitting()">
+        @if (isSubmitting()) {
+          <span class="button-spinner" aria-hidden="true"></span>
+          <span>Registering...</span>
+        } @else {
+          <mat-icon>check_circle</mat-icon>
+          <span>Register Patient</span>
+        }
+      </button>
+    </form>
 
-  <div *ngIf="errorMessage() as message" class="error-message">
-    {{ message }}
-  </div>
+    <div *ngIf="errorMessage() as message" class="message-banner error">
+      <mat-icon>error</mat-icon>
+      <span>{{ message }}</span>
+    </div>
 
-  <div *ngIf="successMessage() as message" class="success-message">
-    {{ message }}
-  </div>
+    <div *ngIf="successMessage() as message" class="message-banner success">
+      <mat-icon>check_circle</mat-icon>
+      <span>{{ message }}</span>
+    </div>
+  </section>
 </section>

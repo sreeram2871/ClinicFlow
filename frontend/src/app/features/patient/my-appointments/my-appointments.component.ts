@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
 import { Component, inject, OnInit, signal } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 import { ReactiveFormsModule } from '@angular/forms';
 
 import { ScheduleService } from '../../../core/services/schedule.service';
@@ -20,7 +21,7 @@ function formatDateForInput(date: Date): string {
 @Component({
   selector: 'app-my-appointments',
   standalone: true,
-  imports: [CommonModule, ReactiveFormsModule],
+  imports: [CommonModule, MatIconModule, ReactiveFormsModule],
   templateUrl: './my-appointments.component.html',
   styleUrls: ['./my-appointments.component.scss'],
 })
