@@ -97,10 +97,14 @@ describe('AuthService', () => {
     expect(service.currentUser()).toEqual(currentUser);
     expect(service.isLoggedIn()).toBe(true);
 
-    service.logout();
+    service.logout().subscribe(() => {
+      expect(service.currentUser()).toBeNull();
+      expect(service.isLoggedIn()).toBe(false);
+      expect(service.getToken()).toBeNull();
+    });
 
-    expect(service.currentUser()).toBeNull();
-    expect(service.isLoggedIn()).toBe(false);
-    expect(service.getToken()).toBeNull();
+    const logoutReq = httpMock.expectOne('https://localhost:7008/api/v1/auth/logout');
+    expect(logoutReq.request.method).toBe('POST');
+    logoutReq.flush(null);
   });
 });

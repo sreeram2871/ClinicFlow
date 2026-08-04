@@ -74,7 +74,7 @@ builder.Services.AddOpenApi();
 
 // Register the DbContext, pointing at the connection string
 builder.Services.AddDbContext<ClinicFlowDbContext>(options =>
-    options.UseSqlServer(builder.Configuration.GetConnectionString("DefaultConnection")));
+    options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 builder.Services.AddHttpContextAccessor();
 builder.Services.AddScoped<ICurrentTenantProvider, JwtTenantProvider>(); 
 builder.Services.AddScoped<IPasswordHasher, BCryptPasswordHasher>();
@@ -92,10 +92,10 @@ builder.Services.AddCors(options =>
     {
         policy.WithOrigins("http://localhost:4200", "https://localhost:4200")
               .AllowAnyHeader()
-              .AllowAnyMethod();
+              .AllowAnyMethod()
+              .AllowCredentials();
     });
 });
-
 
 var app = builder.Build();
 // Add the exception handling middleware to the pipeline

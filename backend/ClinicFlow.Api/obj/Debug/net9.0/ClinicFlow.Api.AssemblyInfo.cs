@@ -11,10 +11,11 @@
 using System;
 using System.Reflection;
 
+[assembly: Microsoft.Extensions.Configuration.UserSecrets.UserSecretsIdAttribute("3428b55a-0034-43f0-a728-42ffaa1824ae")]
 [assembly: System.Reflection.AssemblyCompanyAttribute("ClinicFlow.Api")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+925cec9b8bcb023546c8dcc0916e39fd4183f572")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7b26c9624fa72d64779efe840eb8a8e82e26feda")]
 [assembly: System.Reflection.AssemblyProductAttribute("ClinicFlow.Api")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ClinicFlow.Api")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

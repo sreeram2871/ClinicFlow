@@ -3,16 +3,16 @@ using System;
 using ClinicFlow.Api.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
+using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 #nullable disable
 
 namespace ClinicFlow.Api.Migrations
 {
     [DbContext(typeof(ClinicFlowDbContext))]
-    [Migration("20260731063749_InitialCreate")]
+    [Migration("20260803152251_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -21,36 +21,36 @@ namespace ClinicFlow.Api.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "9.0.18")
-                .HasAnnotation("Relational:MaxIdentifierLength", 128);
+                .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
-            SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
+            NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
             modelBuilder.Entity("ClinicFlow.Api.Domain.Entities.Appointment", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("DoctorId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("ScheduledEnd")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("ScheduledStart")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Status")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("TenantId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -63,25 +63,25 @@ namespace ClinicFlow.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("DayOfWeek")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("DoctorId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<TimeSpan>("EndTime")
-                        .HasColumnType("time");
+                        .HasColumnType("interval");
 
                     b.Property<TimeSpan>("StartTime")
-                        .HasColumnType("time");
+                        .HasColumnType("interval");
 
                     b.Property<Guid>("TenantId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -95,27 +95,27 @@ namespace ClinicFlow.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("AppointmentId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("DoctorId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Notes")
                         .IsRequired()
                         .HasMaxLength(4000)
-                        .HasColumnType("nvarchar(4000)");
+                        .HasColumnType("character varying(4000)");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("TenantId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -126,34 +126,34 @@ namespace ClinicFlow.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<DateTime>("DateOfBirth")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Phone")
                         .IsRequired()
                         .HasMaxLength(20)
-                        .HasColumnType("nvarchar(20)");
+                        .HasColumnType("character varying(20)");
 
                     b.Property<Guid>("TenantId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid?>("UserId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -164,25 +164,25 @@ namespace ClinicFlow.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<decimal>("Amount")
-                        .HasColumnType("decimal(10,2)");
+                        .HasColumnType("numeric(10,2)");
 
                     b.Property<Guid>("AppointmentId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<int>("Method")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<DateTime>("PaidAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("TenantId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
@@ -193,52 +193,86 @@ namespace ClinicFlow.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<Guid>("DoctorId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("Dosage")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("MedicineName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<string>("Notes")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<Guid>("PatientId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<Guid>("TenantId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 
                     b.ToTable("Prescriptions");
                 });
 
+            modelBuilder.Entity("ClinicFlow.Api.Domain.Entities.RefreshToken", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateTime>("ExpiresAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsRevoked")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("TenantId")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("Token")
+                        .IsRequired()
+                        .HasMaxLength(200)
+                        .HasColumnType("character varying(200)");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Token")
+                        .IsUnique();
+
+                    b.ToTable("RefreshTokens");
+                });
+
             modelBuilder.Entity("ClinicFlow.Api.Domain.Entities.Tenant", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<string>("ClinicName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.HasKey("Id");
 
@@ -249,33 +283,33 @@ namespace ClinicFlow.Api.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.Property<DateTime>("CreatedAt")
-                        .HasColumnType("datetime2");
+                        .HasColumnType("timestamp with time zone");
 
                     b.Property<string>("Email")
                         .IsRequired()
                         .HasMaxLength(256)
-                        .HasColumnType("nvarchar(256)");
+                        .HasColumnType("character varying(256)");
 
                     b.Property<string>("FullName")
                         .IsRequired()
                         .HasMaxLength(200)
-                        .HasColumnType("nvarchar(200)");
+                        .HasColumnType("character varying(200)");
 
                     b.Property<bool>("IsActive")
-                        .HasColumnType("bit");
+                        .HasColumnType("boolean");
 
                     b.Property<string>("PasswordHash")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("text");
 
                     b.Property<int>("Role")
-                        .HasColumnType("int");
+                        .HasColumnType("integer");
 
                     b.Property<Guid>("TenantId")
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("uuid");
 
                     b.HasKey("Id");
 

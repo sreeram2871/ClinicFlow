@@ -1,6 +1,6 @@
 ﻿using ClinicFlow.Api.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.SqlServer;
+
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace ClinicFlow.Api.Infrastructure.Data.Configurations;
@@ -16,7 +16,7 @@ public class PaymentConfiguration : IEntityTypeConfiguration<Payment>
     public void Configure(EntityTypeBuilder<Payment> builder)
     {
         builder.Property(p => p.Amount)
-            .IsRequired()
-            .HasColumnType("decimal(10,2)");
+      .IsRequired()
+      .HasColumnType("numeric(10,2)");
     }
 }
