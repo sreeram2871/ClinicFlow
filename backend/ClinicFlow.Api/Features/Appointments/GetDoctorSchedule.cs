@@ -28,7 +28,7 @@ public class GetDoctorScheduleHandler : IRequestHandler<GetDoctorScheduleQuery, 
         var schedule = await _db.DoctorSchedules
             .FirstOrDefaultAsync(s => s.DoctorId == request.DoctorId && s.DayOfWeek == dayOfWeek, cancellationToken);
 
-        var dayStart = request.Date.Date;
+        var dayStart = DateTime.SpecifyKind(request.Date.Date, DateTimeKind.Utc);
         var dayEnd = dayStart.AddDays(1);
 
         // ALL appointments that day, for display — includes Completed so

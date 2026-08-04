@@ -51,7 +51,7 @@
     <div class="appointments-section">
       <h3>Recent Appointments</h3>
       <div *ngFor="let appointment of patient()?.recentAppointments" class="appointment-item">
-        <div>{{ appointment.scheduledStart | date: 'medium' }}</div>
+        <div>{{ appointment.scheduledStart | date: 'medium':'UTC' }}</div>
         <div>{{ appointment.status }}</div>
       </div>
     </div>
@@ -83,7 +83,7 @@
 
     <div *ngFor="let entry of medicalHistory()" class="record-item">
       <div>{{ entry.notes }}</div>
-      <div>{{ entry.createdAt | date: 'medium' }}</div>
+      <div>{{ entry.createdAt | date: 'medium':'UTC' }}</div>
     </div>
   </div>
 

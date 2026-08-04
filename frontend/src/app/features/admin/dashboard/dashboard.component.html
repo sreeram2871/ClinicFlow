@@ -1,5 +1,18 @@
-<h1>Dashboard</h1>
-<p>Welcome, {{ fullName() }}</p>
+<section class="dashboard-hero">
+  <video
+    class="hero-video"
+    autoplay
+    muted
+    loop
+    playsinline
+    src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260405_171521_25968ba2-b594-4b32-aab7-f6b69398a6fa.mp4"
+  ></video>
+
+  <div class="dashboard-hero-content">
+    <h1>Dashboard</h1>
+    <p>Welcome, {{ fullName() }}</p>
+  </div>
+</section>
 
 @if (summary()) {
   <section class="stats-grid">
@@ -41,13 +54,24 @@
   <section class="staff-panel">
     <h2>Staff</h2>
 
-    @for (staffMember of staffList(); track staffMember.id) {
-      <div class="staff-row">
-        <span>{{ staffMember.fullName }}</span>
-        <span>{{ staffMember.role }}</span>
-        <span>{{ staffMember.isActive ? 'Active' : 'Inactive' }}</span>
-      </div>
-    }
+    <table class="staff-table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>Role</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (staffMember of staffList(); track staffMember.id) {
+          <tr>
+            <td>{{ staffMember.fullName }}</td>
+            <td>{{ staffMember.role }}</td>
+            <td>{{ staffMember.isActive ? 'Active' : 'Inactive' }}</td>
+          </tr>
+        }
+      </tbody>
+    </table>
   </section>
 } @else {
   <p>No staff found</p>

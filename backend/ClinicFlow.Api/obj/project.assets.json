@@ -3872,6 +3872,7 @@
       "Microsoft.AspNetCore.OpenApi >= 9.0.18",
       "Microsoft.EntityFrameworkCore >= 9.0.18",
       "Microsoft.EntityFrameworkCore.Design >= 9.0.18",
+      "Microsoft.EntityFrameworkCore.Relational >= 9.0.18",
       "Npgsql.EntityFrameworkCore.PostgreSQL >= 9.0.4",
       "Swashbuckle.AspNetCore >= 9.0.6",
       "System.IdentityModel.Tokens.Jwt >= 8.22.0"
@@ -3958,6 +3959,10 @@
           "Microsoft.EntityFrameworkCore.Design": {
             "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
             "suppressParent": "All",
+            "target": "Package",
+            "version": "[9.0.18, )"
+          },
+          "Microsoft.EntityFrameworkCore.Relational": {
             "target": "Package",
             "version": "[9.0.18, )"
           },

@@ -1,3 +1,5 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
 /* You can add global styles to this file, and also import other style files */
 $color-brand: #0F6E56;
 $color-brand-hover: #0C5744;
@@ -26,8 +28,15 @@ $color-receptionist-text: #4A1B0C;
 $color-patient-tint: #E1F5EE;
 $color-patient-text: #04342C;
 
+:root {
+  --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.06), 0 8px 24px rgba(0, 0, 0, 0.04);
+  --shadow-card-hover: 0 4px 16px rgba(0, 0, 0, 0.08), 0 12px 32px rgba(0, 0, 0, 0.06);
+  --transition-smooth: all 0.2s ease;
+  --radius-lg: 14px;
+}
+
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-  background: #F8F9FA;
+  font-family: 'Inter', -apple-system, sans-serif;
+  background: #F7F9F8;
 }

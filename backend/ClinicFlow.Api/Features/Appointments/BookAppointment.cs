@@ -41,8 +41,14 @@ public class BookAppointmentHandler : IRequestHandler<BookAppointmentCommand, Bo
 
     public async Task<BookAppointmentResponse> Handle(BookAppointmentCommand request, CancellationToken cancellationToken)
     {
+        // Normalize incoming DateTimes to UTC-kind once, up front — request.Start/
+        // request.End arrive from JSON deserialization with Kind=Unspecified,
+        // which PostgreSQL refuses to accept in a timestamp with time zone column.
+        var start = DateTime.SpecifyKind(request.Start, DateTimeKind.Utc);
+        var end = DateTime.SpecifyKind(request.End, DateTimeKind.Utc);
+
         // Rule 1: must fall within the doctor's working hours for that day
-        var dayOfWeek = request.Start.DayOfWeek;
+        var dayOfWeek = start.DayOfWeek;
         var schedule = await _db.DoctorSchedules
             .FirstOrDefaultAsync(s => s.DoctorId == request.DoctorId && s.DayOfWeek == dayOfWeek, cancellationToken);
 
@@ -51,8 +57,8 @@ public class BookAppointmentHandler : IRequestHandler<BookAppointmentCommand, Bo
             throw new ArgumentException("Doctor does not work on this day.");
         }
 
-        var requestedStartTime = request.Start.TimeOfDay;
-        var requestedEndTime = request.End.TimeOfDay;
+        var requestedStartTime = start.TimeOfDay;
+        var requestedEndTime = end.TimeOfDay;
 
         if (requestedStartTime < schedule.StartTime || requestedEndTime > schedule.EndTime)
         {
@@ -63,7 +69,7 @@ public class BookAppointmentHandler : IRequestHandler<BookAppointmentCommand, Bo
         var hasConflict = await _db.Appointments
             .Where(a => a.DoctorId == request.DoctorId)
             .Where(a => a.Status == AppointmentStatus.Requested || a.Status == AppointmentStatus.Confirmed)
-            .AnyAsync(a => a.ScheduledStart < request.End && a.ScheduledEnd > request.Start, cancellationToken);
+            .AnyAsync(a => a.ScheduledStart < end && a.ScheduledEnd > start, cancellationToken);
 
         if (hasConflict)
         {
@@ -79,8 +85,8 @@ public class BookAppointmentHandler : IRequestHandler<BookAppointmentCommand, Bo
             TenantId = _tenantProvider.TenantId,
             PatientId = request.PatientId,
             DoctorId = request.DoctorId,
-            ScheduledStart = request.Start,
-            ScheduledEnd = request.End,
+            ScheduledStart = start,
+            ScheduledEnd = end,
             Status = status
         };
 

@@ -35,7 +35,7 @@ public class GetDashboardSummaryHandler : IRequestHandler<GetDashboardSummaryQue
             .Where(a => a.Status == AppointmentStatus.Requested || a.Status == AppointmentStatus.Confirmed)
             .CountAsync(cancellationToken);
 
-        var monthStart = new DateTime(today.Year, today.Month, 1);
+        var monthStart = new DateTime(today.Year, today.Month, 1, 0, 0, 0, DateTimeKind.Utc);
         var revenueThisMonth = await _db.Payments
             .Where(p => p.PaidAt >= monthStart)
             .SumAsync(p => (decimal?)p.Amount, cancellationToken) ?? 0;

@@ -8,16 +8,20 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  position: relative;
+  overflow: hidden;
   padding: 24px;
-  background: #f5f8f7;
+  background: linear-gradient(135deg, #E1F5EE 0%, #F7F9F8 60%, #ffffff 100%);
 }
 
 .login-card {
   width: 100%;
   max-width: 340px;
+  position: relative;
+  z-index: 1;
   background: #ffffff;
-  border-radius: 16px;
-  box-shadow: 0 12px 32px rgba(15, 110, 86, 0.12);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
   padding: 28px;
 }
 
@@ -58,8 +62,10 @@
 }
 
 .form-input:focus {
-  outline: 2px solid rgba(15, 110, 86, 0.2);
-  border-color: #0f6e56;
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(15, 110, 86, 0.12);
+  border-color: #0F6E56;
+  transition: var(--transition-smooth);
 }
 
 .error-message {
@@ -73,11 +79,17 @@
   margin-top: 8px;
   border: none;
   border-radius: 10px;
-  background: #0f6e56;
+  background: linear-gradient(135deg, #0F6E56 0%, #0C5744 100%);
   color: #ffffff;
   font-weight: 700;
   padding: 12px 16px;
   cursor: pointer;
+}
+
+.login-button:hover {
+  transform: translateY(-1px);
+  box-shadow: var(--shadow-card-hover);
+  transition: var(--transition-smooth);
 }
 
 .login-button:disabled {

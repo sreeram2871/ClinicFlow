@@ -215,13 +215,13 @@
           }
         }
       },
-      "Microsoft.EntityFrameworkCore.Relational/9.0.1": {
+      "Microsoft.EntityFrameworkCore.Relational/9.0.18": {
         "type": "package",
         "dependencies": {
-          "Microsoft.EntityFrameworkCore": "9.0.1",
-          "Microsoft.Extensions.Caching.Memory": "9.0.1",
-          "Microsoft.Extensions.Configuration.Abstractions": "9.0.1",
-          "Microsoft.Extensions.Logging": "9.0.1"
+          "Microsoft.EntityFrameworkCore": "9.0.18",
+          "Microsoft.Extensions.Caching.Memory": "9.0.18",
+          "Microsoft.Extensions.Configuration.Abstractions": "9.0.18",
+          "Microsoft.Extensions.Logging": "9.0.18"
         },
         "compile": {
           "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll": {
@@ -285,10 +285,10 @@
           "buildTransitive/net8.0/_._": {}
         }
       },
-      "Microsoft.Extensions.Configuration.Abstractions/9.0.1": {
+      "Microsoft.Extensions.Configuration.Abstractions/9.0.18": {
         "type": "package",
         "dependencies": {
-          "Microsoft.Extensions.Primitives": "9.0.1"
+          "Microsoft.Extensions.Primitives": "9.0.18"
         },
         "compile": {
           "lib/net9.0/Microsoft.Extensions.Configuration.Abstractions.dll": {
@@ -995,6 +995,7 @@
           "Microsoft.AspNetCore.Authentication.JwtBearer": "9.0.18",
           "Microsoft.AspNetCore.OpenApi": "9.0.18",
           "Microsoft.EntityFrameworkCore": "9.0.18",
+          "Microsoft.EntityFrameworkCore.Relational": "9.0.18",
           "Npgsql.EntityFrameworkCore.PostgreSQL": "9.0.4",
           "Swashbuckle.AspNetCore": "9.0.6",
           "System.IdentityModel.Tokens.Jwt": "8.22.0"
@@ -1385,10 +1386,10 @@
         "microsoft.entityframeworkcore.inmemory.nuspec"
       ]
     },
-    "Microsoft.EntityFrameworkCore.Relational/9.0.1": {
-      "sha512": "7Iu0h4oevRvH4IwPzmxuIJGYRt55TapoREGlluk75KCO7lenN0+QnzCl6cQDY48uDoxAUpJbpK2xW7o8Ix69dw==",
+    "Microsoft.EntityFrameworkCore.Relational/9.0.18": {
+      "sha512": "kn6DongUAVevGsydWJdJUB0N6QamtwyDjhwrbV8Yrfs84i5rcEj5SY+3eyPzAInzd1icrZBd7A+r0yEpULkjEg==",
       "type": "package",
-      "path": "microsoft.entityframeworkcore.relational/9.0.1",
+      "path": "microsoft.entityframeworkcore.relational/9.0.18",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1396,7 +1397,7 @@
         "PACKAGE.md",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.dll",
         "lib/net8.0/Microsoft.EntityFrameworkCore.Relational.xml",
-        "microsoft.entityframeworkcore.relational.9.0.1.nupkg.sha512",
+        "microsoft.entityframeworkcore.relational.9.0.18.nupkg.sha512",
         "microsoft.entityframeworkcore.relational.nuspec"
       ]
     },
@@ -1713,10 +1714,10 @@
         "useSharedDesignerContext.txt"
       ]
     },
-    "Microsoft.Extensions.Configuration.Abstractions/9.0.1": {
-      "sha512": "+4hfFIY1UjBCXFTTOd+ojlDPq6mep3h5Vq5SYE3Pjucr7dNXmq4S/6P/LoVnZFz2e/5gWp/om4svUFgznfULcA==",
+    "Microsoft.Extensions.Configuration.Abstractions/9.0.18": {
+      "sha512": "jgC5SZeK94t8DXl836ifIM5gScNqknkOwISrY503eWg7AHBrv+fnwty+C9n35H4WvBjs8OY21jPlRRf7ESBK/g==",
       "type": "package",
-      "path": "microsoft.extensions.configuration.abstractions/9.0.1",
+      "path": "microsoft.extensions.configuration.abstractions/9.0.18",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
@@ -1736,7 +1737,7 @@
         "lib/net9.0/Microsoft.Extensions.Configuration.Abstractions.xml",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.dll",
         "lib/netstandard2.0/Microsoft.Extensions.Configuration.Abstractions.xml",
-        "microsoft.extensions.configuration.abstractions.9.0.1.nupkg.sha512",
+        "microsoft.extensions.configuration.abstractions.9.0.18.nupkg.sha512",
         "microsoft.extensions.configuration.abstractions.nuspec",
         "useSharedDesignerContext.txt"
       ]

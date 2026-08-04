@@ -86,6 +86,52 @@ public static class DbSeeder
             });
         }
         db.DoctorSchedules.AddRange(schedule);
+        // Spread demo appointments + payments across the past 6 weeks so
+        // dashboard charts show realistic variation instead of one lopsided
+        // spike (all original seed data was created in a single sitting).
+        var random = new Random();
+        var historicalAppointments = new List<Appointment>();
+        var historicalPayments = new List<Payment>();
+
+        for (int weeksAgo = 5; weeksAgo >= 0; weeksAgo--)
+        {
+            var appointmentsThisWeek = random.Next(2, 6);
+
+            for (int i = 0; i < appointmentsThisWeek; i++)
+            {
+                var randomPatient = patients[random.Next(patients.Count)];
+                var dayOffset = random.Next(0, 7);
+                var hourOffset = random.Next(9, 17);
+                var appointmentDate = DateTime.SpecifyKind(
+                                        DateTime.UtcNow.AddDays(-7 * weeksAgo - dayOffset).Date.AddHours(hourOffset),
+                                        DateTimeKind.Utc);
+
+                var appointment = new Appointment
+                {
+                    Id = Guid.NewGuid(),
+                    TenantId = tenant.Id,
+                    PatientId = randomPatient.Id,
+                    DoctorId = doctor.Id,
+                    ScheduledStart = appointmentDate,
+                    ScheduledEnd = appointmentDate.AddMinutes(30),
+                    Status = AppointmentStatus.Completed
+                };
+                historicalAppointments.Add(appointment);
+
+                historicalPayments.Add(new Payment
+                {
+                    Id = Guid.NewGuid(),
+                    TenantId = tenant.Id,
+                    AppointmentId = appointment.Id,
+                    Amount = random.Next(300, 1200),
+                    Method = PaymentMethod.Cash,
+                    PaidAt = appointmentDate
+                });
+            }
+        }
+
+        db.Appointments.AddRange(historicalAppointments);
+        db.Payments.AddRange(historicalPayments);
 
         await db.SaveChangesAsync();
     }

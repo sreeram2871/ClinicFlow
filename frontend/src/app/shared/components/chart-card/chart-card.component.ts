@@ -46,15 +46,26 @@ export class ChartCardComponent {
     },
     scales: {
       x: {
-        display: false,
+        display: true,
         grid: {
           display: false,
         },
+        ticks: {
+          font: {
+            size: 11,
+          },
+        },
       },
       y: {
-        display: false,
+        display: true,
+        beginAtZero: true,
         grid: {
-          display: false,
+          color: '#EEEEEE',
+        },
+        ticks: {
+          font: {
+            size: 11,
+          },
         },
       },
     },

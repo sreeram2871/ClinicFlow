@@ -50,7 +50,7 @@
     <div class="appointments-list" *ngIf="scheduleData.bookedSlots.length > 0; else noAppointments">
       <div class="appointment-row" *ngFor="let appointment of scheduleData.bookedSlots">
         <div class="appointment-meta">
-          <span class="time-range">{{ appointment.start | date: 'shortTime' }} → {{ appointment.end | date: 'shortTime' }}</span>
+          <span class="time-range">{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
           <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
         </div>
 

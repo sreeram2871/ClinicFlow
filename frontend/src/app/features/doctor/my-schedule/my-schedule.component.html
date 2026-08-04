@@ -21,7 +21,7 @@
     </div>
 
     <div *ngFor="let slot of schedule()?.bookedSlots" class="schedule-row">
-      <div>{{ slot.start | date: 'shortTime' }} - {{ slot.end | date: 'shortTime' }}</div>
+      <div>{{ slot.start | date: 'shortTime':'UTC' }} - {{ slot.end | date: 'shortTime':'UTC' }}</div>
       <div>{{ slot.status }}</div>
     </div>
   </section>
@@ -33,7 +33,7 @@
     </div>
 
     <div *ngFor="let slot of schedule()?.availableSlots" class="schedule-row">
-      <div>{{ slot.start | date: 'shortTime' }} - {{ slot.end | date: 'shortTime' }}</div>
+      <div>{{ slot.start | date: 'shortTime':'UTC' }} - {{ slot.end | date: 'shortTime':'UTC' }}</div>
     </div>
   </section>
 </section>

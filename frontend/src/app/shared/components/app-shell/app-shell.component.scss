@@ -16,6 +16,30 @@
   border-right: 1px solid #d5e4de;
 }
 
+.sidebar-brand {
+  position: relative;
+  overflow: hidden;
+  height: 70px;
+  margin: 12px;
+  border-radius: var(--radius-lg);
+  background: linear-gradient(135deg, #e1f5ee 0%, #f7f9f8 60%, #ffffff 100%);
+  display: flex;
+  align-items: center;
+  padding: 0 14px;
+}
+
+.sidebar-brand-text {
+  position: relative;
+  z-index: 1;
+  color: #0f6e56;
+  font-weight: 800;
+  letter-spacing: 0.3px;
+}
+
+nav {
+  margin-top: 4px;
+}
+
 .nav-item {
   display: block;
   padding: 10px 16px;

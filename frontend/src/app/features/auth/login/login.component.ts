@@ -5,11 +5,12 @@ import { Router, RouterLink } from '@angular/router';
 
 import { LoginRequest } from '../../../models/auth.model';
 import { AuthService } from '../../../core/services/auth.service';
+import { ThreeBackgroundComponent } from '../../../shared/components/three-background/three-background.component';
 
 @Component({
   selector: 'app-login',
   standalone: true,
-  imports: [ReactiveFormsModule, RouterLink],
+  imports: [ReactiveFormsModule, RouterLink, ThreeBackgroundComponent],
   templateUrl: './login.component.html',
   styleUrl: './login.scss',
 })
