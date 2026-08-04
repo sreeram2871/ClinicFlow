@@ -2,6 +2,7 @@ import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 import { MyAppointment } from '../../models/my-appointment.model';
 
@@ -25,7 +26,7 @@ export class PatientAppointmentsService {
   private readonly http = inject(HttpClient);
 
   getMyAppointments(): Observable<MyAppointment[]> {
-    return this.http.get<PatientRecordResponse>('https://localhost:7008/api/v1/patients/me').pipe(
+    return this.http.get<PatientRecordResponse>(`${environment.apiUrl}/patients/me`).pipe(
       map((response) => {
         const recentAppointments = response.recentAppointments ?? [];
 
@@ -46,7 +47,7 @@ export class PatientAppointmentsService {
   }
 
   getMyPatientId(): Observable<string> {
-    return this.http.get<PatientRecordResponse>('https://localhost:7008/api/v1/patients/me').pipe(
+    return this.http.get<PatientRecordResponse>(`${environment.apiUrl}/patients/me`).pipe(
       map((response) => response.id),
     );
   }

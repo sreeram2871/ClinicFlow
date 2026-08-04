@@ -1,0 +1,537 @@
+[
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AppointmentsController",
+    "Method": "BookAppointment",
+    "RelativePath": "api/v1/appointments",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ClinicFlow.Api.Features.Appointments.BookAppointmentCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Appointments.BookAppointmentResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AppointmentsController",
+    "Method": "Cancel",
+    "RelativePath": "api/v1/appointments/{id}/cancel",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AppointmentsController",
+    "Method": "Complete",
+    "RelativePath": "api/v1/appointments/{id}/complete",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "ClinicFlow.Api.Controllers.AppointmentsController\u002BCompleteAppointmentBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AppointmentsController",
+    "Method": "Confirm",
+    "RelativePath": "api/v1/appointments/{id}/confirm",
+    "HttpMethod": "PATCH",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.BillingController",
+    "Method": "RecordPayment",
+    "RelativePath": "api/v1/appointments/{id}/payment",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "ClinicFlow.Api.Controllers.RecordPaymentBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Billing.RecordPaymentResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
+    "Method": "Login",
+    "RelativePath": "api/v1/auth/login",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ClinicFlow.Api.Features.Auth.LoginCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Auth.LoginResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
+    "Method": "Logout",
+    "RelativePath": "api/v1/auth/logout",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
+    "Method": "GetMe",
+    "RelativePath": "api/v1/auth/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Auth.CurrentUserResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
+    "Method": "Refresh",
+    "RelativePath": "api/v1/auth/refresh",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Auth.RefreshTokenResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
+    "Method": "RegisterPatient",
+    "RelativePath": "api/v1/auth/register-patient",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ClinicFlow.Api.Features.Auth.RegisterPatientCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Auth.RegisterPatientResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
+    "Method": "RegisterStaff",
+    "RelativePath": "api/v1/auth/register-staff",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ClinicFlow.Api.Features.Auth.RegisterStaffCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Auth.RegisterStaffResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AuthController",
+    "Method": "GetStaffList",
+    "RelativePath": "api/v1/auth/staff",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[ClinicFlow.Api.Features.Auth.StaffMemberResponse, ClinicFlow.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AppointmentsController",
+    "Method": "GetDoctorsList",
+    "RelativePath": "api/v1/doctors",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[ClinicFlow.Api.Features.Appointments.DoctorListItemResponse, ClinicFlow.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.AppointmentsController",
+    "Method": "GetDoctorSchedule",
+    "RelativePath": "api/v1/doctors/{doctorId}/schedule",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "doctorId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "date",
+        "Type": "System.DateTime",
+        "IsRequired": false
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Appointments.DoctorScheduleResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "GetPatientsList",
+    "RelativePath": "api/v1/patients",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[ClinicFlow.Api.Features.Patients.PatientListItemResponse, ClinicFlow.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "RegisterWalkInPatient",
+    "RelativePath": "api/v1/patients",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "command",
+        "Type": "ClinicFlow.Api.Features.Patients.RegisterWalkInPatientCommand",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Patients.RegisterWalkInPatientResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "GetPatientRecord",
+    "RelativePath": "api/v1/patients/{id}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Patients.PatientRecordResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "AddMedicalRecordEntry",
+    "RelativePath": "api/v1/patients/{id}/records",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "ClinicFlow.Api.Controllers.PatientsController\u002BAddMedicalRecordEntryBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Patients.AddMedicalRecordEntryResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "GetPatientMedicalHistory",
+    "RelativePath": "api/v1/patients/{id}/records",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "id",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[ClinicFlow.Api.Features.Patients.MedicalRecordEntryResponse, ClinicFlow.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PrescriptionsController",
+    "Method": "Create",
+    "RelativePath": "api/v1/patients/{patientId}/prescriptions",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      },
+      {
+        "Name": "body",
+        "Type": "ClinicFlow.Api.Controllers.CreatePrescriptionBody",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Prescriptions.CreatePrescriptionResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PrescriptionsController",
+    "Method": "GetAll",
+    "RelativePath": "api/v1/patients/{patientId}/prescriptions",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "patientId",
+        "Type": "System.Guid",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[ClinicFlow.Api.Features.Prescriptions.PrescriptionResponse, ClinicFlow.Api, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.PatientsController",
+    "Method": "GetMyPatientRecord",
+    "RelativePath": "api/v1/patients/me",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Patients.PatientRecordResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "ClinicFlow.Api.Controllers.ReportsController",
+    "Method": "GetDashboard",
+    "RelativePath": "api/v1/reports/dashboard",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [],
+    "ReturnTypes": [
+      {
+        "Type": "ClinicFlow.Api.Features.Reports.DashboardSummaryResponse",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  }
+]

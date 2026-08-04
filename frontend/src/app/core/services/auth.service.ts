@@ -2,6 +2,7 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
+import { environment } from '../../../environments/environment';
 
 import { LoginRequest, LoginResponse } from '../../models/auth.model';
 import { CurrentUser } from '../../models/user.model';
@@ -19,12 +20,12 @@ export class AuthService {
   readonly isLoggedIn = computed(() => this.currentUser() !== null);
 
   login(request: LoginRequest): Observable<LoginResponse> {
-    return this.http.post<LoginResponse>('https://localhost:7008/api/v1/auth/login', request, { withCredentials: true }).pipe(
+    return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, request, { withCredentials: true }).pipe(
       tap((response) => {
         this.accessToken = response.accessToken;
       }),
       switchMap((response) =>
-        this.http.get<CurrentUser>('https://localhost:7008/api/v1/auth/me', { withCredentials: true }).pipe(
+        this.http.get<CurrentUser>(`${environment.apiUrl}/auth/me`, { withCredentials: true }).pipe(
           map((currentUser) => {
             this.currentUserSignal.set(currentUser);
             return response;
@@ -37,7 +38,7 @@ export class AuthService {
   restoreSession(): Observable<CurrentUser | null> {
     return this.refreshAccessToken().pipe(
       switchMap(() =>
-        this.http.get<CurrentUser>('https://localhost:7008/api/v1/auth/me', { withCredentials: true }).pipe(
+        this.http.get<CurrentUser>(`${environment.apiUrl}/auth/me`, { withCredentials: true }).pipe(
           tap((currentUser) => {
             this.currentUserSignal.set(currentUser);
           }),
@@ -49,7 +50,7 @@ export class AuthService {
   }
 
   refreshAccessToken(): Observable<{ accessToken: string }> {
-    return this.http.post<{ accessToken: string }>('https://localhost:7008/api/v1/auth/refresh', {}, { withCredentials: true }).pipe(
+    return this.http.post<{ accessToken: string }>(`${environment.apiUrl}/auth/refresh`, {}, { withCredentials: true }).pipe(
       tap((response) => {
         this.accessToken = response.accessToken;
       }),
@@ -57,7 +58,7 @@ export class AuthService {
   }
 
   logout(): Observable<void> {
-    return this.http.post<void>('https://localhost:7008/api/v1/auth/logout', {}, { withCredentials: true }).pipe(
+    return this.http.post<void>(`${environment.apiUrl}/auth/logout`, {}, { withCredentials: true }).pipe(
       tap(() => {
         this.accessToken = null;
         this.currentUserSignal.set(null);
