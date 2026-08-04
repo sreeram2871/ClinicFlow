@@ -1,24 +1,49 @@
 <section class="patients-list">
   <h2>Patients</h2>
 
-  <table class="patients-table" aria-label="Patients table">
-    <thead>
-      <tr>
-        <th>Full Name</th>
-        <th>Date of Birth</th>
-        <th>Phone</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr
-        *ngFor="let patient of patients()"
-        (click)="goToPatient(patient.id)"
-        class="clickable-row"
-      >
-        <td>{{ patient.fullName }}</td>
-        <td>{{ patient.dateOfBirth | date: 'mediumDate' }}</td>
-        <td>{{ patient.phone }}</td>
-      </tr>
-    </tbody>
-  </table>
+  <div class="patients-search">
+    <mat-icon>search</mat-icon>
+    <input
+      type="text"
+      placeholder="Search patients by name"
+      [value]="searchTerm()"
+      (input)="searchTerm.set($any($event.target).value ?? '')"
+      aria-label="Search patients"
+    />
+  </div>
+
+  @if (filteredPatients().length > 0) {
+    <table class="patients-table" aria-label="Patients table">
+      <thead>
+        <tr>
+          <th>Patient</th>
+          <th>Date of Birth</th>
+          <th>Age</th>
+          <th>Phone</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          *ngFor="let patient of filteredPatients()"
+          (click)="goToPatient(patient.id)"
+          class="clickable-row"
+        >
+          <td>
+            <div class="patient-member-cell">
+              <span class="avatar-circle">{{ getInitials(patient.fullName) }}</span>
+              <span class="patient-name">{{ patient.fullName }}</span>
+            </div>
+          </td>
+          <td>{{ patient.dateOfBirth | date: 'mediumDate' }}</td>
+          <td>{{ calculateAge(patient.dateOfBirth) }}</td>
+          <td>{{ patient.phone }}</td>
+        </tr>
+      </tbody>
+    </table>
+  } @else {
+    <div class="patients-empty-state">
+      <mat-icon>people_outline</mat-icon>
+      <p>{{ patients().length === 0 ? 'No patients found' : 'No matching patients' }}</p>
+    </div>
+  }
 </section>

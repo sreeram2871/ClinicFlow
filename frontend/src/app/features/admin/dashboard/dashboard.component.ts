@@ -1,4 +1,5 @@
 import { Component, computed, inject, OnInit, signal } from '@angular/core';
+import { MatIconModule } from '@angular/material/icon';
 
 import { AuthService } from '../../../core/services/auth.service';
 import { DashboardService } from '../../../core/services/dashboard.service';
@@ -7,11 +8,12 @@ import { DashboardSummary } from '../../../models/dashboard.model';
 import { StaffMember } from '../../../models/staff.model';
 import { ChartCardComponent } from '../../../shared/components/chart-card/chart-card.component';
 import { StatCardComponent } from '../../../shared/components/stat-card/stat-card.component';
+import { getInitials } from '../../../shared/utils/initials.util';
 
 @Component({
   selector: 'app-dashboard',
   standalone: true,
-  imports: [ChartCardComponent, StatCardComponent],
+  imports: [ChartCardComponent, StatCardComponent, MatIconModule],
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.scss'],
 })
@@ -19,6 +21,7 @@ export class DashboardComponent implements OnInit {
   private readonly authService = inject(AuthService);
   private readonly dashboardService = inject(DashboardService);
   private readonly staffService = inject(StaffService);
+  readonly getInitials = getInitials;
 
   readonly fullName = computed(() => this.authService.currentUser()?.fullName ?? '');
   readonly summary = signal<DashboardSummary | null>(null);
@@ -43,4 +46,5 @@ export class DashboardComponent implements OnInit {
       },
     });
   }
+
 }

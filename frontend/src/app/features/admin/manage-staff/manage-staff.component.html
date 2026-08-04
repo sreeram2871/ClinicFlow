@@ -1,54 +1,199 @@
 <section class="manage-staff">
-  <h1>Add Staff Member</h1>
+  <section class="staff-top-row">
+    <section class="staff-form-card" aria-label="Add staff member form">
+      <h2 class="form-heading">
+        <mat-icon>person_add</mat-icon>
+        Add staff member
+      </h2>
 
-  <form class="staff-form" [formGroup]="staffForm" (ngSubmit)="onSubmit()">
-    <label>
-      <span>Full Name</span>
-      <input class="form-input" formControlName="fullName" type="text" />
-    </label>
+      <form class="staff-form" [formGroup]="staffForm" (ngSubmit)="onSubmit()">
+        <label>
+          <span>Full Name</span>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">person</mat-icon>
+            <input
+              class="form-input"
+              formControlName="fullName"
+              type="text"
+              [class.invalid]="staffForm.get('fullName')?.invalid && staffForm.get('fullName')?.touched"
+            />
+          </div>
+          @if (staffForm.get('fullName')?.invalid && staffForm.get('fullName')?.touched) {
+            <span class="field-error">Full name is required.</span>
+          }
+        </label>
 
-    <label>
-      <span>Email</span>
-      <input class="form-input" formControlName="email" type="email" />
-    </label>
+        <label>
+          <span>Email</span>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">email</mat-icon>
+            <input
+              class="form-input"
+              formControlName="email"
+              type="email"
+              [class.invalid]="staffForm.get('email')?.invalid && staffForm.get('email')?.touched"
+            />
+          </div>
+          @if (staffForm.get('email')?.invalid && staffForm.get('email')?.touched) {
+            <span class="field-error">Enter a valid email address.</span>
+          }
+        </label>
 
-    <label>
-      <span>Password</span>
-      <input class="form-input" formControlName="password" type="password" />
-    </label>
+        <label>
+          <span>Password</span>
+          <div class="input-with-icon has-trailing-icon">
+            <mat-icon class="leading-icon">lock</mat-icon>
+            <input
+              class="form-input"
+              formControlName="password"
+              [type]="showPassword() ? 'text' : 'password'"
+              [class.invalid]="staffForm.get('password')?.invalid && staffForm.get('password')?.touched"
+            />
+            <button
+              type="button"
+              class="icon-toggle"
+              (click)="toggleShowPassword()"
+              [attr.aria-label]="showPassword() ? 'Hide password' : 'Show password'"
+            >
+              <mat-icon>{{ showPassword() ? 'visibility_off' : 'visibility' }}</mat-icon>
+            </button>
+          </div>
+          @if (staffForm.get('password')?.invalid && staffForm.get('password')?.touched) {
+            <span class="field-error">Password must be at least 8 characters.</span>
+          }
+        </label>
 
-    <label>
-      <span>Role</span>
-      <select class="form-input" formControlName="role">
-        <option value="">Select role</option>
-        <option value="Admin">Admin</option>
-        <option value="Doctor">Doctor</option>
-        <option value="Receptionist">Receptionist</option>
-      </select>
-    </label>
+        <label>
+          <span>Role</span>
+          <div class="input-with-icon">
+            <mat-icon class="leading-icon">badge</mat-icon>
+            <select
+              class="form-input"
+              formControlName="role"
+              [class.invalid]="staffForm.get('role')?.invalid && staffForm.get('role')?.touched"
+            >
+              <option value="">Select role</option>
+              <option value="Admin">Admin</option>
+              <option value="Doctor">Doctor</option>
+              <option value="Receptionist">Receptionist</option>
+            </select>
+          </div>
+          @if (staffForm.get('role')?.invalid && staffForm.get('role')?.touched) {
+            <span class="field-error">Select a role.</span>
+          }
+        </label>
 
-    <button class="submit-button" type="submit" [disabled]="isSubmitting()">
-      {{ isSubmitting() ? 'Saving...' : 'Create Staff Member' }}
-    </button>
+        <button class="submit-button" type="submit" [disabled]="isSubmitting()">
+          @if (isSubmitting()) {
+            <span class="button-spinner" aria-hidden="true"></span>
+            <span>Saving...</span>
+          } @else {
+            <span>Create Staff Member</span>
+          }
+        </button>
 
-    @if (errorMessage) {
-      <p class="error-message">{{ errorMessage }}</p>
-    }
-  </form>
+        @if (errorMessage) {
+          <p class="error-message">{{ errorMessage }}</p>
+        }
+      </form>
+    </section>
+
+    <section class="staff-overview-card" aria-label="Staff overview">
+      <h2 class="overview-heading">
+        <mat-icon>groups</mat-icon>
+        Staff overview
+      </h2>
+
+      <div class="overview-grid">
+        <article class="overview-tile tile-total">
+          <div class="tile-icon">
+            <mat-icon>badge</mat-icon>
+          </div>
+          <p class="tile-label">Total Staff</p>
+          <p class="tile-value">{{ staffCounts().total }}</p>
+        </article>
+
+        <article class="overview-tile tile-doctors">
+          <div class="tile-icon">
+            <mat-icon>medical_services</mat-icon>
+          </div>
+          <p class="tile-label">Doctors</p>
+          <p class="tile-value">{{ staffCounts().doctors }}</p>
+        </article>
+
+        <article class="overview-tile tile-receptionists">
+          <div class="tile-icon">
+            <mat-icon>support_agent</mat-icon>
+          </div>
+          <p class="tile-label">Receptionists</p>
+          <p class="tile-value">{{ staffCounts().receptionists }}</p>
+        </article>
+
+        <article class="overview-tile tile-active">
+          <div class="tile-icon">
+            <mat-icon>check_circle</mat-icon>
+          </div>
+          <p class="tile-label">Active</p>
+          <p class="tile-value">{{ staffCounts().active }}</p>
+        </article>
+      </div>
+    </section>
+  </section>
 
   <section class="staff-panel">
     <h2>Existing Staff</h2>
 
     @if (staffList().length > 0) {
-      @for (staffMember of staffList(); track staffMember.id) {
-        <div class="staff-row">
-          <span>{{ staffMember.fullName }}</span>
-          <span>{{ staffMember.role }}</span>
-          <span>{{ staffMember.isActive ? 'Active' : 'Inactive' }}</span>
-        </div>
-      }
+      <table class="staff-table">
+        <thead>
+          <tr>
+            <th>Staff Member</th>
+            <th>Role</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (staffMember of staffList(); track staffMember.id) {
+            <tr>
+              <td>
+                <div class="staff-member-cell">
+                  <span class="avatar-circle">{{ getInitials(staffMember.fullName) }}</span>
+                  <span class="staff-name">{{ staffMember.fullName }}</span>
+                </div>
+              </td>
+              <td>
+                <span class="role-pill"
+                  [class.role-admin]="staffMember.role === 'Admin'"
+                  [class.role-doctor]="staffMember.role === 'Doctor'"
+                  [class.role-receptionist]="staffMember.role === 'Receptionist'"
+                >
+                  <mat-icon>
+                    {{
+                      staffMember.role === 'Admin'
+                        ? 'admin_panel_settings'
+                        : staffMember.role === 'Doctor'
+                          ? 'medical_services'
+                          : 'support_agent'
+                    }}
+                  </mat-icon>
+                  <span>{{ staffMember.role }}</span>
+                </span>
+              </td>
+              <td>
+                <span class="status-chip" [class.inactive]="!staffMember.isActive">
+                  <span class="status-dot"></span>
+                  <span>{{ staffMember.isActive ? 'Active' : 'Inactive' }}</span>
+                </span>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
     } @else {
-      <p>No staff found</p>
+      <div class="staff-empty-state">
+        <mat-icon>group_off</mat-icon>
+        <p>No staff found</p>
+      </div>
     }
   </section>
 </section>

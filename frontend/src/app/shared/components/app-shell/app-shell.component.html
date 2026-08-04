@@ -18,7 +18,7 @@
         *ngFor="let item of visibleNavItems()"
         [routerLink]="item.path"
         routerLinkActive="active"
-        [routerLinkActiveOptions]="{ exact: false }"
+        [routerLinkActiveOptions]="{ exact: item.exact }"
         class="nav-item"
       >
         {{ item.label }}

@@ -18,14 +18,14 @@ export class AppShellComponent {
   readonly currentUser = this.authService.currentUser;
 
   readonly navItems = [
-    { label: 'Dashboard', path: '/dashboard', roles: ['Admin'] },
-    { label: 'Manage Staff', path: '/dashboard/staff', roles: ['Admin'] },
-    { label: 'Patients', path: '/dashboard/patients', roles: ['Admin', 'Doctor', 'Receptionist'] },
-    { label: 'My Schedule', path: '/dashboard/schedule', roles: ['Doctor'] },
-    { label: 'Appointments', path: '/dashboard/appointments', roles: ['Receptionist'] },
-    { label: 'Register Patient', path: '/dashboard/register-patient', roles: ['Receptionist'] },
-    { label: 'Billing', path: '/dashboard/billing', roles: ['Receptionist'] },
-    { label: 'My Appointments', path: '/dashboard/my-appointments', roles: ['Patient'] },
+    { label: 'Dashboard', path: '/dashboard', roles: ['Admin'], exact: true },
+    { label: 'Manage Staff', path: '/dashboard/staff', roles: ['Admin'], exact: false },
+    { label: 'Patients', path: '/dashboard/patients', roles: ['Admin', 'Doctor', 'Receptionist'], exact: false },
+    { label: 'My Schedule', path: '/dashboard/schedule', roles: ['Doctor'], exact: false },
+    { label: 'Appointments', path: '/dashboard/appointments', roles: ['Receptionist'], exact: false },
+    { label: 'Register Patient', path: '/dashboard/register-patient', roles: ['Receptionist'], exact: false },
+    { label: 'Billing', path: '/dashboard/billing', roles: ['Receptionist'], exact: false },
+    { label: 'My Appointments', path: '/dashboard/my-appointments', roles: ['Patient'], exact: false },
   ];
 
   readonly visibleNavItems = computed(() => {

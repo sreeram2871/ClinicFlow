@@ -57,7 +57,7 @@
     <table class="staff-table">
       <thead>
         <tr>
-          <th>Name</th>
+          <th>Staff Member</th>
           <th>Role</th>
           <th>Status</th>
         </tr>
@@ -65,14 +65,44 @@
       <tbody>
         @for (staffMember of staffList(); track staffMember.id) {
           <tr>
-            <td>{{ staffMember.fullName }}</td>
-            <td>{{ staffMember.role }}</td>
-            <td>{{ staffMember.isActive ? 'Active' : 'Inactive' }}</td>
+            <td>
+              <div class="staff-member-cell">
+                <span class="avatar-circle">{{ getInitials(staffMember.fullName) }}</span>
+                <span class="staff-name">{{ staffMember.fullName }}</span>
+              </div>
+            </td>
+            <td>
+              <span class="role-pill"
+                [class.role-admin]="staffMember.role === 'Admin'"
+                [class.role-doctor]="staffMember.role === 'Doctor'"
+                [class.role-receptionist]="staffMember.role === 'Receptionist'"
+              >
+                <mat-icon>
+                  {{
+                    staffMember.role === 'Admin'
+                      ? 'admin_panel_settings'
+                      : staffMember.role === 'Doctor'
+                        ? 'medical_services'
+                        : 'support_agent'
+                  }}
+                </mat-icon>
+                <span>{{ staffMember.role }}</span>
+              </span>
+            </td>
+            <td>
+              <span class="status-chip" [class.inactive]="!staffMember.isActive">
+                <span class="status-dot"></span>
+                <span>{{ staffMember.isActive ? 'Active' : 'Inactive' }}</span>
+              </span>
+            </td>
           </tr>
         }
       </tbody>
     </table>
   </section>
 } @else {
-  <p>No staff found</p>
+  <div class="staff-empty-state">
+    <mat-icon>group_off</mat-icon>
+    <p>No staff found</p>
+  </div>
 }
