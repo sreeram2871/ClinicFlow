@@ -4,6 +4,7 @@ import { Component, inject, signal } from '@angular/core';
 import { AbstractControl, FormControl, FormGroup, ReactiveFormsModule, ValidationErrors, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 import { Router, RouterLink } from '@angular/router';
+import { environment } from '../../../../environments/environment';
 
 interface RegisterPatientRequest {
   tenantId: string;
@@ -44,7 +45,7 @@ export class RegisterComponent {
   private readonly http = inject(HttpClient);
   private readonly router = inject(Router);
 
-  private readonly registerUrl = 'https://localhost:7008/api/v1/auth/register-patient';
+  private readonly registerUrl = `${environment.apiUrl}/auth/register-patient`;
   private readonly tenantId = '11111111-1111-1111-1111-111111111111';
 
   readonly isSubmitting = signal(false);
