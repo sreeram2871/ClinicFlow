@@ -1,14 +1,24 @@
 <section class="my-schedule">
-  <h2>My Schedule</h2>
+  <h1 class="page-heading">
+    <mat-icon>calendar_today</mat-icon>
+    <span>My Schedule</span>
+  </h1>
 
-  <label class="field-label" for="schedule-date">Select Date</label>
-  <input
-    id="schedule-date"
-    class="date-input"
-    type="date"
-    [value]="selectedDate()"
-    (change)="onDateChange($any($event.target).value)"
-  />
+  <section class="picker-row" aria-label="Schedule date filter">
+    <label for="schedule-date">
+      <span>Select Date</span>
+      <div class="input-with-icon">
+        <mat-icon class="leading-icon">calendar_month</mat-icon>
+        <input
+          id="schedule-date"
+          class="form-input"
+          type="date"
+          [value]="selectedDate()"
+          (change)="onDateChange($any($event.target).value)"
+        />
+      </div>
+    </label>
+  </section>
 
   <div *ngIf="errorMessage()" class="error-message">
     {{ errorMessage() }}
@@ -16,24 +26,113 @@
 
   <section class="schedule-section">
     <h3>Booked Appointments</h3>
-    <div *ngIf="schedule()?.bookedSlots?.length === 0" class="empty-state">
-      No appointments
-    </div>
 
-    <div *ngFor="let slot of schedule()?.bookedSlots" class="schedule-row">
-      <div>{{ slot.start | date: 'shortTime':'UTC' }} - {{ slot.end | date: 'shortTime':'UTC' }}</div>
-      <div>{{ slot.status }}</div>
+    <div class="queue-columns">
+      <section class="appointments-group waiting-column">
+        <h4 class="group-heading">
+          <mat-icon>hourglass_empty</mat-icon>
+          <span>Waiting</span>
+        </h4>
+
+        <div class="appointments-list" *ngIf="waitingAppointments().length > 0; else noWaitingAppointments">
+          <article class="appointment-card" *ngFor="let slot of waitingAppointments()" [ngClass]="'status-' + slot.status.toLowerCase()">
+            <div class="appointment-header">
+              <div class="appointment-details">
+                <div class="appointment-time">
+                  <mat-icon>schedule</mat-icon>
+                  <span>{{ slot.start | date: 'shortTime':'UTC' }} → {{ slot.end | date: 'shortTime':'UTC' }}</span>
+                </div>
+                <div class="appointment-patient">
+                  <ng-container *ngFor="let queuedAppointment of appointmentsWithTokens()">
+                    <span class="token-badge" *ngIf="queuedAppointment.appointmentId === slot.appointmentId">
+                      Token #{{ queuedAppointment.tokenNumber }}
+                    </span>
+                  </ng-container>
+                  <mat-icon>person</mat-icon>
+                  <span>{{ slot.patientName }}</span>
+                </div>
+              </div>
+              <span class="status-badge" [ngClass]="slot.status.toLowerCase()">{{ slot.status }}</span>
+            </div>
+          </article>
+        </div>
+
+        <ng-template #noWaitingAppointments>
+          <div class="appointments-empty-state">
+            <mat-icon>pending</mat-icon>
+            <p>No patients waiting</p>
+          </div>
+        </ng-template>
+      </section>
+
+      <section class="appointments-group completed-column">
+        <h4 class="group-heading">
+          <mat-icon>check_circle</mat-icon>
+          <span>Completed Today</span>
+        </h4>
+
+        <div class="appointments-list" *ngIf="completedAppointments().length > 0; else noCompletedAppointments">
+          <article class="appointment-card status-completed" *ngFor="let slot of completedAppointments()">
+            <div class="appointment-header">
+              <div class="appointment-details">
+                <div class="appointment-time">
+                  <mat-icon>schedule</mat-icon>
+                  <span>{{ slot.start | date: 'shortTime':'UTC' }} → {{ slot.end | date: 'shortTime':'UTC' }}</span>
+                </div>
+                <div class="appointment-patient">
+                  <mat-icon>person</mat-icon>
+                  <span>{{ slot.patientName }}</span>
+                </div>
+              </div>
+              <span class="status-badge completed">Completed</span>
+            </div>
+          </article>
+        </div>
+
+        <ng-template #noCompletedAppointments>
+          <div class="appointments-empty-state">
+            <mat-icon>done_all</mat-icon>
+            <p>No completed visits yet</p>
+          </div>
+        </ng-template>
+      </section>
     </div>
   </section>
 
   <section class="schedule-section">
-    <h3>Available Slots</h3>
-    <div *ngIf="schedule()?.availableSlots?.length === 0" class="empty-state">
-      No available slots
-    </div>
+    <h3>Today's Overview</h3>
+    <div class="overview-grid">
+      <article class="stat-card appointments">
+        <div class="stat-icon-wrap">
+          <mat-icon>event</mat-icon>
+        </div>
+        <div class="stat-value">{{ totalToday() }}</div>
+        <div class="stat-label">Appointments Today</div>
+      </article>
 
-    <div *ngFor="let slot of schedule()?.availableSlots" class="schedule-row">
-      <div>{{ slot.start | date: 'shortTime':'UTC' }} - {{ slot.end | date: 'shortTime':'UTC' }}</div>
+      <article class="stat-card completed">
+        <div class="stat-icon-wrap">
+          <mat-icon>check_circle</mat-icon>
+        </div>
+        <div class="stat-value">{{ completedToday() }}</div>
+        <div class="stat-label">Completed</div>
+      </article>
+
+      <article class="stat-card upcoming">
+        <div class="stat-icon-wrap">
+          <mat-icon>schedule</mat-icon>
+        </div>
+        <div class="stat-value">{{ upcomingToday() }}</div>
+        <div class="stat-label">Upcoming</div>
+      </article>
+
+      <article class="stat-card free-slots">
+        <div class="stat-icon-wrap">
+          <mat-icon>event_available</mat-icon>
+        </div>
+        <div class="stat-value">{{ freeSlotsCount() }}</div>
+        <div class="stat-label">Free Slots</div>
+      </article>
     </div>
   </section>
 </section>

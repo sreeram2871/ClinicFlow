@@ -1,6 +1,6 @@
 import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -36,6 +36,20 @@ export class AllAppointmentsComponent implements OnInit {
   readonly schedule = signal<DoctorSchedule | null>(null);
   readonly errorMessage = signal<string | null>(null);
   readonly actionInProgress = signal<string | null>(null);
+  readonly appointmentsWithTokens = computed(() =>
+    (this.schedule()?.bookedSlots ?? [])
+      .filter((slot) => slot.status === 'Requested' || slot.status === 'Confirmed')
+      .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime())
+      .map((slot, index) => ({
+        ...slot,
+        tokenNumber: index + 1,
+      })),
+  );
+  readonly completedAppointments = computed(() =>
+    (this.schedule()?.bookedSlots ?? [])
+      .filter((slot) => slot.status === 'Completed')
+      .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()),
+  );
 
   readonly bookingForm = new FormGroup({
     patientId: new FormControl('', {

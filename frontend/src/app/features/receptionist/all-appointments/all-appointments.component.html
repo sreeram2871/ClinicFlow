@@ -66,87 +66,121 @@
     {{ message }}
   </div>
 
-  <section class="appointments-panel" *ngIf="schedule() as scheduleData">
+  <section class="appointments-panel" *ngIf="schedule()">
     <h2>Booked Appointments</h2>
 
-    <div class="appointments-list" *ngIf="scheduleData.bookedSlots.length > 0; else noAppointments">
-      <article
-        class="appointment-card"
-        *ngFor="let appointment of scheduleData.bookedSlots"
-        [ngClass]="'status-' + appointment.status.toLowerCase()"
-      >
-        <div class="appointment-header">
-          <div class="appointment-time">
-            <mat-icon>schedule</mat-icon>
-            <span>{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
-          </div>
-          <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
+    <div class="queue-columns">
+      <section class="waiting-column">
+        <h3><mat-icon>hourglass_empty</mat-icon> Waiting</h3>
+
+        <div class="appointments-list" *ngIf="appointmentsWithTokens().length > 0; else waitingEmptyState">
+          <article
+            class="appointment-card"
+            *ngFor="let appointment of appointmentsWithTokens()"
+            [ngClass]="'status-' + appointment.status.toLowerCase()"
+          >
+            <div class="appointment-header">
+              <div class="appointment-time">
+                <span class="token-badge">Token #{{ appointment.tokenNumber }}</span>
+                <mat-icon>schedule</mat-icon>
+                <span>{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
+              </div>
+              <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
+            </div>
+
+            <div class="appointment-actions">
+              <button
+                *ngIf="appointment.status === 'Requested'"
+                class="action-button confirm"
+                type="button"
+                [disabled]="actionInProgress() === appointment.appointmentId"
+                (click)="confirmAppointment(appointment.appointmentId)"
+              >
+                <mat-icon>check</mat-icon>
+                <span>Confirm</span>
+              </button>
+
+              <button
+                *ngIf="appointment.status === 'Requested'"
+                class="action-button cancel"
+                type="button"
+                [disabled]="actionInProgress() === appointment.appointmentId"
+                (click)="cancelAppointment(appointment.appointmentId)"
+              >
+                <mat-icon>close</mat-icon>
+                <span>Cancel</span>
+              </button>
+
+              <button
+                *ngIf="appointment.status === 'Confirmed'"
+                class="action-button complete"
+                type="button"
+                [disabled]="actionInProgress() === appointment.appointmentId"
+                (click)="completeAppointment(appointment.appointmentId, 'Completed')"
+              >
+                <mat-icon>done_all</mat-icon>
+                <span>Complete</span>
+              </button>
+
+              <button
+                *ngIf="appointment.status === 'Confirmed'"
+                class="action-button no-show"
+                type="button"
+                [disabled]="actionInProgress() === appointment.appointmentId"
+                (click)="completeAppointment(appointment.appointmentId, 'NoShow')"
+              >
+                <mat-icon>event_busy</mat-icon>
+                <span>No Show</span>
+              </button>
+
+              <button
+                *ngIf="appointment.status === 'Confirmed'"
+                class="action-button cancel"
+                type="button"
+                [disabled]="actionInProgress() === appointment.appointmentId"
+                (click)="cancelAppointment(appointment.appointmentId)"
+              >
+                <mat-icon>close</mat-icon>
+                <span>Cancel</span>
+              </button>
+            </div>
+          </article>
         </div>
 
-        <div class="appointment-actions">
-          <button
-            *ngIf="appointment.status === 'Requested'"
-            class="action-button confirm"
-            type="button"
-            [disabled]="actionInProgress() === appointment.appointmentId"
-            (click)="confirmAppointment(appointment.appointmentId)"
-          >
-            <mat-icon>check</mat-icon>
-            <span>Confirm</span>
-          </button>
-
-          <button
-            *ngIf="appointment.status === 'Requested'"
-            class="action-button cancel"
-            type="button"
-            [disabled]="actionInProgress() === appointment.appointmentId"
-            (click)="cancelAppointment(appointment.appointmentId)"
-          >
-            <mat-icon>close</mat-icon>
-            <span>Cancel</span>
-          </button>
-
-          <button
-            *ngIf="appointment.status === 'Confirmed'"
-            class="action-button complete"
-            type="button"
-            [disabled]="actionInProgress() === appointment.appointmentId"
-            (click)="completeAppointment(appointment.appointmentId, 'Completed')"
-          >
-            <mat-icon>done_all</mat-icon>
-            <span>Complete</span>
-          </button>
-
-          <button
-            *ngIf="appointment.status === 'Confirmed'"
-            class="action-button no-show"
-            type="button"
-            [disabled]="actionInProgress() === appointment.appointmentId"
-            (click)="completeAppointment(appointment.appointmentId, 'NoShow')"
-          >
+        <ng-template #waitingEmptyState>
+          <div class="appointments-empty-state">
             <mat-icon>event_busy</mat-icon>
-            <span>No Show</span>
-          </button>
+            <p>No waiting appointments found</p>
+          </div>
+        </ng-template>
+      </section>
 
-          <button
-            *ngIf="appointment.status === 'Confirmed'"
-            class="action-button cancel"
-            type="button"
-            [disabled]="actionInProgress() === appointment.appointmentId"
-            (click)="cancelAppointment(appointment.appointmentId)"
+      <section class="completed-column">
+        <h3><mat-icon>check_circle</mat-icon> Completed Today</h3>
+
+        <div class="appointments-list" *ngIf="completedAppointments().length > 0; else completedEmptyState">
+          <article
+            class="appointment-card"
+            *ngFor="let appointment of completedAppointments()"
+            [ngClass]="'status-' + appointment.status.toLowerCase()"
           >
-            <mat-icon>close</mat-icon>
-            <span>Cancel</span>
-          </button>
+            <div class="appointment-header">
+              <div class="appointment-time">
+                <mat-icon>schedule</mat-icon>
+                <span>{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
+              </div>
+              <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
+            </div>
+          </article>
         </div>
-      </article>
-    </div>
 
-    <ng-template #noAppointments>
-      <div class="appointments-empty-state">
-        <mat-icon>event_busy</mat-icon>
-        <p>No booked appointments found</p>
-      </div>
-    </ng-template>
+        <ng-template #completedEmptyState>
+          <div class="appointments-empty-state">
+            <mat-icon>event_busy</mat-icon>
+            <p>No completed appointments found</p>
+          </div>
+        </ng-template>
+      </section>
+    </div>
   </section>
 </section>

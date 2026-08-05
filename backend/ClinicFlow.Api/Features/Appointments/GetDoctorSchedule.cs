@@ -7,7 +7,7 @@ namespace ClinicFlow.Api.Features.Appointments;
 
 public record GetDoctorScheduleQuery(Guid DoctorId, DateTime Date) : IRequest<DoctorScheduleResponse>;
 
-public record BookedSlot(Guid AppointmentId, DateTime Start, DateTime End, string Status, bool HasPayment);
+public record BookedSlot(Guid AppointmentId, DateTime Start, DateTime End, string Status, bool HasPayment, Guid PatientId, string PatientName);
 public record AvailableSlot(DateTime Start, DateTime End);
 
 public record DoctorScheduleResponse(List<BookedSlot> BookedSlots, List<AvailableSlot> AvailableSlots);
@@ -53,8 +53,18 @@ public class GetDoctorScheduleHandler : IRequestHandler<GetDoctorScheduleQuery, 
             .Select(p => p.AppointmentId)
             .ToListAsync(cancellationToken);
 
+        var patientIds = allAppointmentsForDay.Select(a => a.PatientId).Distinct().ToList();
+        var patientNames = await _db.Patients
+            .Where(p => patientIds.Contains(p.Id))
+            .Select(p => new { p.Id, p.FullName })
+            .ToDictionaryAsync(p => p.Id, p => p.FullName, cancellationToken);
+
         var bookedSlots = allAppointmentsForDay
-            .Select(a => new BookedSlot(a.Id, a.ScheduledStart, a.ScheduledEnd, a.Status.ToString(), paidAppointmentIds.Contains(a.Id)))
+            .Select(a => new BookedSlot(
+                a.Id, a.ScheduledStart, a.ScheduledEnd, a.Status.ToString(),
+                paidAppointmentIds.Contains(a.Id),
+                a.PatientId,
+                patientNames.GetValueOrDefault(a.PatientId, "Unknown Patient")))
             .ToList();
 
         var availableSlots = new List<AvailableSlot>();

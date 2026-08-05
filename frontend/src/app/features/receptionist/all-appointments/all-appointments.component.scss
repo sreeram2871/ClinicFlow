@@ -139,6 +139,35 @@ h2 {
   color: #142a24;
 }
 
+.queue-columns {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.waiting-column,
+.completed-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.waiting-column h3,
+.completed-column h3 {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 1.05rem;
+  color: #142a24;
+}
+
+.waiting-column mat-icon,
+.completed-column mat-icon {
+  color: #0f6e56;
+}
+
 .appointments-list {
   display: flex;
   flex-direction: column;
@@ -196,6 +225,19 @@ h2 {
   height: 18px;
   font-size: 18px;
   color: #45665e;
+}
+
+.token-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 9px;
+  border-radius: 999px;
+  background: #e6f7f2;
+  color: #0f6e56;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-right: 8px;
 }
 
 .status-badge {
@@ -339,6 +381,12 @@ h2 {
 
   .status-badge {
     align-self: flex-start;
+  }
+}
+
+@media (max-width: 900px) {
+  .queue-columns {
+    flex-direction: column;
   }
 }
 

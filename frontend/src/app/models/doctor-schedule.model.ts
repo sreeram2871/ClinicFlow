@@ -1,5 +1,7 @@
 export interface BookedSlot {
   appointmentId: string;
+  patientId: string;
+  patientName: string;
   start: string;
   end: string;
   status: string;
