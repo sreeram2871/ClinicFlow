@@ -1358,6 +1358,15 @@
           "status": {
             "type": "string",
             "nullable": true
+          },
+          "tokenNumber": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "doctorName": {
+            "type": "string",
+            "nullable": true
           }
         },
         "additionalProperties": false

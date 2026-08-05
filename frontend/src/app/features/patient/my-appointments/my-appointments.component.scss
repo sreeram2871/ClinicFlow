@@ -191,7 +191,7 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 12px;
+  gap: 16px;
 }
 
 .appointment-card.status-requested {
@@ -218,8 +218,29 @@ h2 {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
+}
+
+.appointment-details {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
+
+.appointment-row {
+  display: flex;
+  align-items: center;
+}
+
+.primary-row {
+  gap: 10px;
+}
+
+.secondary-row {
+  gap: 16px;
+  margin-top: 6px;
 }
 
 .appointment-time {
@@ -235,6 +256,27 @@ h2 {
   height: 18px;
   font-size: 18px;
   color: #45665e;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.meta-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: #6b7280;
+  font-size: 0.92rem;
+}
+
+.meta-pill mat-icon {
+  width: 16px;
+  height: 16px;
+  font-size: 16px;
+  color: #6b7280;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .status-badge {
@@ -320,6 +362,12 @@ h2 {
   .appointment-header {
     flex-direction: column;
     align-items: flex-start;
+  }
+
+  .secondary-row {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
   }
 
   .status-badge {

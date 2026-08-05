@@ -16,6 +16,8 @@ interface PatientRecordResponse {
     id: string;
     scheduledStart: string;
     status: string;
+    tokenNumber?: number | null;
+    doctorName?: string;
   }>;
 }
 
@@ -40,6 +42,9 @@ export class PatientAppointmentsService {
             start,
             end: endDate.toISOString(),
             status: appointment.status,
+            tokenNumber: appointment.tokenNumber ?? null,
+            doctorName: appointment.doctorName ?? '',
+            appointmentDate: appointment.scheduledStart,
           };
         });
       }),

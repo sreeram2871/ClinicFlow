@@ -59,9 +59,26 @@
     <div class="appointments-list" *ngIf="appointments().length > 0; else noAppointments">
       <article class="appointment-card" *ngFor="let appointment of appointments()" [ngClass]="'status-' + appointment.status.toLowerCase()">
         <div class="appointment-header">
-          <div class="appointment-time">
-            <mat-icon>schedule</mat-icon>
-            <span>{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
+          <div class="appointment-details">
+            <div class="appointment-row primary-row">
+              <div class="appointment-time">
+                <ng-container *ngIf="appointment.tokenNumber !== null">
+                  <span class="token-badge">Token #{{ appointment.tokenNumber }}</span>
+                </ng-container>
+                <mat-icon>schedule</mat-icon>
+                <span>{{ appointment.start | date: 'shortTime':'UTC' }} → {{ appointment.end | date: 'shortTime':'UTC' }}</span>
+              </div>
+            </div>
+            <div class="appointment-row secondary-row">
+              <span class="meta-pill">
+                <mat-icon>calendar_today</mat-icon>
+                <span>{{ appointment.appointmentDate | date: 'mediumDate':'UTC' }}</span>
+              </span>
+              <span class="meta-pill">
+                <mat-icon>medical_services</mat-icon>
+                <span>{{ appointment.doctorName }}</span>
+              </span>
+            </div>
           </div>
           <span class="status-badge" [ngClass]="appointment.status.toLowerCase()">{{ appointment.status }}</span>
         </div>
