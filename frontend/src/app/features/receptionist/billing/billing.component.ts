@@ -1,6 +1,6 @@
-import { DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
+import { CurrencyPipe, DatePipe, NgClass, NgFor, NgIf } from '@angular/common';
 import { HttpErrorResponse } from '@angular/common/http';
-import { Component, inject, OnInit, signal } from '@angular/core';
+import { Component, computed, inject, OnInit, signal } from '@angular/core';
 import { FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { MatIconModule } from '@angular/material/icon';
 
@@ -19,7 +19,7 @@ function formatDateForInput(date: Date): string {
 @Component({
   selector: 'app-billing',
   standalone: true,
-  imports: [DatePipe, MatIconModule, NgClass, NgFor, NgIf, ReactiveFormsModule],
+  imports: [CurrencyPipe, DatePipe, MatIconModule, NgClass, NgFor, NgIf, ReactiveFormsModule],
   templateUrl: './billing.component.html',
   styleUrls: ['./billing.component.scss'],
 })
@@ -33,6 +33,16 @@ export class BillingComponent implements OnInit {
   readonly errorMessage = signal<string | null>(null);
   readonly successMessage = signal<string | null>(null);
   readonly payingAppointmentId = signal<string | null>(null);
+  readonly completedAppointments = computed(() =>
+    (this.schedule()?.bookedSlots ?? [])
+      .filter((slot) => slot.status === 'Completed')
+      .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()),
+  );
+  readonly otherAppointments = computed(() =>
+    (this.schedule()?.bookedSlots ?? [])
+      .filter((slot) => slot.status === 'Requested' || slot.status === 'Confirmed' || slot.status === 'NoShow')
+      .sort((a, b) => new Date(a.start).getTime() - new Date(b.start).getTime()),
+  );
 
   readonly paymentForm = new FormGroup({
     amount: new FormControl<number | null>(null, {
@@ -100,7 +110,11 @@ export class BillingComponent implements OnInit {
 
     this.scheduleService.recordPayment(appointmentId, amount, method).subscribe({
       next: () => {
-        this.successMessage.set(`Payment recorded for appointment ${appointmentId}.`);
+        const paidAppointment = this.completedAppointments().find(
+          (a) => a.appointmentId === appointmentId,
+        );
+        const patientLabel = paidAppointment?.patientName ?? 'the patient';
+        this.successMessage.set(`Payment of ₹${amount} recorded for ${patientLabel}.`);
         this.payingAppointmentId.set(null);
         this.paymentForm.reset({ amount: null, method: '' });
         this.loadSchedule();

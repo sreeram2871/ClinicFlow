@@ -6,6 +6,8 @@ export interface BookedSlot {
   end: string;
   status: string;
   hasPayment: boolean;
+  paidAmount?: number | null;
+  paymentMethod?: string | null;
 }
 
 export interface AvailableSlot {

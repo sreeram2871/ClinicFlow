@@ -78,6 +78,16 @@
   box-sizing: border-box;
 }
 
+.form-input.invalid {
+  border-color: #b42318;
+}
+
+.field-error {
+  color: #b42318;
+  font-size: 0.82rem;
+  margin-top: 4px;
+}
+
 .form-input:focus {
   outline: none;
   border-color: #0f6e56;

@@ -59,6 +59,7 @@ export class RegisterPatientComponent {
         this.isSubmitting.set(false);
         this.successMessage.set('Patient registered successfully.');
         this.registerForm.reset();
+        setTimeout(() => this.successMessage.set(null), 5000);
       },
       error: (error: HttpErrorResponse) => {
         this.isSubmitting.set(false);

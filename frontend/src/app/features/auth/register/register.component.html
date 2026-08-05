@@ -10,40 +10,83 @@
         <span>Full Name</span>
         <div class="input-with-icon">
           <mat-icon class="leading-icon">badge</mat-icon>
-          <input class="form-input" type="text" formControlName="fullName" />
+          <input
+            class="form-input"
+            type="text"
+            formControlName="fullName"
+            [class.invalid]="registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched"
+          />
         </div>
+        @if (registerForm.get('fullName')?.invalid && registerForm.get('fullName')?.touched) {
+          <span class="field-error">Full name is required.</span>
+        }
       </label>
 
       <label>
         <span>Email</span>
         <div class="input-with-icon">
           <mat-icon class="leading-icon">email</mat-icon>
-          <input class="form-input" type="email" formControlName="email" />
+          <input
+            class="form-input"
+            type="email"
+            formControlName="email"
+            [class.invalid]="registerForm.get('email')?.invalid && registerForm.get('email')?.touched"
+          />
         </div>
+        @if (registerForm.get('email')?.invalid && registerForm.get('email')?.touched) {
+          <span class="field-error">Enter a valid email address.</span>
+        }
       </label>
 
       <label>
         <span>Password</span>
         <div class="input-with-icon">
           <mat-icon class="leading-icon">lock</mat-icon>
-          <input class="form-input" type="password" formControlName="password" />
+          <input
+            class="form-input"
+            type="password"
+            formControlName="password"
+            [class.invalid]="registerForm.get('password')?.invalid && registerForm.get('password')?.touched"
+          />
         </div>
+        @if (registerForm.get('password')?.invalid && registerForm.get('password')?.touched) {
+          <span class="field-error">Password must be at least 8 characters.</span>
+        }
       </label>
 
       <label>
         <span>Phone</span>
         <div class="input-with-icon">
           <mat-icon class="leading-icon">phone</mat-icon>
-          <input class="form-input" type="tel" formControlName="phone" />
+          <input
+            class="form-input"
+            type="tel"
+            formControlName="phone"
+            [class.invalid]="registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched"
+          />
         </div>
+        @if (registerForm.get('phone')?.invalid && registerForm.get('phone')?.touched) {
+          <span class="field-error">Phone number is required.</span>
+        }
       </label>
 
       <label>
         <span>Date of Birth</span>
         <div class="input-with-icon">
           <mat-icon class="leading-icon">cake</mat-icon>
-          <input class="form-input" type="date" formControlName="dateOfBirth" />
+          <input
+            class="form-input"
+            type="date"
+            formControlName="dateOfBirth"
+            [class.invalid]="registerForm.get('dateOfBirth')?.invalid && registerForm.get('dateOfBirth')?.touched"
+          />
         </div>
+        @if (registerForm.get('dateOfBirth')?.invalid && registerForm.get('dateOfBirth')?.touched && registerForm.get('dateOfBirth')?.errors?.['required']) {
+          <span class="field-error">Date of birth is required.</span>
+        }
+        @if (registerForm.get('dateOfBirth')?.errors?.['notPastDate'] && registerForm.get('dateOfBirth')?.touched) {
+          <span class="field-error">Date of birth must be in the past.</span>
+        }
       </label>
 
       <button class="submit-button" type="submit" [disabled]="isSubmitting()">

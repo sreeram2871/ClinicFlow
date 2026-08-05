@@ -62,6 +62,24 @@ public class RegisterStaffHandler : IRequestHandler<RegisterStaffCommand, Regist
             Role = request.Role,
             IsActive = true
         };
+        if (request.Role == UserRole.Doctor)
+        {
+            var defaultDays = new[] { DayOfWeek.Monday, DayOfWeek.Tuesday, DayOfWeek.Wednesday,
+                               DayOfWeek.Thursday, DayOfWeek.Friday, DayOfWeek.Saturday };
+
+            foreach (var day in defaultDays)
+            {
+                _db.DoctorSchedules.Add(new DoctorSchedule
+                {
+                    Id = Guid.NewGuid(),
+                    TenantId = _tenantProvider.TenantId,
+                    DoctorId = user.Id,
+                    DayOfWeek = day,
+                    StartTime = new TimeSpan(9, 0, 0),
+                    EndTime = new TimeSpan(17, 0, 0)
+                });
+            }
+        }
 
         _db.Users.Add(user);
         await _db.SaveChangesAsync(cancellationToken);

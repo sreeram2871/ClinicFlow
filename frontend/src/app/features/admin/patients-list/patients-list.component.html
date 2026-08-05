@@ -20,6 +20,7 @@
           <th>Date of Birth</th>
           <th>Age</th>
           <th>Phone</th>
+          <th>Last Visited</th>
         </tr>
       </thead>
       <tbody>
@@ -37,6 +38,13 @@
           <td>{{ patient.dateOfBirth | date: 'mediumDate' }}</td>
           <td>{{ calculateAge(patient.dateOfBirth) }}</td>
           <td>{{ patient.phone }}</td>
+          <td>
+            @if (patient.lastVisitDate) {
+              <span>{{ patient.lastVisitDate | date: 'mediumDate':'UTC' }}</span>
+            } @else {
+              <span class="muted-text">Never</span>
+            }
+          </td>
         </tr>
       </tbody>
     </table>

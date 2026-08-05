@@ -44,7 +44,9 @@ h2 {
 .btn-icon,
 .paid-icon,
 .banner-icon,
-.empty-icon {
+.empty-icon,
+.item-icon,
+.column-icon {
   font-family: 'Material Icons';
   font-weight: normal;
   font-style: normal;
@@ -122,6 +124,36 @@ h2 {
 .appointments-panel h2 {
   font-size: 1.25rem;
   color: #142a24;
+}
+
+.queue-columns {
+  display: flex;
+  gap: 20px;
+  align-items: flex-start;
+}
+
+.completed-column,
+.pending-column {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.completed-column h3,
+.pending-column h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 4px;
+  font-size: 1.05rem;
+  color: #142a24;
+}
+
+.column-icon {
+  font-size: 20px;
+  color: #0f6e56;
 }
 
 .appointments-list {
@@ -220,6 +252,23 @@ h2 {
   gap: 10px;
 }
 
+.appointment-details {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.appointment-item {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.item-icon {
+  font-size: 16px;
+  color: #5b716a;
+}
+
 .action-button {
   border: none;
   border-radius: 10px;
@@ -246,7 +295,8 @@ h2 {
   font-size: 16px;
 }
 
-.paid-label {
+.paid-label,
+.paid-badge {
   display: inline-flex;
   align-items: center;
   gap: 6px;
@@ -256,6 +306,29 @@ h2 {
   border: 1px solid #b9e7d7;
   border-radius: 999px;
   padding: 6px 11px;
+}
+
+.paid-summary {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  width: 100%;
+}
+
+.paid-details {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.88rem;
+  color: #4b5b57;
+}
+
+.paid-amount {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  font-weight: 700;
+  color: #0f6e56;
 }
 
 .payment-form-card {
@@ -325,6 +398,10 @@ h2 {
 @media (max-width: 980px) {
   .picker-row {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .queue-columns {
+    flex-direction: column;
   }
 
   .payment-form-card {

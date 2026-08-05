@@ -1052,6 +1052,11 @@
           "patientName": {
             "type": "string",
             "nullable": true
+          },
+          "paidAmount": {
+            "type": "number",
+            "format": "double",
+            "nullable": true
           }
         },
         "additionalProperties": false
@@ -1269,6 +1274,11 @@
           },
           "phone": {
             "type": "string",
+            "nullable": true
+          },
+          "lastVisitDate": {
+            "type": "string",
+            "format": "date-time",
             "nullable": true
           }
         },

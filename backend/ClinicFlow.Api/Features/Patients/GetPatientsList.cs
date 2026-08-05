@@ -1,4 +1,5 @@
-﻿using ClinicFlow.Api.Infrastructure.Data;
+﻿using ClinicFlow.Api.Domain.Enums;
+using ClinicFlow.Api.Infrastructure.Data;
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 
@@ -6,7 +7,7 @@ namespace ClinicFlow.Api.Features.Patients;
 
 public record GetPatientsListQuery(Guid RequestingUserId, string RequestingUserRole) : IRequest<List<PatientListItemResponse>>;
 
-public record PatientListItemResponse(Guid Id, string FullName, DateTime DateOfBirth, string Phone);
+public record PatientListItemResponse(Guid Id, string FullName, DateTime DateOfBirth, string Phone, DateTime? LastVisitDate);
 
 public class GetPatientsListHandler : IRequestHandler<GetPatientsListQuery, List<PatientListItemResponse>>
 {
@@ -21,20 +22,29 @@ public class GetPatientsListHandler : IRequestHandler<GetPatientsListQuery, List
     {
         var query = _db.Patients.AsQueryable();
 
-        // Admin and Receptionist see every patient in the tenant (already
-        // scoped by the global query filter). A Doctor only sees patients
-        // they've actually treated — same rule PatientAccessGuard enforces
-        // for individual lookups, applied here at list-level via a join
-        // against Appointments instead of a per-patient check.
         if (request.RequestingUserRole == "Doctor")
         {
             query = query.Where(p => _db.Appointments
                 .Any(a => a.PatientId == p.Id && a.DoctorId == request.RequestingUserId));
         }
 
-        return await query
+        var patients = await query
             .OrderBy(p => p.FullName)
-            .Select(p => new PatientListItemResponse(p.Id, p.FullName, p.DateOfBirth, p.Phone))
             .ToListAsync(cancellationToken);
+
+        // One grouped lookup for ALL patients' last Completed visit, not
+        // a separate query per patient — avoids N+1 at list scale.
+        var patientIds = patients.Select(p => p.Id).ToList();
+        var lastVisits = await _db.Appointments
+            .Where(a => patientIds.Contains(a.PatientId) && a.Status == AppointmentStatus.Completed)
+            .GroupBy(a => a.PatientId)
+            .Select(g => new { PatientId = g.Key, LastVisit = g.Max(a => a.ScheduledStart) })
+            .ToDictionaryAsync(x => x.PatientId, x => x.LastVisit, cancellationToken);
+
+        return patients
+            .Select(p => new PatientListItemResponse(
+                p.Id, p.FullName, p.DateOfBirth, p.Phone,
+                lastVisits.GetValueOrDefault(p.Id)))
+            .ToList();
     }
 }
