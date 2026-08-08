@@ -1,6 +1,6 @@
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { Observable, of } from 'rxjs';
+import { Observable, firstValueFrom, of } from 'rxjs';
 import { catchError, map, switchMap, tap } from 'rxjs/operators';
 import { environment } from '../../../environments/environment';
 
@@ -18,6 +18,11 @@ export class AuthService {
   private currentUserSignal = signal<CurrentUser | null>(null);
   readonly currentUser = this.currentUserSignal.asReadonly();
   readonly isLoggedIn = computed(() => this.currentUser() !== null);
+  public readonly sessionRestorePromise: Promise<CurrentUser | null>;
+
+  constructor() {
+    this.sessionRestorePromise = firstValueFrom(this.restoreSession());
+  }
 
   login(request: LoginRequest): Observable<LoginResponse> {
     return this.http.post<LoginResponse>(`${environment.apiUrl}/auth/login`, request, { withCredentials: true }).pipe(
